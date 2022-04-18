@@ -35,4 +35,9 @@ public class ExceptionController {
     public ResponseVo worldCountryNotFoundHandler() {
         return new ResponseVo(Response.FAILURE, "WorldCountryNotFound");
     }
+
+    @ExceptionHandler(WorldCountryCityNotFoundException.class)
+    public ResponseVo worldCountryCityNotFoundHandler() {
+        return new ResponseVo(Response.FAILURE, "WorldCountryCityNotFound");
+    }
 }
