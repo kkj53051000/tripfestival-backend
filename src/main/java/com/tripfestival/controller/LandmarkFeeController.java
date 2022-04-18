@@ -4,10 +4,7 @@ import com.tripfestival.request.LandmarkFeeProcessRequest;
 import com.tripfestival.service.LandmarkFeeService;
 import com.tripfestival.vo.ResponseVo;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -19,8 +16,8 @@ public class LandmarkFeeController {
         return landmarkFeeService.landmarkFeeInsert(req);
     }
 
-    @PostMapping("/landmarkfeeremove")
-    public ResponseVo landmarkFeeRemove(@RequestParam Long landmarkFeeId) {
+    @PostMapping("/landmarkfeeremove/{id}")
+    public ResponseVo landmarkFeeRemove(@PathVariable("id") Long landmarkFeeId) {
         return landmarkFeeService.landmarkFeeDelete(landmarkFeeId);
     }
 }

@@ -17,8 +17,8 @@ public class LandmarkController {
         return landmarkService.landmarkInsert(req);
     }
 
-    @PostMapping("/landmarkremove")
-    public ResponseVo landmarkRemove(@RequestParam Long landmarkId) {
+    @PostMapping("/landmarkremove/{id}")
+    public ResponseVo landmarkRemove(@PathVariable("id") Long landmarkId) {
         return landmarkService.landmarkDelete(landmarkId);
     }
 
