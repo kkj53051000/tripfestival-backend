@@ -1,9 +1,6 @@
 package com.tripfestival.controller;
 
-import com.tripfestival.exception.LandmarkFeeNotFoundException;
-import com.tripfestival.exception.LandmarkImgNotFoundException;
-import com.tripfestival.exception.LandmarkNotFoundException;
-import com.tripfestival.exception.LandmarkTimeNotFoundException;
+import com.tripfestival.exception.*;
 import com.tripfestival.vo.Response;
 import com.tripfestival.vo.ResponseVo;
 import lombok.extern.slf4j.Slf4j;
@@ -32,5 +29,10 @@ public class ExceptionController {
     @ExceptionHandler(LandmarkTimeNotFoundException.class)
     public ResponseVo landmarkTimeNotFoundException() {
         return new ResponseVo(Response.FAILURE, "LandmarkTimeNotFound");
+    }
+
+    @ExceptionHandler(WorldCountryNotFoundException.class)
+    public ResponseVo worldCountryNotFoundHandler() {
+        return new ResponseVo(Response.FAILURE, "WorldCountryNotFound");
     }
 }

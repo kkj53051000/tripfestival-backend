@@ -33,7 +33,51 @@ public class FileService {
     @Value("${aws.s3.secrect-key}")
     private String secrectKey;
 
-    public List<String> s3UploadProcess(List<MultipartFile> files)  {
+//    public List<String> s3UploadProcess(List<MultipartFile> files)  {
+//
+//        BasicAWSCredentials awsCreds = new BasicAWSCredentials(accessKey, secrectKey);
+//        AmazonS3 s3Client = AmazonS3ClientBuilder.standard()
+//                .withRegion(Regions.AP_NORTHEAST_2)
+//                .withCredentials(new AWSStaticCredentialsProvider(awsCreds))
+//                .build();
+//
+//        List<String> urls = new ArrayList<>();
+//
+//        for (MultipartFile file : files) {
+//            InputStream fis = null;
+//            try {
+//                fis = new BufferedInputStream(file.getInputStream());
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//
+//            ObjectMetadata objectMetadata = new ObjectMetadata();
+//            objectMetadata.setContentType("image/jpeg");
+//
+//            String uuid = UUID.randomUUID().toString();
+//
+//            String fileName = uuid + file.getOriginalFilename();
+//
+//            PutObjectRequest putObjectRequest = new PutObjectRequest("tripfestival-test", fileName, fis, objectMetadata)
+//                    .withCannedAcl(CannedAccessControlList.PublicRead);
+//
+//
+//
+//            try {
+//                s3Client.putObject(putObjectRequest);
+//
+//                String url = String.format("https://%s.s3.ap-northeast-2.amazonaws.com/%s", "tripfestival-test", fileName);
+//                urls.add(url);
+//
+//            } catch (AmazonServiceException e) {
+//                System.err.println(e.getErrorMessage());
+//                System.exit(1);
+//            }
+//        }
+//        return urls;
+//    }
+
+    public String s3UploadProcess(MultipartFile file) {
 
         BasicAWSCredentials awsCreds = new BasicAWSCredentials(accessKey, secrectKey);
         AmazonS3 s3Client = AmazonS3ClientBuilder.standard()
@@ -41,39 +85,34 @@ public class FileService {
                 .withCredentials(new AWSStaticCredentialsProvider(awsCreds))
                 .build();
 
-        List<String> urls = new ArrayList<>();
-
-        for (MultipartFile file : files) {
-            InputStream fis = null;
-            try {
-                fis = new BufferedInputStream(file.getInputStream());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            ObjectMetadata objectMetadata = new ObjectMetadata();
-            objectMetadata.setContentType("image/jpeg");
-
-            String uuid = UUID.randomUUID().toString();
-
-            String fileName = uuid + file.getOriginalFilename();
-
-            PutObjectRequest putObjectRequest = new PutObjectRequest("tripfestival-test", fileName, fis, objectMetadata)
-                    .withCannedAcl(CannedAccessControlList.PublicRead);
-
-
-
-            try {
-                s3Client.putObject(putObjectRequest);
-
-                String url = String.format("https://%s.s3.ap-northeast-2.amazonaws.com/%s", "tripfestival-test", fileName);
-                urls.add(url);
-
-            } catch (AmazonServiceException e) {
-                System.err.println(e.getErrorMessage());
-                System.exit(1);
-            }
+        InputStream fis = null;
+        try {
+            fis = new BufferedInputStream(file.getInputStream());
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        return urls;
+
+        ObjectMetadata objectMetadata = new ObjectMetadata();
+        objectMetadata.setContentType("image/jpeg");
+
+        String uuid = UUID.randomUUID().toString();
+
+        String fileName = uuid + file.getOriginalFilename();
+
+        PutObjectRequest putObjectRequest = new PutObjectRequest("tripfestival-test", fileName, fis, objectMetadata)
+                .withCannedAcl(CannedAccessControlList.PublicRead);
+
+        String url = "";
+
+        try {
+            s3Client.putObject(putObjectRequest);
+
+            url = String.format("https://%s.s3.ap-northeast-2.amazonaws.com/%s", "tripfestival-test", fileName);
+
+        } catch (AmazonServiceException e) {
+            System.err.println(e.getErrorMessage());
+            System.exit(1);
+        }
+        return url;
     }
 }
