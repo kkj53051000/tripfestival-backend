@@ -23,6 +23,7 @@ public class Landmark {
     private Long id;
 
     private String name;
+    @Lob
     private String description;
     private String address;
     private String homepage;
