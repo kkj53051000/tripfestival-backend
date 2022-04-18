@@ -4,6 +4,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tripfestival.domain.Landmark;
 import com.tripfestival.domain.WorldCountry;
 import com.tripfestival.domain.WorldCountryCity;
+import com.tripfestival.repository.LandmarkRepository;
+import com.tripfestival.repository.WorldCountryCityRepository;
+import com.tripfestival.repository.WorldCountryRepository;
 import com.tripfestival.request.LandmarkProcessRequest;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +26,15 @@ class LandmarkControllerTest {
     @Autowired
     MockMvc mockMvc;
 
+    @Autowired
+    WorldCountryRepository worldCountryRepository;
+
+    @Autowired
+    WorldCountryCityRepository worldCountryCityRepository;
+
+    @Autowired
+    LandmarkRepository landmarkRepository;
+
     ObjectMapper objectMapper = new ObjectMapper();
 
     @Test
@@ -30,7 +42,9 @@ class LandmarkControllerTest {
     public void LANDMARK_PROCESS_TEST() throws Exception {
         //given
         WorldCountry worldCountry = new WorldCountry("t", "t", "t", "t", "t");
+        worldCountryRepository.save(worldCountry);
         WorldCountryCity worldCountryCity =new WorldCountryCity("t", "t", worldCountry);
+        worldCountryCityRepository.save(worldCountryCity);
 
         Landmark landmark = Landmark.builder()
                 .name("test")
@@ -39,6 +53,8 @@ class LandmarkControllerTest {
                 .homepage("test")
                 .worldCountryCity(worldCountryCity)
                 .build();
+
+        landmarkRepository.save(landmark);
 
         LandmarkProcessRequest req = new LandmarkProcessRequest("t", "t", "t", "t", worldCountryCity.getId());
 

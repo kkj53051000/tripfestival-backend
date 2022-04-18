@@ -14,6 +14,7 @@ public class LandmarkController {
 
     @PostMapping("/landmarkprocess")
     public ResponseVo landmarkProcess(@RequestBody LandmarkProcessRequest req) {
+        System.out.println(req.getName());
         return landmarkService.landmarkInsert(req);
     }
 

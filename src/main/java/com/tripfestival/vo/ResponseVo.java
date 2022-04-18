@@ -1,12 +1,11 @@
 package com.tripfestival.vo;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Data
 public class ResponseVo {
     private Response status;
     private String cause;

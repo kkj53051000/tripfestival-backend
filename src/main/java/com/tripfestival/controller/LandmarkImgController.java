@@ -4,22 +4,22 @@ import com.tripfestival.dto.LandmarkImgProcessDto;
 import com.tripfestival.service.LandmarkImgService;
 import com.tripfestival.vo.ResponseVo;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/api")
 public class LandmarkImgController {
     private final LandmarkImgService landmarkImgService;
 
     @PostMapping("/landmarkimgprocess/{id}")
-    public ResponseVo landmarkImgProcess(@RequestParam List<MultipartFile> files, @PathVariable("id") Long landmarkId) {
+    public ResponseVo landmarkImgProcess(@PathVariable("id") Long landmarkId, @RequestPart List<MultipartFile> files) {
         LandmarkImgProcessDto landmarkImgProcessDto = new LandmarkImgProcessDto(files, landmarkId);
+
+        System.out.println("aaaaaaaaaaaaa");
 
         return landmarkImgService.landmarkImgInsert(landmarkImgProcessDto);
     }
