@@ -1,5 +1,7 @@
 package com.tripfestival.domain;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -7,6 +9,8 @@ import javax.persistence.*;
 
 @Entity
 @Data
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor
 @TableGenerator(
         name = "LANDMARKFEE_SEQ_GENERATOR",
@@ -24,10 +28,4 @@ public class LandmarkFee {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "landmark_id")
     private Landmark landmark;
-
-    public LandmarkFee(String title, int price, Landmark landmark) {
-        this.title = title;
-        this.price = price;
-        this.landmark = landmark;
-    }
 }

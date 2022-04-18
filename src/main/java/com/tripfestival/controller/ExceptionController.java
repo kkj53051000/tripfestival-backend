@@ -1,5 +1,6 @@
 package com.tripfestival.controller;
 
+import com.tripfestival.exception.LandmarkFeeNotFoundException;
 import com.tripfestival.exception.LandmarkImgNotFoundException;
 import com.tripfestival.exception.LandmarkNotFoundException;
 import com.tripfestival.vo.Response;
@@ -20,5 +21,10 @@ public class ExceptionController {
     @ExceptionHandler(LandmarkImgNotFoundException.class)
     public ResponseVo landmarkImgNotFoundHandler() {
         return new ResponseVo(Response.FAILURE, "LandmarkImgNotFound");
+    }
+
+    @ExceptionHandler(LandmarkFeeNotFoundException.class)
+    public ResponseVo landmarkFeeNotFoundHandler() {
+        return new ResponseVo(Response.FAILURE, "LandmarkFeeNotFound");
     }
 }
