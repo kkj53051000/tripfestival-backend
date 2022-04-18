@@ -19,8 +19,6 @@ public class LandmarkImgController {
     public ResponseVo landmarkImgProcess(@PathVariable("id") Long landmarkId, @RequestPart List<MultipartFile> files) {
         LandmarkImgProcessDto landmarkImgProcessDto = new LandmarkImgProcessDto(files, landmarkId);
 
-        System.out.println("aaaaaaaaaaaaa");
-
         return landmarkImgService.landmarkImgInsert(landmarkImgProcessDto);
     }
 

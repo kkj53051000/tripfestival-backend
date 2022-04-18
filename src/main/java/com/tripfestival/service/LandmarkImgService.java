@@ -9,6 +9,8 @@ import com.tripfestival.exception.LandmarkImgNotFoundException;
 import com.tripfestival.exception.LandmarkTimeNotFoundException;
 import com.tripfestival.repository.LandmarkImgRepository;
 import com.tripfestival.repository.LandmarkRepository;
+import com.tripfestival.repository.WorldCountryCityRepository;
+import com.tripfestival.repository.WorldCountryRepository;
 import com.tripfestival.vo.Response;
 import com.tripfestival.vo.ResponseVo;
 import lombok.RequiredArgsConstructor;
@@ -28,32 +30,20 @@ public class LandmarkImgService {
 
     private final LandmarkRepository landmarkRepository;
 
+
     public ResponseVo landmarkImgInsert(LandmarkImgProcessDto req) {
 
         // 이미지 AWS 저장
-//        List<String> urls = fileService.s3UploadProcess(req.getFiles());
-//
-//        WorldCountry worldCountry = new WorldCountry("t", "t", "t", "t", "t");
-//        WorldCountryCity worldCountryCity =new WorldCountryCity("t", "t", worldCountry);
-//
-//        Landmark landmarkt = Landmark.builder()
-//                .name("test")
-//                .description("test")
-//                .address("test")
-//                .homepage("test")
-//                .worldCountryCity(worldCountryCity)
-//                .build();
-//
-//        landmarkRepository.save(landmarkt);
-//
-//        Landmark landmark = landmarkRepository.findById(req.getLandmarkId())
-//                .orElseThrow(() -> new LandmarkTimeNotFoundException());
-//
-//        for (String url : urls) {
-//            LandmarkImg landmarkImg = new LandmarkImg(url, landmark);
-//
-//            landmarkImgRepository.save(landmarkImg);
-//        }
+        List<String> urls = fileService.s3UploadProcess(req.getFiles());
+
+        Landmark landmark = landmarkRepository.findById(req.getLandmarkId())
+                .orElseThrow(() -> new LandmarkTimeNotFoundException());
+
+        for (String url : urls) {
+            LandmarkImg landmarkImg = new LandmarkImg(url, landmark);
+
+            landmarkImgRepository.save(landmarkImg);
+        }
 
         return new ResponseVo(Response.SUCCESS, null);
     }
