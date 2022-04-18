@@ -1,0 +1,33 @@
+package com.tripfestival.domain;
+
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
+
+@Entity
+@Data
+@NoArgsConstructor
+@TableGenerator(
+        name = "LANDMARKTIME_SEQ_GENERATOR",
+        table = "TRIPFESTIVAL_SEQUENCES",
+        pkColumnValue = "LANDMARKTIME_SEQ", allocationSize = 10)
+public class LandmarkTime {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "LANDMARKTIME_SEQ_GENERATOR")
+    @Column(name = "landmarktime_id")
+    private Long id;
+
+    private String title;
+    private int price;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "landmark_id")
+    private Landmark landmark;
+
+    public LandmarkTime(String title, int price, Landmark landmark) {
+        this.title = title;
+        this.price = price;
+        this.landmark = landmark;
+    }
+}
