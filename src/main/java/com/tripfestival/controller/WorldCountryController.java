@@ -1,6 +1,6 @@
 package com.tripfestival.controller;
 
-import com.tripfestival.request.WorldCountryRequest;
+import com.tripfestival.request.WorldCountryProcessRequest;
 import com.tripfestival.service.WorldCountryService;
 import com.tripfestival.vo.ResponseVo;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +16,7 @@ public class WorldCountryController {
     @PostMapping("/worldcountryprocess")
     public ResponseVo worldCountryProcess(
             @RequestPart(name = "file", required = true) MultipartFile file,
-            @RequestPart(name = "value", required = false) WorldCountryRequest req) {
+            @RequestPart(name = "value", required = false) WorldCountryProcessRequest req) {
 
 
         return worldCountryService.worldCountryInsert(file, req);

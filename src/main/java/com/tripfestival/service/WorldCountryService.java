@@ -3,13 +3,12 @@ package com.tripfestival.service;
 import com.tripfestival.domain.WorldCountry;
 import com.tripfestival.exception.WorldCountryNotFoundException;
 import com.tripfestival.repository.WorldCountryRepository;
-import com.tripfestival.request.WorldCountryRequest;
+import com.tripfestival.request.WorldCountryProcessRequest;
 import com.tripfestival.vo.Response;
 import com.tripfestival.vo.ResponseVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
 
 @Service
@@ -20,7 +19,7 @@ public class WorldCountryService {
 
     private final FileService fileService;
 
-    public ResponseVo worldCountryInsert(MultipartFile file, WorldCountryRequest req) {
+    public ResponseVo worldCountryInsert(MultipartFile file, WorldCountryProcessRequest req) {
 
         WorldCountry worldCountry = WorldCountry.builder()
                 .name(req.getName())

@@ -40,4 +40,19 @@ public class ExceptionController {
     public ResponseVo worldCountryCityNotFoundHandler() {
         return new ResponseVo(Response.FAILURE, "WorldCountryCityNotFound");
     }
+
+    @ExceptionHandler(EventCategoryNotFoundException.class)
+    public ResponseVo eventCategoryNotFoundHandler() {
+        return new ResponseVo(Response.FAILURE, "EventCategoryNotFound");
+    }
+
+    @ExceptionHandler(EventSeasonNotFoundException.class)
+    public ResponseVo eventSeasonNotFoundHandler() {
+        return new ResponseVo(Response.FAILURE, "EventSeasonNotFound");
+    }
+
+    @ExceptionHandler(EventNotFoundException.class)
+    public ResponseVo eventNotFoundHandler() {
+        return new ResponseVo(Response.FAILURE, "EventNotFound");
+    }
 }

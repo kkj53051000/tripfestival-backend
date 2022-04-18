@@ -6,6 +6,7 @@ import com.tripfestival.exception.WorldCountryCityNotFoundException;
 import com.tripfestival.exception.WorldCountryNotFoundException;
 import com.tripfestival.repository.WorldCountryCityRepository;
 import com.tripfestival.repository.WorldCountryRepository;
+import com.tripfestival.request.WorldCountryCityProcessRequest;
 import com.tripfestival.vo.Response;
 import com.tripfestival.vo.ResponseVo;
 import lombok.RequiredArgsConstructor;
@@ -23,12 +24,12 @@ public class WorldCountryCityService {
 
     private final FileService fileService;
 
-    public ResponseVo worldCountryCityInsert(Long worldCountryId, MultipartFile file, String name) {
-        WorldCountry worldCountry = worldCountryRepository.findById(worldCountryId)
+    public ResponseVo worldCountryCityInsert(MultipartFile file, WorldCountryCityProcessRequest req) {
+        WorldCountry worldCountry = worldCountryRepository.findById(req.getWorldCountryId())
                 .orElseThrow(() -> new WorldCountryNotFoundException());
 
         WorldCountryCity worldCountryCity = WorldCountryCity.builder()
-                .name(name)
+                .name(req.getName())
                 .cityImg(fileService.s3UploadProcess(file))
                 .worldCountry(worldCountry)
                 .build();

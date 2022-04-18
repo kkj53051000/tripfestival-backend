@@ -24,7 +24,7 @@ public class Event {
 
     private String name;
     private String description;
-    private String adress;
+    private String address;
     private int visitor;
     private boolean inout;
 

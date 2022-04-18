@@ -1,5 +1,6 @@
 package com.tripfestival.controller;
 
+import com.tripfestival.request.WorldCountryCityProcessRequest;
 import com.tripfestival.service.WorldCountryCityService;
 import com.tripfestival.vo.ResponseVo;
 import lombok.RequiredArgsConstructor;
@@ -12,12 +13,11 @@ import org.springframework.web.multipart.MultipartFile;
 public class WorldCountryCityController {
     private final WorldCountryCityService worldCountryCityService;
 
-    @PostMapping("/worldcountrycityprocess/{id}")
+    @PostMapping("/worldcountrycityprocess")
     public ResponseVo worldCountryCityProcess(
-            @PathVariable("id") Long worldCountryId,
             @RequestPart(name = "file", required = true) MultipartFile file,
-            @RequestPart(name = "value", required = false) String name) {
-        return worldCountryCityService.worldCountryCityInsert(worldCountryId, file, name);
+            @RequestPart(name = "value", required = false) WorldCountryCityProcessRequest req) {
+        return worldCountryCityService.worldCountryCityInsert(file, req);
     }
 
     @PostMapping("/worldcountrycityremmove/{id}")
