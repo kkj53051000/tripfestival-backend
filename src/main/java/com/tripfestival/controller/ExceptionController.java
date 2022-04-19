@@ -90,4 +90,9 @@ public class ExceptionController {
     public ResponseVo eventReviewImgNotFound() {
         return new ResponseVo(Response.FAILURE, "EventReviewImgNotFound");
     }
+
+    @ExceptionHandler(HotspotNotFoundException.class)
+    public ResponseVo hotspotNotFound() {
+        return new ResponseVo(Response.FAILURE, "HotspotNotFound");
+    }
 }
