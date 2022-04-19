@@ -67,12 +67,17 @@ public class ExceptionController {
     }
 
     @ExceptionHandler(LandmarkReviewImgNotFoundException.class)
-    public ResponseVo landmarkReviewImgNotFound() {
+    public ResponseVo landmarkReviewImgNotFoundHadnelr() {
         return new ResponseVo(Response.FAILURE, "LandmarkReviewImgNotFound");
     }
 
     @ExceptionHandler(EventTimeNotFoundException.class)
-    public ResponseVo eventTimeNotFound() {
+    public ResponseVo eventTimeNotFoundHandelr() {
         return new ResponseVo(Response.FAILURE, "EventTimeNotFound");
+    }
+
+    @ExceptionHandler(EventFeeNotFoundException.class)
+    public ResponseVo eventFeeNotFoundHandler() {
+        return new ResponseVo(Response.FAILURE, "EventFeeNotFound");
     }
 }
