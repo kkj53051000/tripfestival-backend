@@ -85,4 +85,9 @@ public class ExceptionController {
     public ResponseVo eventReviewNotFoundHandler() {
         return new ResponseVo(Response.FAILURE, "EventReviewNotFound");
     }
+
+    @ExceptionHandler(EventReviewImgNotFoundException.class)
+    public ResponseVo eventReviewImgNotFound() {
+        return new ResponseVo(Response.FAILURE, "EventReviewImgNotFound");
+    }
 }
