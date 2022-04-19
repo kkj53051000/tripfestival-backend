@@ -1,6 +1,7 @@
 package com.tripfestival.controller;
 
 import com.tripfestival.dto.LandmarkImgProcessDto;
+import com.tripfestival.request.LandmarkImgProcessRequest;
 import com.tripfestival.service.LandmarkImgService;
 import com.tripfestival.vo.ResponseVo;
 import lombok.RequiredArgsConstructor;
@@ -16,8 +17,10 @@ public class LandmarkImgController {
     private final LandmarkImgService landmarkImgService;
 
     @PostMapping("/landmarkimgprocess/{id}")
-    public ResponseVo landmarkImgProcess(@PathVariable("id") Long landmarkId, @RequestPart List<MultipartFile> files) {
-        LandmarkImgProcessDto landmarkImgProcessDto = new LandmarkImgProcessDto(files, landmarkId);
+    public ResponseVo landmarkImgProcess(
+            @RequestPart List<MultipartFile> files,
+            @RequestPart(name = "value") LandmarkImgProcessRequest req) {
+        LandmarkImgProcessDto landmarkImgProcessDto = new LandmarkImgProcessDto(files, req.getLandmarkId());
 
         return landmarkImgService.landmarkImgInsert(landmarkImgProcessDto);
     }
