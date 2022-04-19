@@ -80,4 +80,9 @@ public class ExceptionController {
     public ResponseVo eventFeeNotFoundHandler() {
         return new ResponseVo(Response.FAILURE, "EventFeeNotFound");
     }
+
+    @ExceptionHandler(EventReviewNotFoundException.class)
+    public ResponseVo eventReviewNotFoundHandler() {
+        return new ResponseVo(Response.FAILURE, "EventReviewNotFound");
+    }
 }
