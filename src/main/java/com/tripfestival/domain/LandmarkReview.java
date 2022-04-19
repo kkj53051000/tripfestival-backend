@@ -1,5 +1,7 @@
 package com.tripfestival.domain;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -7,6 +9,8 @@ import javax.persistence.*;
 
 @Entity
 @Data
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor
 @TableGenerator(
         name = "LANDMARKREVIEW_SEQ_GENERATOR",

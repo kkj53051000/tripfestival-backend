@@ -60,4 +60,9 @@ public class ExceptionController {
     public ResponseVo eventImgNotFoundHandler() {
         return new ResponseVo(Response.FAILURE, "EventImgNotFound");
     }
+
+    @ExceptionHandler(LandmarkReviewNotFoundException.class)
+    public ResponseVo landmarkReviewNotFoundHandler() {
+        return new ResponseVo(Response.FAILURE, "LandmarkReviewNotFound");
+    }
 }
