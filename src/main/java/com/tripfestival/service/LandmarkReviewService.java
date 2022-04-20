@@ -29,7 +29,7 @@ public class LandmarkReviewService {
     }
 
     public ResponseVo landmarkReviewDelete(Long landmarkReviewId) {
-        LandmarkReview landmarkReview = landmarkReviewRepository.findById()
+        LandmarkReview landmarkReview = landmarkReviewRepository.findById(landmarkReviewId)
                 .orElseThrow(() -> new LandmarkReviewNotFoundException());
 
         landmarkReviewRepository.delete(landmarkReview);
