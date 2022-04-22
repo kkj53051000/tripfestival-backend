@@ -1,11 +1,10 @@
 package com.tripfestival.service;
 
 import com.tripfestival.domain.Landmark;
-import com.tripfestival.domain.WorldCountry;
+import com.tripfestival.domain.WorldCountryCity;
 import com.tripfestival.exception.LandmarkNotFoundException;
 import com.tripfestival.repository.LandmarkRepository;
 import com.tripfestival.repository.WorldCountryCityRepository;
-import com.tripfestival.repository.WorldCountryRepository;
 import com.tripfestival.request.LandmarkProcessRequest;
 import com.tripfestival.vo.Response;
 import com.tripfestival.vo.ResponseVo;
@@ -19,7 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class LandmarkService {
     private final LandmarkRepository landmarkRepository;
 
-    private WorldCountryCityRepository worldCountryCityRepository;
+    private final WorldCountryCityRepository worldCountryCityRepository;
 
     public ResponseVo landmarkInsert(LandmarkProcessRequest req) {
 

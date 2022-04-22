@@ -18,7 +18,7 @@ import javax.persistence.*;
         pkColumnValue = "LANDMARKIMG_SEQ", allocationSize = 50)
 public class LandmarkImg {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "LANDMARK_SEQ_GENERATOR")
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "LANDMARKIMG_SEQ_GENERATOR")
     @Column(name = "landmarkimg_id")
     private Long id;
 

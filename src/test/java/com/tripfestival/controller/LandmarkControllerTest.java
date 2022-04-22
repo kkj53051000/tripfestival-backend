@@ -8,10 +8,13 @@ import com.tripfestival.repository.LandmarkRepository;
 import com.tripfestival.repository.WorldCountryCityRepository;
 import com.tripfestival.repository.WorldCountryRepository;
 import com.tripfestival.request.LandmarkProcessRequest;
+import com.tripfestival.vo.Response;
+import com.tripfestival.vo.ResponseVo;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -63,9 +66,11 @@ class LandmarkControllerTest {
 
         //when
         //then
-        this.mockMvc.perform(post("/api/landmarkprocess"))
+        this.mockMvc.perform(post("/api/landmarkprocess")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(jsonReq))
                 .andExpect(status().isOk())
-                .andExpect(content().string(jsonReq))
+                .andExpect(content().string(objectMapper.writeValueAsString(new ResponseVo(Response.SUCCESS, null))))
                 .andDo(print());
     }
 }

@@ -25,8 +25,9 @@ public class Event {
     private String name;
     private String description;
     private String address;
-    private int visitor;
-    private boolean inout;
+    private Integer visitor;
+    @Column(name = "in_out")
+    private Boolean inout;
 
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -40,4 +41,15 @@ public class Event {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "eventseason_id")
     private EventSeason eventSeason;
+
+    public Event(String name, String description, String address, Integer visitor, Boolean inout, WorldCountryCity worldCountryCity, EventCategory eventCategory, EventSeason eventSeason) {
+        this.name = name;
+        this.description = description;
+        this.address = address;
+        this.visitor = visitor;
+        this.inout = inout;
+        this.worldCountryCity = worldCountryCity;
+        this.eventCategory = eventCategory;
+        this.eventSeason = eventSeason;
+    }
 }
