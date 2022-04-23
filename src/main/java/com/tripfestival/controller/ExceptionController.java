@@ -110,4 +110,9 @@ public class ExceptionController {
     public ResponseVo natureHotspotTypeNotFoundHandler() {
         return new ResponseVo(Response.FAILURE, "NatureHotspotTypeNotFound");
     }
+
+    @ExceptionHandler(NatureHotspotNotFoundException.class)
+    public ResponseVo natureHotspotNotFoundHandler() {
+        return new ResponseVo(Response.FAILURE, "NatureHotspotNotFound");
+    }
 }
