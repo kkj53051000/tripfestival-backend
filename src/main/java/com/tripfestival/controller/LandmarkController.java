@@ -1,5 +1,7 @@
 package com.tripfestival.controller;
 
+import com.tripfestival.dto.LandmarkModifyDto;
+import com.tripfestival.request.LandmarkModifyRequest;
 import com.tripfestival.request.LandmarkProcessRequest;
 import com.tripfestival.service.LandmarkService;
 import com.tripfestival.vo.ResponseVo;
@@ -21,6 +23,20 @@ public class LandmarkController {
     @PostMapping("/landmarkremove/{id}")
     public ResponseVo landmarkRemove(@PathVariable("id") Long landmarkId) {
         return landmarkService.landmarkDelete(landmarkId);
+    }
+
+    @PostMapping("/landmarkmodify/{id}")
+    public ResponseVo landmarkModify(@PathVariable("id") Long landmarkId, @RequestBody LandmarkModifyRequest req) {
+        LandmarkModifyDto landmarkModifyDto = LandmarkModifyDto.builder()
+                .landmarkId(landmarkId)
+                .name(req.getName())
+                .description(req.getDescription())
+                .address(req.getAddress())
+                .homepage(req.getHomepage())
+                .worldCountryCityId(req.getWorldCountryCityId())
+                .build();
+
+        return landmarkService.landmarkAlert(landmarkModifyDto);
     }
 
 }
