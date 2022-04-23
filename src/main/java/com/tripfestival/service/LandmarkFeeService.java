@@ -1,6 +1,7 @@
 package com.tripfestival.service;
 
 import com.tripfestival.domain.LandmarkFee;
+import com.tripfestival.dto.LandmarkFeeModifyDto;
 import com.tripfestival.exception.LandmarkFeeNotFoundException;
 import com.tripfestival.repository.LandmarkFeeRepository;
 import com.tripfestival.repository.LandmarkRepository;
@@ -36,6 +37,20 @@ public class LandmarkFeeService {
                 .orElseThrow(() -> new LandmarkFeeNotFoundException());
 
         landmarkFeeRepository.delete(landmarkFee);
+
+        return new ResponseVo(Response.SUCCESS, null);
+    }
+
+    public ResponseVo landmarkFeeAlert(LandmarkFeeModifyDto req) {
+        LandmarkFee landmarkFee = landmarkFeeRepository.findById(req.getLandmarkFeeId())
+                .orElseThrow(() -> new LandmarkFeeNotFoundException());
+
+        if (req.getTitle() != null) {
+            landmarkFee.setTitle(req.getTitle());
+        }
+        if (req.getPrice() != null) {
+            landmarkFee.setPrice(req.getPrice());
+        }
 
         return new ResponseVo(Response.SUCCESS, null);
     }

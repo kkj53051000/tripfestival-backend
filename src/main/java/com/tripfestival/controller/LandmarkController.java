@@ -26,7 +26,9 @@ public class LandmarkController {
     }
 
     @PostMapping("/landmarkmodify/{id}")
-    public ResponseVo landmarkModify(@PathVariable("id") Long landmarkId, @RequestBody LandmarkModifyRequest req) {
+    public ResponseVo landmarkModify(@PathVariable("id") Long landmarkId,
+                                     @RequestBody LandmarkModifyRequest req) {
+
         LandmarkModifyDto landmarkModifyDto = LandmarkModifyDto.builder()
                 .landmarkId(landmarkId)
                 .name(req.getName())
@@ -38,5 +40,6 @@ public class LandmarkController {
 
         return landmarkService.landmarkAlert(landmarkModifyDto);
     }
+
 
 }
