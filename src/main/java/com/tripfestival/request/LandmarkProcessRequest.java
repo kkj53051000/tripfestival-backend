@@ -1,12 +1,10 @@
 package com.tripfestival.request;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Data
 @NoArgsConstructor
+@Builder
 public class LandmarkProcessRequest {
     private String name;
     private String description;
