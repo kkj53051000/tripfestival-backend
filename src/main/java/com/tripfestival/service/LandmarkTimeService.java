@@ -1,6 +1,7 @@
 package com.tripfestival.service;
 
 import com.tripfestival.domain.LandmarkTime;
+import com.tripfestival.dto.LandmarkTimeModifyDto;
 import com.tripfestival.exception.LandmarkTimeNotFoundException;
 import com.tripfestival.repository.LandmarkRepository;
 import com.tripfestival.repository.LandmarkTimeRepository;
@@ -36,6 +37,20 @@ public class LandmarkTimeService {
                 .orElseThrow(() -> new LandmarkTimeNotFoundException());
 
         landmarkTimeRepository.delete(landmarkTime);
+
+        return new ResponseVo(Response.SUCCESS, null);
+    }
+
+    public ResponseVo landmarkTimeAlert(LandmarkTimeModifyDto req) {
+        LandmarkTime landmarkTime = landmarkTimeRepository.findById(req.getLandmarkTimeId())
+                .orElseThrow(() -> new LandmarkTimeNotFoundException());
+
+        if(req.getTitle() != null) {
+            landmarkTime.setTitle(req.getTitle());
+        }
+        if(req.getPrice() != null) {
+            landmarkTime.setPrice(req.getPrice());
+        }
 
         return new ResponseVo(Response.SUCCESS, null);
     }
