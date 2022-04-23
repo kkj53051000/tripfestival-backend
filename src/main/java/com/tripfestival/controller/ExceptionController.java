@@ -100,4 +100,9 @@ public class ExceptionController {
     public ResponseVo userNotFoundHandler() {
         return new ResponseVo(Response.FAILURE, "UserNotFound");
     }
+
+    @ExceptionHandler(HotspotTypeNotFoundException.class)
+    public ResponseVo hotspotTypeNotFoundHandler() {
+        return new ResponseVo(Response.FAILURE, "HotspotTypeNotFound");
+    }
 }

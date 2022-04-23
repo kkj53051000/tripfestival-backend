@@ -18,16 +18,16 @@ public class NatureHotspot {
     @Column(name = "naturehotspot_id")
     private Long id;
 
-    private String name;
-    private String img;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "landmark_id")
+    private Landmark landmark;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "wordcountrycity_id")
-    private WorldCountryCity worldCountryCity;
+    @JoinColumn(name = "naturehotspottype_id")
+    private NatureHotspotType natureHotspotType;
 
-    public NatureHotspot(String name, String img, WorldCountryCity worldCountryCity) {
-        this.name = name;
-        this.img = img;
-        this.worldCountryCity = worldCountryCity;
+    public NatureHotspot(Landmark landmark, NatureHotspotType natureHotspotType) {
+        this.landmark = landmark;
+        this.natureHotspotType = natureHotspotType;
     }
 }

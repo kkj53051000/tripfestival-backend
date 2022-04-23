@@ -1,11 +1,14 @@
 package com.tripfestival.service;
 
 import com.tripfestival.domain.Hotspot;
-import com.tripfestival.domain.WorldCountryCity;
-import com.tripfestival.dto.HotspotProcessDto;
+import com.tripfestival.domain.HotspotType;
+import com.tripfestival.domain.Landmark;
 import com.tripfestival.exception.HotspotNotFoundException;
-import com.tripfestival.exception.WorldCountryCityNotFoundException;
+import com.tripfestival.exception.HotspotTypeNotFoundException;
+import com.tripfestival.exception.LandmarkNotFoundException;
 import com.tripfestival.repository.HotspotRepository;
+import com.tripfestival.repository.HotspotTypeRepository;
+import com.tripfestival.repository.LandmarkRepository;
 import com.tripfestival.repository.WorldCountryCityRepository;
 import com.tripfestival.request.HotspotProcessRequest;
 import com.tripfestival.vo.Response;
@@ -20,20 +23,20 @@ import org.springframework.transaction.annotation.Transactional;
 public class HotspotService {
     private final HotspotRepository hotspotRepository;
 
-    private final FileService fileService;
+    private final LandmarkRepository landmarkRepository;
 
-    private WorldCountryCityRepository worldCountryCityRepository;
+    private final HotspotTypeRepository hotspotTypeRepository;
 
-    public ResponseVo hotspotInsert(HotspotProcessDto req) {
-        WorldCountryCity worldCountryCity = worldCountryCityRepository.findById(req.getWorldCountryCityId())
-                .orElseThrow(() -> new WorldCountryCityNotFoundException());
+    public ResponseVo hotspotInsert(HotspotProcessRequest req) {
+        Landmark landmark = landmarkRepository.findById(req.getLandmarkId())
+                .orElseThrow(() -> new LandmarkNotFoundException());
 
-        String url = fileService.s3UploadProcess(req.getFile());
+        HotspotType hotspotType = hotspotTypeRepository.findById(req.getHotspotTypeId())
+                .orElseThrow(() -> new HotspotTypeNotFoundException());
 
         Hotspot hotspot = Hotspot.builder()
-                .name(req.getName())
-                .img(url)
-                .worldCountryCity(worldCountryCity)
+                .landmark(landmark)
+                .hotspotType(hotspotType)
                 .build();
 
         hotspotRepository.save(hotspot);

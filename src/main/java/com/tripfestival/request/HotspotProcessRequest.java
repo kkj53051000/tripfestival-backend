@@ -4,6 +4,6 @@ import lombok.Getter;
 
 @Getter
 public class HotspotProcessRequest {
-    private String name;
-    private Long worldCountryCityId;
+    private Long landmarkId;
+    private Long hotspotTypeId;
 }

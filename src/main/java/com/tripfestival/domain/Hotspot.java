@@ -22,16 +22,17 @@ public class Hotspot {
     @Column(name = "hotspot_id")
     private Long id;
 
-    private String name;
-    private String img;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "wordcountrycity_id")
-    private WorldCountryCity worldCountryCity;
+    @JoinColumn(name = "landmark_id")
+    private Landmark landmark;
 
-    public Hotspot(String name, String img, WorldCountryCity worldCountryCity) {
-        this.name = name;
-        this.img = img;
-        this.worldCountryCity = worldCountryCity;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "hotspottype_id")
+    private HotspotType hotspotType;
+
+    public Hotspot(Landmark landmark, HotspotType hotspotType) {
+        this.landmark = landmark;
+        this.hotspotType = hotspotType;
     }
 }
