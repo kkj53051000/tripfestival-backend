@@ -87,12 +87,17 @@ public class ExceptionController {
     }
 
     @ExceptionHandler(EventReviewImgNotFoundException.class)
-    public ResponseVo eventReviewImgNotFound() {
+    public ResponseVo eventReviewImgNotFoundHandler() {
         return new ResponseVo(Response.FAILURE, "EventReviewImgNotFound");
     }
 
     @ExceptionHandler(HotspotNotFoundException.class)
-    public ResponseVo hotspotNotFound() {
+    public ResponseVo hotspotNotFoundHandler() {
         return new ResponseVo(Response.FAILURE, "HotspotNotFound");
+    }
+
+    @ExceptionHandler(UserNotFoundException.class)
+    public ResponseVo userNotFoundHandler() {
+        return new ResponseVo(Response.FAILURE, "UserNotFound");
     }
 }

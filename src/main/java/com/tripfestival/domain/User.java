@@ -1,5 +1,7 @@
 package com.tripfestival.domain;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -7,6 +9,8 @@ import javax.persistence.*;
 
 @Entity
 @Data
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor
 @TableGenerator(
         name = "USER_SEQ_GENERATOR",
@@ -18,16 +22,16 @@ public class User {
     @Column(name = "user_id")
     private Long id;
 
-    private String uId;
-    private String uPw;
+    private String uid;
+    private String upw;
     private String nickname;
     private String userImg;
     private String email;
-    private String deleteAt;
+    private boolean deleteAt;
 
-    public User(String uId, String uPw, String nickname, String userImg, String email, String deleteAt) {
-        this.uId = uId;
-        this.uPw = uPw;
+    public User(String uid, String upw, String nickname, String userImg, String email, boolean deleteAt) {
+        this.uid = uid;
+        this.upw = upw;
         this.nickname = nickname;
         this.userImg = userImg;
         this.email = email;
