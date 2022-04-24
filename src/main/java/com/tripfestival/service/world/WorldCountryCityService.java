@@ -2,6 +2,7 @@ package com.tripfestival.service.world;
 
 import com.tripfestival.domain.world.WorldCountry;
 import com.tripfestival.domain.world.WorldCountryCity;
+import com.tripfestival.dto.world.WorldCountryCityNameModifyDto;
 import com.tripfestival.exception.world.WorldCountryCityNotFoundException;
 import com.tripfestival.exception.world.WorldCountryNotFoundException;
 import com.tripfestival.repository.world.WorldCountryCityRepository;
@@ -46,6 +47,15 @@ public class WorldCountryCityService {
                 .orElseThrow(() -> new WorldCountryCityNotFoundException());
 
         worldCountryCityRepository.delete(worldCountryCity);
+
+        return new ResponseVo(Response.SUCCESS, null);
+    }
+
+    public ResponseVo worldCountryCityNameAlert(WorldCountryCityNameModifyDto req) {
+        WorldCountryCity worldCountryCity = worldCountryCityRepository.findById(req.getWorldCountryCityId())
+                .orElseThrow(() -> new WorldCountryCityNotFoundException());
+
+        worldCountryCity.setName(req.getName());
 
         return new ResponseVo(Response.SUCCESS, null);
     }

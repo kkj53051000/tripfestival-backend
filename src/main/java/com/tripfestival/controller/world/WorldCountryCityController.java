@@ -1,5 +1,7 @@
 package com.tripfestival.controller.world;
 
+import com.tripfestival.dto.world.WorldCountryCityNameModifyDto;
+import com.tripfestival.request.world.WorldCountryCityNameModifyRequest;
 import com.tripfestival.request.world.WorldCountryCityProcessRequest;
 import com.tripfestival.service.world.WorldCountryCityService;
 import com.tripfestival.vo.ResponseVo;
@@ -23,5 +25,16 @@ public class WorldCountryCityController {
     @PostMapping("/worldcountrycityremmove/{id}")
     public ResponseVo worldCountryCityRemove(@PathVariable("id") Long worldCountryCityId) {
         return worldCountryCityService.worldCountryCityDelete(worldCountryCityId);
+    }
+
+    @PostMapping("/worldcountrycitynamemodify/{id}")
+    public ResponseVo worldCountryCityNameModify(
+            @PathVariable("id") Long worldCountryCityId,
+            WorldCountryCityNameModifyRequest req) {
+
+        WorldCountryCityNameModifyDto worldCountryCityNameModifyDto
+                = new WorldCountryCityNameModifyDto(worldCountryCityId, req);
+
+        return worldCountryCityService.worldCountryCityNameAlert(worldCountryCityNameModifyDto);
     }
 }
