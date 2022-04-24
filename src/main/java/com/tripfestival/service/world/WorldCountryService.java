@@ -1,8 +1,10 @@
 package com.tripfestival.service.world;
 
 import com.tripfestival.domain.world.WorldCountry;
+import com.tripfestival.dto.world.WorldCountryModifyDto;
 import com.tripfestival.exception.world.WorldCountryNotFoundException;
 import com.tripfestival.repository.world.WorldCountryRepository;
+import com.tripfestival.request.world.WorldCountryModifyRequest;
 import com.tripfestival.request.world.WorldCountryProcessRequest;
 import com.tripfestival.service.file.FileService;
 import com.tripfestival.vo.Response;
@@ -40,6 +42,26 @@ public class WorldCountryService {
                         .orElseThrow(() -> new WorldCountryNotFoundException());
 
         worldCountryRepository.delete(worldCountry);
+
+        return new ResponseVo(Response.SUCCESS, null);
+    }
+
+    public ResponseVo worldCountryAlert(WorldCountryModifyDto req) {
+        WorldCountry worldCountry = worldCountryRepository.findById(req.getWorldCountryId())
+                .orElseThrow(() -> new WorldCountryNotFoundException());
+
+        if(req.getName() != null) {
+            worldCountry.setName(req.getName());
+        }
+        if(req.getCapital() != null) {
+            worldCountry.setCapital(req.getCapital());
+        }
+        if(req.getCurrency() != null) {
+            worldCountry.setCurrency(req.getCurrency());
+        }
+        if(req.getExchangeRatio() != null) {
+            worldCountry.setExchangeRatio(req.getExchangeRatio());
+        }
 
         return new ResponseVo(Response.SUCCESS, null);
     }
