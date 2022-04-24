@@ -1,6 +1,8 @@
 package com.tripfestival.controller.hotspot;
 
+import com.tripfestival.dto.hotspot.HotspotTypeNameModifyDto;
 import com.tripfestival.dto.hotspot.HotspotTypeProcessDto;
+import com.tripfestival.request.hotspot.HotspotTypeNameModifyRequest;
 import com.tripfestival.request.hotspot.HotspotTypeProcessRequest;
 import com.tripfestival.service.hotspot.HotspotTypeService;
 import com.tripfestival.vo.ResponseVo;
@@ -30,5 +32,14 @@ public class HotspotTypeController {
     @PostMapping("/hotspottyperemove/{id}")
     public ResponseVo hotspotTypeRemove(@PathVariable("id") Long hotspotTypeId) {
         return hotspotTypeService.hotspotTypeRemove(hotspotTypeId);
+    }
+
+    @PostMapping("/hotspottypenamemodify/{id}")
+    public ResponseVo hotspotTypeNameModify(
+            @PathVariable("id") Long hotspotTypeId,
+            @RequestBody HotspotTypeNameModifyRequest req) {
+        HotspotTypeNameModifyDto hotspotTypeNameModifyDto = new HotspotTypeNameModifyDto(hotspotTypeId, req);
+
+        return hotspotTypeService.hotspotTypeNameAlert(hotspotTypeNameModifyDto);
     }
 }

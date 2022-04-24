@@ -1,6 +1,7 @@
 package com.tripfestival.service.hotspot;
 
 import com.tripfestival.domain.hotspot.HotspotType;
+import com.tripfestival.dto.hotspot.HotspotTypeNameModifyDto;
 import com.tripfestival.dto.hotspot.HotspotTypeProcessDto;
 import com.tripfestival.exception.hotspot.HotspotTypeNotFoundException;
 import com.tripfestival.repository.hotspot.HotspotTypeRepository;
@@ -37,6 +38,15 @@ public class HotspotTypeService {
                 .orElseThrow(() -> new HotspotTypeNotFoundException());
 
         hotspotTypeRepository.delete(hotspotType);
+
+        return new ResponseVo(Response.SUCCESS, null);
+    }
+
+    public ResponseVo hotspotTypeNameAlert(HotspotTypeNameModifyDto req) {
+        HotspotType hotspotType = hotspotTypeRepository.findById(req.getHotspotTypeId())
+                .orElseThrow(() -> new HotspotTypeNotFoundException());
+
+        hotspotType.setName(req.getName());
 
         return new ResponseVo(Response.SUCCESS, null);
     }
