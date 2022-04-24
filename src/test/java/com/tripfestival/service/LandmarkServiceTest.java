@@ -1,18 +1,17 @@
 package com.tripfestival.service;
 
-import com.tripfestival.domain.WorldCountry;
-import com.tripfestival.domain.WorldCountryCity;
-import com.tripfestival.repository.LandmarkRepository;
-import com.tripfestival.repository.WorldCountryCityRepository;
-import com.tripfestival.repository.WorldCountryRepository;
-import com.tripfestival.request.LandmarkProcessRequest;
+import com.tripfestival.domain.world.WorldCountry;
+import com.tripfestival.domain.world.WorldCountryCity;
+import com.tripfestival.repository.landmark.LandmarkRepository;
+import com.tripfestival.repository.world.WorldCountryCityRepository;
+import com.tripfestival.repository.world.WorldCountryRepository;
+import com.tripfestival.request.landmark.LandmarkProcessRequest;
+import com.tripfestival.service.landmark.LandmarkService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class LandmarkServiceTest {

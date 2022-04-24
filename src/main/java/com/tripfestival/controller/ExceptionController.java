@@ -1,6 +1,17 @@
 package com.tripfestival.controller;
 
-import com.tripfestival.exception.*;
+import com.tripfestival.exception.event.*;
+import com.tripfestival.exception.hotSight.HotSightLandmarkNotFoundException;
+import com.tripfestival.exception.hotSight.HotSightOneNotFoundException;
+import com.tripfestival.exception.hotSight.HotSightTwoNotFoundException;
+import com.tripfestival.exception.hotspot.HotspotNotFoundException;
+import com.tripfestival.exception.hotspot.HotspotTypeNotFoundException;
+import com.tripfestival.exception.landmark.*;
+import com.tripfestival.exception.naturehotspot.NatureHotspotNotFoundException;
+import com.tripfestival.exception.naturehotspot.NatureHotspotTypeNotFoundException;
+import com.tripfestival.exception.user.UserNotFoundException;
+import com.tripfestival.exception.world.WorldCountryCityNotFoundException;
+import com.tripfestival.exception.world.WorldCountryNotFoundException;
 import com.tripfestival.vo.Response;
 import com.tripfestival.vo.ResponseVo;
 import lombok.extern.slf4j.Slf4j;

@@ -1,6 +1,6 @@
 package com.tripfestival.util;
 
-import com.tripfestival.dto.KakaoLoginDto;
+import com.tripfestival.dto.user.KakaoLoginDto;
 import org.json.JSONObject;
 import org.springframework.http.*;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;

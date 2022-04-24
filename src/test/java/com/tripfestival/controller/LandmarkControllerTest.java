@@ -1,13 +1,13 @@
 package com.tripfestival.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.tripfestival.domain.Landmark;
-import com.tripfestival.domain.WorldCountry;
-import com.tripfestival.domain.WorldCountryCity;
-import com.tripfestival.repository.LandmarkRepository;
-import com.tripfestival.repository.WorldCountryCityRepository;
-import com.tripfestival.repository.WorldCountryRepository;
-import com.tripfestival.request.LandmarkProcessRequest;
+import com.tripfestival.domain.landmark.Landmark;
+import com.tripfestival.domain.world.WorldCountry;
+import com.tripfestival.domain.world.WorldCountryCity;
+import com.tripfestival.repository.landmark.LandmarkRepository;
+import com.tripfestival.repository.world.WorldCountryCityRepository;
+import com.tripfestival.repository.world.WorldCountryRepository;
+import com.tripfestival.request.landmark.LandmarkProcessRequest;
 import com.tripfestival.vo.Response;
 import com.tripfestival.vo.ResponseVo;
 import org.junit.jupiter.api.Test;

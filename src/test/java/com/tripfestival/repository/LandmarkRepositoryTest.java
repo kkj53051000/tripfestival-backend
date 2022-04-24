@@ -1,15 +1,16 @@
 package com.tripfestival.repository;
 
-import com.tripfestival.domain.Landmark;
-import com.tripfestival.domain.WorldCountry;
-import com.tripfestival.domain.WorldCountryCity;
+import com.tripfestival.domain.landmark.Landmark;
+import com.tripfestival.domain.world.WorldCountry;
+import com.tripfestival.domain.world.WorldCountryCity;
+import com.tripfestival.repository.landmark.LandmarkRepository;
+import com.tripfestival.repository.world.WorldCountryCityRepository;
+import com.tripfestival.repository.world.WorldCountryRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class LandmarkRepositoryTest {

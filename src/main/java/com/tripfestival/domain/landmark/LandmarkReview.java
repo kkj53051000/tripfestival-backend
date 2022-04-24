@@ -1,0 +1,38 @@
+package com.tripfestival.domain.landmark;
+
+import com.tripfestival.domain.user.User;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
+
+@Entity
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@TableGenerator(
+        name = "LANDMARKREVIEW_SEQ_GENERATOR",
+        table = "TRIPFESTIVAL_SEQUENCES",
+        pkColumnValue = "LANDMARKREVIEW_SEQ", allocationSize = 50)
+public class LandmarkReview {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "LANDMARKREVIEW_SEQ_GENERATOR")
+    @Column(name = "landmarkreview_id")
+    private Long id;
+
+    private String content;
+    private byte score;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    public LandmarkReview(String content, byte score, User user) {
+        this.content = content;
+        this.score = score;
+        this.user = user;
+    }
+}
