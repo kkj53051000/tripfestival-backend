@@ -1,5 +1,8 @@
 package com.tripfestival.controller;
 
+import com.tripfestival.dto.EventSeasonImgModifyDto;
+import com.tripfestival.dto.EventSeasonNameModifyDto;
+import com.tripfestival.request.EventSeasonNameModifyRequest;
 import com.tripfestival.request.EventSeasonProcessRequest;
 import com.tripfestival.service.EventSeasonService;
 import com.tripfestival.vo.ResponseVo;
@@ -24,5 +27,31 @@ public class EventSeasonController {
     @PostMapping("/eventseasonremove/{id}")
     public ResponseVo eventSeasonRemove(@PathVariable("id") Long eventSeasonId) {
         return eventSeasonService.eventSeasonDelete(eventSeasonId);
+    }
+
+    @PostMapping("/eventseasonnamemodify/{id}")
+    public ResponseVo eventSeasonNameModify(
+            @PathVariable("id") Long eventSeasonId,
+            @RequestBody EventSeasonNameModifyRequest req) {
+
+        EventSeasonNameModifyDto eventSeasonNameModifyDto = EventSeasonNameModifyDto.builder()
+                .eventSeasonId(eventSeasonId)
+                .name(req.getName())
+                .build();
+
+        return eventSeasonService.eventSeasonNameAlert(eventSeasonNameModifyDto);
+    }
+
+    @PostMapping("/eventseasonimgmodify/{id}")
+    public ResponseVo eventSeasonImgModify(
+            @PathVariable("id") Long eventSeasonId,
+            @RequestPart MultipartFile file) {
+
+        EventSeasonImgModifyDto eventSeasonImgModifyDto = EventSeasonImgModifyDto.builder()
+                .eventSeasonId(eventSeasonId)
+                .file(file)
+                .build();
+
+        return eventSeasonService.eventSeasonImgAlert(eventSeasonImgModifyDto);
     }
 }
