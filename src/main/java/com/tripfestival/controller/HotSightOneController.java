@@ -1,6 +1,9 @@
 package com.tripfestival.controller;
 
+import com.tripfestival.dto.HotSightOneImgModifyDto;
+import com.tripfestival.dto.HotSightOneNameModifyDto;
 import com.tripfestival.dto.HotSightOneProcessDto;
+import com.tripfestival.request.HotSightOneNameModifyRequest;
 import com.tripfestival.request.HotSightOneProcessRequest;
 import com.tripfestival.service.HotSightOneService;
 import com.tripfestival.vo.ResponseVo;
@@ -18,10 +21,7 @@ public class HotSightOneController {
     public ResponseVo hotSightOneProcess(
             @RequestPart MultipartFile file,
             @RequestPart HotSightOneProcessRequest req) {
-        HotSightOneProcessDto hotSightOneProcessDto = HotSightOneProcessDto.builder()
-                .file(file)
-                .name(req.getName())
-                .build();
+        HotSightOneProcessDto hotSightOneProcessDto = new HotSightOneProcessDto(file, req);
 
         return hotSightOneService.hotSightOneInsert(hotSightOneProcessDto);
     }
@@ -29,5 +29,24 @@ public class HotSightOneController {
     @PostMapping("/hotsightoneremove/{id}")
     public ResponseVo hotSightOneRemove(@PathVariable("id") Long hotSightOneId) {
         return hotSightOneService.hotSightOneDelete(hotSightOneId);
+    }
+
+    @PostMapping("/hotsightonenamemodify/{id}")
+    public ResponseVo hotSightOneNameModify(
+            @PathVariable("id") Long hotSightOneId,
+            @RequestBody HotSightOneNameModifyRequest req) {
+
+        HotSightOneNameModifyDto hotSightOneNameModifyDto = new HotSightOneNameModifyDto(hotSightOneId, req);
+
+        return hotSightOneService.hotSightOneNameAlert(hotSightOneNameModifyDto);
+    }
+
+    @PostMapping("/hotsightoneimgmodify/{id}")
+    public ResponseVo hotSightOneImgModify(
+            @PathVariable("id") Long hotSightOneId,
+            @RequestPart MultipartFile file) {
+        HotSightOneImgModifyDto hotSightOneImgModifyDto = new HotSightOneImgModifyDto(hotSightOneId, file);
+
+        return hotSightOneService.hotSightOneImgAlert(hotSightOneImgModifyDto);
     }
 }
