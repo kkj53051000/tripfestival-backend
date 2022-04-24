@@ -23,7 +23,7 @@ public class LandmarkTime {
     private Long id;
 
     private String title;
-    private int price;
+    private String time;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "landmark_id")

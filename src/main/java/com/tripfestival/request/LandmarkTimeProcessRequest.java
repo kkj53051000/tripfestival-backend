@@ -5,6 +5,6 @@ import lombok.Getter;
 @Getter
 public class LandmarkTimeProcessRequest {
     private String title;
-    private int price;
+    private String time;
     private Long landmarkId;
 }

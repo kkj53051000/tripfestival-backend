@@ -23,7 +23,7 @@ public class LandmarkTimeService {
     public ResponseVo landmarkTimeInsert(LandmarkTimeProcessRequest req) {
         LandmarkTime landmarkTime = LandmarkTime.builder()
                 .title(req.getTitle())
-                .price(req.getPrice())
+                .time(req.getTime())
                 .landmark(landmarkRepository.findById(req.getLandmarkId()).orElseThrow(() -> new LandmarkTimeNotFoundException()))
                 .build();
 
@@ -48,8 +48,8 @@ public class LandmarkTimeService {
         if(req.getTitle() != null) {
             landmarkTime.setTitle(req.getTitle());
         }
-        if(req.getPrice() != null) {
-            landmarkTime.setPrice(req.getPrice());
+        if(req.getTime() != null) {
+            landmarkTime.setTime(req.getTime());
         }
 
         return new ResponseVo(Response.SUCCESS, null);

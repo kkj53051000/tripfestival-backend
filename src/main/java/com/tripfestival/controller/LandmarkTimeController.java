@@ -29,7 +29,7 @@ public class LandmarkTimeController {
         LandmarkTimeModifyDto landmarkTimeModifyDto = LandmarkTimeModifyDto.builder()
                 .landmarkTimeId(landmarkTimeId)
                 .title(req.getTitle())
-                .price(req.getPrice())
+                .time(req.getTime())
                 .build();
 
         return landmarkTimeService.landmarkTimeAlert(landmarkTimeModifyDto);
