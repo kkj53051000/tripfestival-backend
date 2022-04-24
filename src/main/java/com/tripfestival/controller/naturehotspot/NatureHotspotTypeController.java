@@ -13,7 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequiredArgsConstructor
-public class NatureHotspotTypeController {
+public class NatureHotspotTypeController {  // 자연관광지 타입
     private final NatureHotspotTypeService natureHotspotTypeService;
 
     @PostMapping("/naturehotspottypeprocess")
