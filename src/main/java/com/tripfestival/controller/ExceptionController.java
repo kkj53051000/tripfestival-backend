@@ -120,4 +120,9 @@ public class ExceptionController {
     public ResponseVo hotSightOneNotFoundHandler() {
         return new ResponseVo(Response.FAILURE, "HotSightOneNotFound");
     }
+
+    @ExceptionHandler(HotSightTwoNotFoundException.class)
+    public ResponseVo hotSightTwoNotFoundHandler() {
+        return new ResponseVo(Response.FAILURE, "HotSightTwoNotFound");
+    }
 }
