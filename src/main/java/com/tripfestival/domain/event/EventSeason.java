@@ -12,13 +12,9 @@ import javax.persistence.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@TableGenerator(
-        name = "EVENTSEASON_SEQ_GENERATOR",
-        table = "TRIPFESTIVAL_SEQUENCES",
-        pkColumnValue = "EVENTSEASON_SEQ", allocationSize = 10)
 public class EventSeason {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "EVENTSEASON_SEQ_GENERATOR")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "eventseason_id")
     private Long id;
 

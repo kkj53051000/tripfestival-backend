@@ -17,6 +17,7 @@ public class EventImgListVo {
                 .collect(Collectors.toList());
     }
 
+    @Getter
     class EventImgVo {
         private String img;
 

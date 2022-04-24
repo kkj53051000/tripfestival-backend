@@ -7,12 +7,15 @@ import com.tripfestival.exception.event.EventSeasonNotFoundException;
 import com.tripfestival.repository.event.EventSeasonRepository;
 import com.tripfestival.request.event.EventSeasonProcessRequest;
 import com.tripfestival.service.file.FileService;
+import com.tripfestival.vo.EventSeasonListVo;
 import com.tripfestival.vo.Response;
 import com.tripfestival.vo.ResponseVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 @Service
 @Transactional
@@ -62,5 +65,11 @@ public class EventSeasonService {
         eventSeason.setImg(url);
 
         return new ResponseVo(Response.SUCCESS, null);
+    }
+
+    public EventSeasonListVo eventSeasonAllSelect() {
+        List<EventSeason> eventSeasonList = eventSeasonRepository.findAll();
+
+        return new EventSeasonListVo(eventSeasonList);
     }
 }
