@@ -9,4 +9,9 @@ import org.springframework.web.multipart.MultipartFile;
 public class EventCategoryImgModifyDto {
     private MultipartFile file;
     private Long eventCategoryId;
+
+    public EventCategoryImgModifyDto(Long eventCategoryId, MultipartFile file) {
+        this.file = file;
+        this.eventCategoryId = eventCategoryId;
+    }
 }

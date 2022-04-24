@@ -6,6 +6,7 @@ import com.tripfestival.dto.event.EventCategoryProcessDto;
 import com.tripfestival.request.event.EventCategoryModifyRequest;
 import com.tripfestival.request.event.EventCategoryProcessRequest;
 import com.tripfestival.service.event.EventCategoryService;
+import com.tripfestival.vo.EventCategoryAllListVo;
 import com.tripfestival.vo.ResponseVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api")
-public class EventCategoryController {
+public class EventCategoryController {  // 축제 종류
     private final EventCategoryService eventCategoryService;
 
     @PostMapping("/eventcategoryprocess")
@@ -36,10 +37,9 @@ public class EventCategoryController {
     public ResponseVo eventCategoryNameModify(
             @PathVariable("id") Long eventCategoryId,
             @RequestBody EventCategoryModifyRequest req) {
-        EventCategoryNameModifyDto eventCategoryNameModifyDto = EventCategoryNameModifyDto.builder()
-                .eventCategoryId(eventCategoryId)
-                .name(req.getName())
-                .build();
+
+        EventCategoryNameModifyDto eventCategoryNameModifyDto
+                = new EventCategoryNameModifyDto(eventCategoryId, req);
 
         return eventCategoryService.eventCategoryNameModify(eventCategoryNameModifyDto);
     }
@@ -48,11 +48,15 @@ public class EventCategoryController {
     public ResponseVo eventCategoryImgModify(
             @PathVariable("id") Long eventCategoryId,
             @RequestPart MultipartFile file) {
-        EventCategoryImgModifyDto eventCategoryImgModifyDto = EventCategoryImgModifyDto.builder()
-                .file(file)
-                .eventCategoryId(eventCategoryId)
-                .build();
+
+        EventCategoryImgModifyDto eventCategoryImgModifyDto
+                = new EventCategoryImgModifyDto(eventCategoryId, file);
 
         return eventCategoryService.eventCategoryImgModify(eventCategoryImgModifyDto);
+    }
+
+    @PostMapping("/eventcategoryalllist")
+    public EventCategoryAllListVo eventCategoryAllList() {
+        return eventCategoryService.eventCategoryAllSelect();
     }
 }
