@@ -3,6 +3,7 @@ package com.tripfestival.service.hotspot;
 import com.tripfestival.domain.hotspot.Hotspot;
 import com.tripfestival.domain.hotspot.HotspotType;
 import com.tripfestival.domain.landmark.Landmark;
+import com.tripfestival.dto.hotspot.HotspotHotspotTypeModifyDto;
 import com.tripfestival.exception.hotspot.HotspotNotFoundException;
 import com.tripfestival.exception.hotspot.HotspotTypeNotFoundException;
 import com.tripfestival.exception.landmark.LandmarkNotFoundException;
@@ -48,6 +49,18 @@ public class HotspotService {
                 .orElseThrow(() -> new HotspotNotFoundException());
 
         hotspotRepository.delete(hotspot);
+
+        return new ResponseVo(Response.SUCCESS, null);
+    }
+
+    public ResponseVo hotspotHotspotTypeAlert(HotspotHotspotTypeModifyDto req) {
+        Hotspot hotspot = hotspotRepository.findById(req.getHotspotId())
+                .orElseThrow(() -> new HotspotNotFoundException());
+
+        HotspotType hotspotType = hotspotTypeRepository.findById(req.getHotspotTypeId())
+                .orElseThrow(() -> new HotspotTypeNotFoundException());
+
+        hotspot.setHotspotType(hotspotType);
 
         return new ResponseVo(Response.SUCCESS, null);
     }

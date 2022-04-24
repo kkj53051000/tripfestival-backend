@@ -17,7 +17,7 @@ import javax.persistence.*;
         name = "HOTSPOT_SEQ_GENERATOR",
         table = "TRIPFESTIVAL_SEQUENCES",
         pkColumnValue = "HOTSPOT_SEQ", allocationSize = 10)
-public class Hotspot {
+public class Hotspot { // 인공 관광지
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "HOTSPOT_SEQ_GENERATOR")
     @Column(name = "hotspot_id")
