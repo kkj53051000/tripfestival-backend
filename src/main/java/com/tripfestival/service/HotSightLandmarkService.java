@@ -3,6 +3,8 @@ package com.tripfestival.service;
 import com.tripfestival.domain.HotSightLandmark;
 import com.tripfestival.domain.HotSightTwo;
 import com.tripfestival.domain.Landmark;
+import com.tripfestival.dto.HotSightLandmarkDescriptionModifyDto;
+import com.tripfestival.dto.HotSightLandmarkHotSightTwoModifyDto;
 import com.tripfestival.exception.HotSightLandmarkNotFoundException;
 import com.tripfestival.exception.HotSightTwoNotFoundException;
 import com.tripfestival.repository.HotSightLandmarkRepository;
@@ -48,6 +50,27 @@ public class HotSightLandmarkService {
                 .orElseThrow(() -> new HotSightLandmarkNotFoundException());
 
         hotSightLandmarkRepository.delete(hotSightLandmark);
+
+        return new ResponseVo(Response.SUCCESS, null);
+    }
+
+    public ResponseVo hotSightDescriptionAlert(HotSightLandmarkDescriptionModifyDto req) {
+        HotSightLandmark hotSightLandmark = hotSightLandmarkRepository.findById(req.getHotSightLandmarkId())
+                .orElseThrow(() -> new HotSightLandmarkNotFoundException());
+
+        hotSightLandmark.setDescription(req.getDescription());
+
+        return new ResponseVo(Response.SUCCESS, null);
+    }
+
+    public ResponseVo hotSightLandmarkHotSightTwoAlert(HotSightLandmarkHotSightTwoModifyDto req) {
+        HotSightLandmark hotSightLandmark = hotSightLandmarkRepository.findById(req.getHotSightLandmarkId())
+                .orElseThrow(() -> new HotSightLandmarkNotFoundException());
+
+        HotSightTwo hotSightTwo = hotSightTwoRepository.findById(req.getHotSightTwoId())
+                .orElseThrow(() -> new HotSightTwoNotFoundException());
+
+        hotSightLandmark.setHotSightTwo(hotSightTwo);
 
         return new ResponseVo(Response.SUCCESS, null);
     }
