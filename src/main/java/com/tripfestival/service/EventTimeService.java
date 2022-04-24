@@ -2,6 +2,7 @@ package com.tripfestival.service;
 
 import com.tripfestival.domain.Event;
 import com.tripfestival.domain.EventTime;
+import com.tripfestival.dto.EventTimeModifyDto;
 import com.tripfestival.exception.EventNotFoundException;
 import com.tripfestival.exception.EventTimeNotFoundException;
 import com.tripfestival.repository.EventRepository;
@@ -41,6 +42,20 @@ public class EventTimeService {
                 .orElseThrow(() -> new EventTimeNotFoundException());
 
         eventTimeRepository.delete(eventTime);
+
+        return new ResponseVo(Response.SUCCESS, null);
+    }
+
+    public ResponseVo eventTimeAlert(EventTimeModifyDto req) {
+        EventTime eventTime = eventTimeRepository.findById(req.getEventTimeId())
+                .orElseThrow(() -> new EventTimeNotFoundException());
+
+        if(req.getTitle() != null) {
+            eventTime.setTitle(req.getTitle());
+        }
+        if(req.getTime() != null) {
+            eventTime.setTime(req.getTime());
+        }
 
         return new ResponseVo(Response.SUCCESS, null);
     }
