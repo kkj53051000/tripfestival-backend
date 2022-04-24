@@ -1,5 +1,7 @@
 package com.tripfestival.controller;
 
+import com.tripfestival.dto.EventFeeModifyDto;
+import com.tripfestival.request.EventFeeModifyRequest;
 import com.tripfestival.request.EventFeeProcessRequest;
 import com.tripfestival.service.EventFeeService;
 import com.tripfestival.vo.Response;
@@ -18,8 +20,19 @@ public class EventFeeController {
         return eventFeeService.eventFeeInsert(req);
     }
 
-    @PostMapping("/eventfeeremive/{id}")
+    @PostMapping("/eventfeeremove/{id}")
     public ResponseVo eventFeeRemove(@PathVariable Long eventFeeId) {
         return eventFeeService.eventFeeDelete(eventFeeId);
+    }
+
+    @PostMapping("/eventfeemodify/{id}")
+    public ResponseVo eventFeeModify(@PathVariable("id") Long eventFeeId, @RequestBody EventFeeModifyRequest req) {
+        EventFeeModifyDto eventFeeModifyDto = EventFeeModifyDto.builder()
+                .eventFeeId(eventFeeId)
+                .title(req.getTitle())
+                .price(req.getPrice())
+                .build();
+
+        return eventFeeService.eventFeeAlert(eventFeeModifyDto);
     }
 }
