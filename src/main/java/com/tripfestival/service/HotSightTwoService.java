@@ -1,6 +1,8 @@
 package com.tripfestival.service;
 
 import com.tripfestival.domain.HotSightTwo;
+import com.tripfestival.dto.HotSightTwoImgModifyDto;
+import com.tripfestival.dto.HotSightTwoNameModifyDto;
 import com.tripfestival.dto.HotSightTwoProcessDto;
 import com.tripfestival.exception.HotSightTwoNotFoundException;
 import com.tripfestival.repository.HotSightTwoRepository;
@@ -36,6 +38,26 @@ public class HotSightTwoService {
                 .orElseThrow(() -> new HotSightTwoNotFoundException());
 
         hotSightTwoRepository.delete(hotSightTwo);
+
+        return new ResponseVo(Response.SUCCESS, null);
+    }
+
+    public ResponseVo hostSightTwoNameAlert(HotSightTwoNameModifyDto req) {
+        HotSightTwo hotSightTwo = hotSightTwoRepository.findById(req.getHotSightTwoId())
+                .orElseThrow(() -> new HotSightTwoNotFoundException());
+
+        hotSightTwo.setName(req.getName());
+
+        return new ResponseVo(Response.SUCCESS, null);
+    }
+
+    public ResponseVo hotSightTwoImgAlert(HotSightTwoImgModifyDto req) {
+        String url = fileService.s3UploadProcess(req.getFile());
+
+        HotSightTwo hotSightTwo = hotSightTwoRepository.findById(req.getHotSightTwoId())
+                .orElseThrow(() -> new HotSightTwoNotFoundException());
+
+        hotSightTwo.setImg(url);
 
         return new ResponseVo(Response.SUCCESS, null);
     }

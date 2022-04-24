@@ -1,4 +1,4 @@
-package com.tripfestival.repository;
+package com.tripfestival.request;
 
 import lombok.Getter;
 

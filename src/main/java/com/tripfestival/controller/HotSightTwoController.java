@@ -1,7 +1,10 @@
 package com.tripfestival.controller;
 
+import com.tripfestival.dto.HotSightTwoImgModifyDto;
+import com.tripfestival.dto.HotSightTwoNameModifyDto;
 import com.tripfestival.dto.HotSightTwoProcessDto;
-import com.tripfestival.repository.HotSightTwoProcessRequest;
+import com.tripfestival.request.HotSightTwoNameModifyRequest;
+import com.tripfestival.request.HotSightTwoProcessRequest;
 import com.tripfestival.service.HotSightTwoService;
 import com.tripfestival.vo.ResponseVo;
 import lombok.RequiredArgsConstructor;
@@ -29,5 +32,23 @@ public class HotSightTwoController {
     @PostMapping("/hotsighttworemove/{id}")
     public ResponseVo hotSightTwoRemove(@PathVariable("id") Long hotSightTwoId) {
         return hotSightTwoService.hotSightTwoDelete(hotSightTwoId);
+    }
+
+    @PostMapping("/hotsighttwonamemodify/{id}")
+    public ResponseVo hotSightTwoNameModify(
+            @PathVariable("id") Long hotSightTwoId,
+            @RequestBody HotSightTwoNameModifyRequest req) {
+        HotSightTwoNameModifyDto hotSightTwoNameModifyDto = new HotSightTwoNameModifyDto(hotSightTwoId, req);
+
+        return hotSightTwoService.hostSightTwoNameAlert(hotSightTwoNameModifyDto);
+    }
+
+    @PostMapping("/hotsighttwoimgmodify/{id}")
+    public ResponseVo hotSightTwoImgModify(
+            @PathVariable("id") Long hotSightTwoId,
+            @RequestPart MultipartFile file) {
+        HotSightTwoImgModifyDto hotSightTwoImgModifyDto = new HotSightTwoImgModifyDto(hotSightTwoId, file);
+
+        return hotSightTwoService.hotSightTwoImgAlert(hotSightTwoImgModifyDto);
     }
 }
