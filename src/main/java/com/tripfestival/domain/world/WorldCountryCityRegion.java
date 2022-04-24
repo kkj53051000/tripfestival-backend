@@ -12,22 +12,16 @@ import javax.persistence.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class WorldCountryCity {
+public class WorldCountryCityRegion {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "wordcountrycity_id")
+    @Column(name = "wordcountrycityregion_id")
     private Long id;
 
     private String name;
-    private String cityImg;
+    private String img;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "wordcountry_id")
-    private WorldCountry worldCountry;
-
-    public WorldCountryCity(String name, String cityImg, WorldCountry worldCountry) {
-        this.name = name;
-        this.cityImg = cityImg;
-        this.worldCountry = worldCountry;
-    }
+    @JoinColumn(name = "wordcountrycity_id")
+    private WorldCountryCity worldCountryCity;
 }

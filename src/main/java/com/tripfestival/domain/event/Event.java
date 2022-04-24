@@ -17,7 +17,7 @@ import javax.persistence.*;
         name = "EVENT_SEQ_GENERATOR",
         table = "TRIPFESTIVAL_SEQUENCES",
         pkColumnValue = "EVENT_SEQ", allocationSize = 10)
-public class Event {
+public class Event {  // 축제
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "EVENT_SEQ_GENERATOR")
     @Column(name = "event_id")
