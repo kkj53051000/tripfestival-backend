@@ -125,4 +125,9 @@ public class ExceptionController {
     public ResponseVo hotSightTwoNotFoundHandler() {
         return new ResponseVo(Response.FAILURE, "HotSightTwoNotFound");
     }
+
+    @ExceptionHandler(HotSightLandmarkNotFoundException.class)
+    public ResponseVo hotSightLandmarkNotFounHandler() {
+        return new ResponseVo(Response.FAILURE, "HotSightLandmarkNotFoun");
+    }
 }
