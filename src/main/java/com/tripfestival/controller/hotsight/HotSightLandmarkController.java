@@ -13,7 +13,8 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api")
-public class HotSightLandmarkController {
+public class HotSightLandmarkController {  // 특별한 관광지
+
     private final HotSightLandmarkService hotSightLandmarkService;
 
     @PostMapping("/hotsightlandmarkprocess")

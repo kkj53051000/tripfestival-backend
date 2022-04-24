@@ -7,11 +7,14 @@ import com.tripfestival.dto.hotSight.HotSightOneProcessDto;
 import com.tripfestival.exception.hotSight.HotSightOneNotFoundException;
 import com.tripfestival.repository.hotsight.HotSightOneRepository;
 import com.tripfestival.service.file.FileService;
+import com.tripfestival.vo.HotSightOneListVo;
 import com.tripfestival.vo.Response;
 import com.tripfestival.vo.ResponseVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @Transactional
@@ -62,5 +65,11 @@ public class HotSightOneService {
         hotSightOne.setImg(url);
 
         return new ResponseVo(Response.SUCCESS, null);
+    }
+
+    public HotSightOneListVo hotSightOneAllListSelect() {
+        List<HotSightOne> hotSightOneList = hotSightOneRepository.findAll();
+
+        return new HotSightOneListVo(hotSightOneList);
     }
 }

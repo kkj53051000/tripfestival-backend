@@ -6,6 +6,7 @@ import com.tripfestival.dto.hotSight.HotSightOneProcessDto;
 import com.tripfestival.request.hotsight.HotSightOneNameModifyRequest;
 import com.tripfestival.request.hotsight.HotSightOneProcessRequest;
 import com.tripfestival.service.hotsight.HotSightOneService;
+import com.tripfestival.vo.HotSightOneListVo;
 import com.tripfestival.vo.ResponseVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api")
-public class HotSightOneController {
+public class HotSightOneController {  // 특별한 관광지 종류 1
     private final HotSightOneService hotSightOneService;
 
     @PostMapping("/hotsightoneprocess")
@@ -48,5 +49,10 @@ public class HotSightOneController {
         HotSightOneImgModifyDto hotSightOneImgModifyDto = new HotSightOneImgModifyDto(hotSightOneId, file);
 
         return hotSightOneService.hotSightOneImgAlert(hotSightOneImgModifyDto);
+    }
+
+    @PostMapping("/hotsightonealllist")
+    public HotSightOneListVo hotSightOneAllList() {
+        return hotSightOneService.hotSightOneAllListSelect();
     }
 }

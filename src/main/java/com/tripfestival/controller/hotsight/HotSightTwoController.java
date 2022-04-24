@@ -14,7 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api")
-public class HotSightTwoController {
+public class HotSightTwoController {  // 특별한 관광지 종류 2
     private final HotSightTwoService hotSightTwoService;
 
     @PostMapping("/hotsighttwoprocess")
