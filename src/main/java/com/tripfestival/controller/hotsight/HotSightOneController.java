@@ -51,7 +51,7 @@ public class HotSightOneController {  // 특별한 관광지 종류 1
         return hotSightOneService.hotSightOneImgAlert(hotSightOneImgModifyDto);
     }
 
-    @PostMapping("/hotSightOneAllList")
+    @GetMapping("/hotSightOneAllList")
     public HotSightOneListVo hotSightOneAllList() {
         return hotSightOneService.hotSightOneAllListSelect();
     }

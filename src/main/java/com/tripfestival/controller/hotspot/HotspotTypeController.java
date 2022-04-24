@@ -5,6 +5,7 @@ import com.tripfestival.dto.hotspot.HotspotTypeProcessDto;
 import com.tripfestival.request.hotspot.HotspotTypeNameModifyRequest;
 import com.tripfestival.request.hotspot.HotspotTypeProcessRequest;
 import com.tripfestival.service.hotspot.HotspotTypeService;
+import com.tripfestival.vo.HotspotTypeAllListVo;
 import com.tripfestival.vo.ResponseVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +14,8 @@ import org.springframework.web.multipart.MultipartFile;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api")
-public class HotspotTypeController {
+public class HotspotTypeController { // 인공 관광지 종류
+
     private final HotspotTypeService hotspotTypeService;
 
     @PostMapping("/hotspotTypeProcess")
@@ -41,5 +43,10 @@ public class HotspotTypeController {
         HotspotTypeNameModifyDto hotspotTypeNameModifyDto = new HotspotTypeNameModifyDto(hotspotTypeId, req);
 
         return hotspotTypeService.hotspotTypeNameAlert(hotspotTypeNameModifyDto);
+    }
+
+    @GetMapping("/hotspotTypeAllList")
+    public HotspotTypeAllListVo hotspotTypeAllList() {
+        return hotspotTypeService.hotspotTypeAllListSelect();
     }
 }

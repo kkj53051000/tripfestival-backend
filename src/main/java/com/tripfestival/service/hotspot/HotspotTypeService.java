@@ -6,11 +6,14 @@ import com.tripfestival.dto.hotspot.HotspotTypeProcessDto;
 import com.tripfestival.exception.hotspot.HotspotTypeNotFoundException;
 import com.tripfestival.repository.hotspot.HotspotTypeRepository;
 import com.tripfestival.service.file.FileService;
+import com.tripfestival.vo.HotspotTypeAllListVo;
 import com.tripfestival.vo.Response;
 import com.tripfestival.vo.ResponseVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @Transactional
@@ -49,5 +52,11 @@ public class HotspotTypeService {
         hotspotType.setName(req.getName());
 
         return new ResponseVo(Response.SUCCESS, null);
+    }
+
+    public HotspotTypeAllListVo hotspotTypeAllListSelect() {
+        List<HotspotType> hotspotTypeList = hotspotTypeRepository.findAll();
+
+        return new HotspotTypeAllListVo(hotspotTypeList);
     }
 }

@@ -53,7 +53,7 @@ public class HotSightTwoController {  // 특별한 관광지 종류 2
         return hotSightTwoService.hotSightTwoImgAlert(hotSightTwoImgModifyDto);
     }
 
-    @PostMapping("/hotSightTwoList")
+    @GetMapping("/hotSightTwoList")
     public HotSightTwoListVo hotSightTwoList(@RequestParam Long hotSightOneId) {
         return hotSightTwoService.hotSightTwoListSelect(hotSightOneId);
     }

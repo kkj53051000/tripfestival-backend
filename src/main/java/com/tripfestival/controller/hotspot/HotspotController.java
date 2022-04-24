@@ -11,7 +11,8 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api")
-public class HotspotController {
+public class HotspotController {  // 인공 관광지
+
     private final HotspotService hotspotService;
 
     @PostMapping("/hotspotProcess")

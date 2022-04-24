@@ -57,7 +57,7 @@ public class HotSightLandmarkController {  // 특별한 관광지
         return hotSightLandmarkService.hotSightLandmarkHotSightTwoAlert(hotSightLandmarkHotSightTwoModifyDto);
     }
 
-    @PostMapping("/hotSightLandmarkList")
+    @GetMapping("/hotSightLandmarkList")
     public HotSightLandmarkListVo hotSightLandmarkList(@RequestParam Long hotSightTwoId) {
         return hotSightLandmarkService.hotSightLandmarkListSelect(hotSightTwoId);
     }
