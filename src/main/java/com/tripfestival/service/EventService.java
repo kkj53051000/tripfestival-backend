@@ -4,6 +4,7 @@ import com.tripfestival.domain.Event;
 import com.tripfestival.domain.EventCategory;
 import com.tripfestival.domain.EventSeason;
 import com.tripfestival.domain.WorldCountryCity;
+import com.tripfestival.dto.EventModifyDto;
 import com.tripfestival.exception.EventCategoryNotFoundException;
 import com.tripfestival.exception.EventNotFoundException;
 import com.tripfestival.exception.EventSeasonNotFoundException;
@@ -63,6 +64,47 @@ public class EventService {
                 .orElseThrow(() -> new EventNotFoundException());
 
         eventRepository.delete(event);
+
+        return new ResponseVo(Response.SUCCESS, null);
+    }
+
+    public ResponseVo eventAlert(EventModifyDto req) {
+        Event event = eventRepository.findById(req.getEventId())
+                .orElseThrow(() -> new EventNotFoundException());
+
+        if(req.getName() != null) {
+            event.setName(req.getName());
+        }
+        if(req.getDescription() != null) {
+            event.setDescription(req.getDescription());
+        }
+        if(req.getAddress() != null) {
+            event.setAddress(req.getAddress());
+        }
+        if(req.getVisitor() != null) {
+            event.setVisitor(req.getVisitor());
+        }
+        if(req.getInout() != null){
+            event.setInout(req.getInout());
+        }
+        if(req.getWorldCountryCityId() != null){
+            WorldCountryCity worldCountryCity = worldCountryCityRepository.findById(req.getWorldCountryCityId())
+                    .orElseThrow(() -> new WorldCountryCityNotFoundException());
+
+            event.setWorldCountryCity(worldCountryCity);
+        }
+        if(req.getEventCategoryId() != null) {
+            EventCategory eventCategory = eventCategoryRepository.findById(req.getEventCategoryId())
+                    .orElseThrow(() -> new EventCategoryNotFoundException());
+
+            event.setEventCategory(eventCategory);
+        }
+        if(req.getEventSeasonId() != null) {
+            EventSeason eventSeason = eventSeasonRepository.findById(req.getEventSeasonId())
+                    .orElseThrow(() -> new EventSeasonNotFoundException());
+
+            event.setEventSeason(eventSeason);
+        }
 
         return new ResponseVo(Response.SUCCESS, null);
     }
