@@ -1,14 +1,16 @@
 package com.tripfestival.controller.hotsight;
 
-import com.tripfestival.dto.hotSight.HotSightLandmarkDescriptionModifyDto;
+import com.tripfestival.dto.hotSight.HotSightLandmarkImgModifyDto;
 import com.tripfestival.dto.hotSight.HotSightLandmarkHotSightTwoModifyDto;
-import com.tripfestival.request.hotsight.HotSightLandmarkDescriptionModifyRequest;
+import com.tripfestival.dto.hotSight.HotSightLandmarkProcessDto;
 import com.tripfestival.request.hotsight.HotSightLandmarkHotSightTwoModifyRequest;
 import com.tripfestival.request.hotsight.HotSightLandmarkProcessRequest;
 import com.tripfestival.service.hotsight.HotSightLandmarkService;
+import com.tripfestival.vo.HotSightLandmarkListVo;
 import com.tripfestival.vo.ResponseVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequiredArgsConstructor
@@ -18,27 +20,33 @@ public class HotSightLandmarkController {  // 특별한 관광지
     private final HotSightLandmarkService hotSightLandmarkService;
 
     @PostMapping("/hotSightLandmarkProcess")
-    public ResponseVo hotSightLandmarkProcess(@RequestBody HotSightLandmarkProcessRequest req) {
-        return hotSightLandmarkService.hotSightLandmarkInsert(req);
+    public ResponseVo hotSightLandmarkProcess(
+            @RequestPart MultipartFile file,
+            @RequestPart HotSightLandmarkProcessRequest req) {
+
+        HotSightLandmarkProcessDto hotSightLandmarkProcessDto
+                = new HotSightLandmarkProcessDto(file, req);
+
+        return hotSightLandmarkService.hotSightLandmarkInsert(hotSightLandmarkProcessDto);
     }
 
-    @PostMapping("/hotsightLandmarkRemove/{id}")
+    @PostMapping("/hotSightLandmarkRemove/{id}")
     public ResponseVo hotSightLandmarkRemove(@PathVariable("id") Long hotSightLandmarkId) {
         return hotSightLandmarkService.hotSightLandmarkDelete(hotSightLandmarkId);
     }
 
-    @PostMapping("/hotsightLandmarkDescriptionModify/{id}")
+    @PostMapping("/hotSightLandmarkImgModify/{id}")
     public ResponseVo hotSightLandmarkDescriptionModify(
             @PathVariable("id") Long hotSightLandmarkId,
-            @RequestBody HotSightLandmarkDescriptionModifyRequest req) {
+            @RequestPart MultipartFile file) {
 
-        HotSightLandmarkDescriptionModifyDto hotSightLandmarkDescriptionModifyDto
-                = new HotSightLandmarkDescriptionModifyDto(hotSightLandmarkId, req);
+        HotSightLandmarkImgModifyDto hotSightLandmarkImfModifyDto
+                = new HotSightLandmarkImgModifyDto(hotSightLandmarkId, file);
 
-        return hotSightLandmarkService.hotSightDescriptionAlert(hotSightLandmarkDescriptionModifyDto);
+        return hotSightLandmarkService.hotSightImgAlert(hotSightLandmarkImfModifyDto);
     }
 
-    @PostMapping("/hotsightLandmarkHotSightTwoModify/{id}")
+    @PostMapping("/hotSightLandmarkHotSightTwoModify/{id}")
     public ResponseVo hotSightLandmarkHotSightTwoModify(
             @PathVariable("id") Long hotSightLandmarkId,
             @RequestBody HotSightLandmarkHotSightTwoModifyRequest req) {
@@ -47,5 +55,10 @@ public class HotSightLandmarkController {  // 특별한 관광지
                 new HotSightLandmarkHotSightTwoModifyDto(hotSightLandmarkId, req);
 
         return hotSightLandmarkService.hotSightLandmarkHotSightTwoAlert(hotSightLandmarkHotSightTwoModifyDto);
+    }
+
+    @PostMapping("/hotSightLandmarkList")
+    public HotSightLandmarkListVo hotSightLandmarkList(@RequestParam Long hotSightTwoId) {
+        return hotSightLandmarkService.hotSightLandmarkListSelect(hotSightTwoId);
     }
 }

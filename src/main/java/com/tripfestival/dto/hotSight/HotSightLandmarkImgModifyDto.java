@@ -2,14 +2,15 @@ package com.tripfestival.dto.hotSight;
 
 import com.tripfestival.request.hotsight.HotSightLandmarkDescriptionModifyRequest;
 import lombok.Getter;
+import org.springframework.web.multipart.MultipartFile;
 
 @Getter
-public class HotSightLandmarkDescriptionModifyDto {
+public class HotSightLandmarkImgModifyDto {
     private Long hotSightLandmarkId;
-    private String description;
+    private MultipartFile file;
 
-    public HotSightLandmarkDescriptionModifyDto(Long hotSightLandmarkId, HotSightLandmarkDescriptionModifyRequest req) {
+    public HotSightLandmarkImgModifyDto(Long hotSightLandmarkId, MultipartFile file) {
         this.hotSightLandmarkId = hotSightLandmarkId;
-        this.description = req.getDescription();
+        this.file = file;
     }
 }

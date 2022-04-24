@@ -17,13 +17,13 @@ import javax.persistence.*;
         name = "HOTSIGHTLANDMARK_SEQ_GENERATOR",
         table = "TRIPFESTIVAL_SEQUENCES",
         pkColumnValue = "HOTSIGHTLANDMARK_SEQ", allocationSize = 10)
-public class HotSightLandmark {
+public class HotSightLandmark { // 특별한 관광지
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "HOTSIGHTLANDMARK_SEQ_GENERATOR")
     @Column(name = "hotsightlandmark_id")
     private Long id;
 
-    private String description;
+    private String img;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "landmark_id")
@@ -33,8 +33,8 @@ public class HotSightLandmark {
     @JoinColumn(name = "hotsighttwo_id")
     private HotSightTwo hotSightTwo;
 
-    public HotSightLandmark(String description, Landmark landmark, HotSightTwo hotSightTwo) {
-        this.description = description;
+    public HotSightLandmark(String img, Landmark landmark, HotSightTwo hotSightTwo) {
+        this.img = img;
         this.landmark = landmark;
         this.hotSightTwo = hotSightTwo;
     }
