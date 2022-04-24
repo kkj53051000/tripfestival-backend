@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
     private final UserService userService;
 
-    @GetMapping("/user/kakaologin")
+    @GetMapping("/user/kakaoLogin")
     public ResponseVo kakaoLogin(@RequestParam String code) {
         return userService.kakaoInsert(code);
     }

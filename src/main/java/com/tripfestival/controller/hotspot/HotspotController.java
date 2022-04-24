@@ -14,19 +14,19 @@ import org.springframework.web.bind.annotation.*;
 public class HotspotController {
     private final HotspotService hotspotService;
 
-    @PostMapping("/hotspotprocess")
+    @PostMapping("/hotspotProcess")
     public ResponseVo hotspotProcess(
             @RequestPart(name = "value") HotspotProcessRequest req) {
 
         return hotspotService.hotspotInsert(req);
     }
 
-    @PostMapping("/hotspotremove/{id}")
+    @PostMapping("/hotspotRemove/{id}")
     public ResponseVo hotspotRemove(@PathVariable Long hotspotId) {
         return hotspotService.hotspotDelete(hotspotId);
     }
 
-    @PostMapping("/hotspothotspottypemodify/{id}")
+    @PostMapping("/hotspotHotspotTypeModify/{id}")
     public ResponseVo hotspotHotspotTypeModify(
             @PathVariable Long hotspotId,
             @RequestBody HotspotHotspotTypeModifyRequest req) {

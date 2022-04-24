@@ -17,7 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class EventSeasonController {
     private final EventSeasonService eventSeasonService;
 
-    @PostMapping("/eventseasonprocess")
+    @PostMapping("/eventSeasonProcess")
     public ResponseVo eventSeasonProcess(
             @RequestPart(name = "file", required = true) MultipartFile file,
             @RequestPart(name = "value", required = false)EventSeasonProcessRequest req) {
@@ -25,12 +25,12 @@ public class EventSeasonController {
         return eventSeasonService.eventSeasonInsert(file, req);
     }
 
-    @PostMapping("/eventseasonremove/{id}")
+    @PostMapping("/eventSeasonRemove/{id}")
     public ResponseVo eventSeasonRemove(@PathVariable("id") Long eventSeasonId) {
         return eventSeasonService.eventSeasonDelete(eventSeasonId);
     }
 
-    @PostMapping("/eventseasonnamemodify/{id}")
+    @PostMapping("/eventSeasonNameModify/{id}")
     public ResponseVo eventSeasonNameModify(
             @PathVariable("id") Long eventSeasonId,
             @RequestBody EventSeasonNameModifyRequest req) {
@@ -43,7 +43,7 @@ public class EventSeasonController {
         return eventSeasonService.eventSeasonNameAlert(eventSeasonNameModifyDto);
     }
 
-    @PostMapping("/eventseasonimgmodify/{id}")
+    @PostMapping("/eventSeasonImgModify/{id}")
     public ResponseVo eventSeasonImgModify(
             @PathVariable("id") Long eventSeasonId,
             @RequestPart MultipartFile file) {
@@ -56,7 +56,7 @@ public class EventSeasonController {
         return eventSeasonService.eventSeasonImgAlert(eventSeasonImgModifyDto);
     }
 
-    @PostMapping("/eventseasonalllist")
+    @PostMapping("/eventSeasonAllList")
     public EventSeasonListVo eventSeasonAllList() {
         return eventSeasonService.eventSeasonAllSelect();
     }

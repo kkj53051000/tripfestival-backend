@@ -14,17 +14,17 @@ import org.springframework.web.bind.annotation.*;
 public class EventController {
     private final EventService eventService;
 
-    @PostMapping("/eventprocess")
+    @PostMapping("/eventProcess")
     public ResponseVo eventProcess(@RequestBody EventProcessRequest req) {
         return eventService.eventInsert(req);
     }
 
-    @PostMapping("/eventremove/{id}")
+    @PostMapping("/eventRemove/{id}")
     public ResponseVo eventRemove(@PathVariable("id") Long eventId) {
         return eventService.eventDelete(eventId);
     }
 
-    @PostMapping("/eventmodify/{id}")
+    @PostMapping("/eventModify/{id}")
     public ResponseVo eventModify(
             @PathVariable("id") Long eventId,
             @RequestBody EventModifyRequest req) {

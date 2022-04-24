@@ -14,18 +14,18 @@ import org.springframework.web.bind.annotation.*;
 public class LandmarkController {
     private final LandmarkService landmarkService;
 
-    @PostMapping("/landmarkprocess")
+    @PostMapping("/landmarkProcess")
     public ResponseVo landmarkProcess(@RequestBody LandmarkProcessRequest req) {
         System.out.println(req.getName());
         return landmarkService.landmarkInsert(req);
     }
 
-    @PostMapping("/landmarkremove/{id}")
+    @PostMapping("/landmarkRemove/{id}")
     public ResponseVo landmarkRemove(@PathVariable("id") Long landmarkId) {
         return landmarkService.landmarkDelete(landmarkId);
     }
 
-    @PostMapping("/landmarkmodify/{id}")
+    @PostMapping("/landmarkModify/{id}")
     public ResponseVo landmarkModify(@PathVariable("id") Long landmarkId,
                                      @RequestBody LandmarkModifyRequest req) {
 

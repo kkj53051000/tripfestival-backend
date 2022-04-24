@@ -15,19 +15,19 @@ import org.springframework.web.multipart.MultipartFile;
 public class WorldCountryCityController {
     private final WorldCountryCityService worldCountryCityService;
 
-    @PostMapping("/worldcountrycityprocess")
+    @PostMapping("/worldCountryCityProcess")
     public ResponseVo worldCountryCityProcess(
             @RequestPart(name = "file", required = true) MultipartFile file,
             @RequestPart(name = "value", required = false) WorldCountryCityProcessRequest req) {
         return worldCountryCityService.worldCountryCityInsert(file, req);
     }
 
-    @PostMapping("/worldcountrycityremmove/{id}")
+    @PostMapping("/worldCountryCityRemmove/{id}")
     public ResponseVo worldCountryCityRemove(@PathVariable("id") Long worldCountryCityId) {
         return worldCountryCityService.worldCountryCityDelete(worldCountryCityId);
     }
 
-    @PostMapping("/worldcountrycitynamemodify/{id}")
+    @PostMapping("/worldCountryCityNameModify/{id}")
     public ResponseVo worldCountryCityNameModify(
             @PathVariable("id") Long worldCountryCityId,
             WorldCountryCityNameModifyRequest req) {

@@ -18,7 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class HotSightOneController {  // 특별한 관광지 종류 1
     private final HotSightOneService hotSightOneService;
 
-    @PostMapping("/hotsightoneprocess")
+    @PostMapping("/hotSightOneProcess")
     public ResponseVo hotSightOneProcess(
             @RequestPart MultipartFile file,
             @RequestPart HotSightOneProcessRequest req) {
@@ -27,12 +27,12 @@ public class HotSightOneController {  // 특별한 관광지 종류 1
         return hotSightOneService.hotSightOneInsert(hotSightOneProcessDto);
     }
 
-    @PostMapping("/hotsightoneremove/{id}")
+    @PostMapping("/hotSightOneRemove/{id}")
     public ResponseVo hotSightOneRemove(@PathVariable("id") Long hotSightOneId) {
         return hotSightOneService.hotSightOneDelete(hotSightOneId);
     }
 
-    @PostMapping("/hotsightonenamemodify/{id}")
+    @PostMapping("/hotSightOneNameModify/{id}")
     public ResponseVo hotSightOneNameModify(
             @PathVariable("id") Long hotSightOneId,
             @RequestBody HotSightOneNameModifyRequest req) {
@@ -42,7 +42,7 @@ public class HotSightOneController {  // 특별한 관광지 종류 1
         return hotSightOneService.hotSightOneNameAlert(hotSightOneNameModifyDto);
     }
 
-    @PostMapping("/hotsightoneimgmodify/{id}")
+    @PostMapping("/hotSightOneImgModify/{id}")
     public ResponseVo hotSightOneImgModify(
             @PathVariable("id") Long hotSightOneId,
             @RequestPart MultipartFile file) {
@@ -51,7 +51,7 @@ public class HotSightOneController {  // 특별한 관광지 종류 1
         return hotSightOneService.hotSightOneImgAlert(hotSightOneImgModifyDto);
     }
 
-    @PostMapping("/hotsightonealllist")
+    @PostMapping("/hotSightOneAllList")
     public HotSightOneListVo hotSightOneAllList() {
         return hotSightOneService.hotSightOneAllListSelect();
     }

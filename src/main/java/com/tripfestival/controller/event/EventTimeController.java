@@ -15,17 +15,17 @@ import org.springframework.web.bind.annotation.*;
 public class EventTimeController {
     private final EventTimeService eventTimeService;
 
-    @PostMapping("/eventtimeprocess")
+    @PostMapping("/eventTimeProcess")
     public ResponseVo eventTimeProcess(@RequestBody EventTimeProcessRequest req) {
         return eventTimeService.eventTimeInsert(req);
     }
 
-    @PostMapping("/eventtimeremove/{id}")
+    @PostMapping("/eventTimeRemove/{id}")
     public ResponseVo eventTimeRemove(@PathVariable("id") Long eventTimeId) {
         return eventTimeService.eventTimeDelete(eventTimeId);
     }
 
-    @PostMapping("/eventtimemodify/{id}")
+    @PostMapping("/eventTimeModify/{id}")
     public ResponseVo eventTimeModify(
             @PathVariable("id") Long eventTimeId,
             @RequestBody EventTimeModifyRequest req) {
@@ -40,7 +40,7 @@ public class EventTimeController {
         return eventTimeService.eventTimeAlert(eventTimeModifyDto);
     }
 
-    @GetMapping("/eventtimelist")
+    @GetMapping("/eventTimeList")
     public EventTimeListVo eventTimeList(@RequestParam Long eventId) {
         return eventTimeService.eventTimeListSelect(eventId);
     }

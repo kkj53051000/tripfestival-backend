@@ -17,7 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class HotSightTwoController {  // 특별한 관광지 종류 2
     private final HotSightTwoService hotSightTwoService;
 
-    @PostMapping("/hotsighttwoprocess")
+    @PostMapping("/hotSightTwoProcess")
     public ResponseVo hotSightTwoProcess(
             @RequestPart MultipartFile file,
             @RequestPart HotSightTwoProcessRequest req) {
@@ -29,12 +29,12 @@ public class HotSightTwoController {  // 특별한 관광지 종류 2
         return hotSightTwoService.hotSightTwoInsert(hotSightTwoProcessDto);
     }
 
-    @PostMapping("/hotsighttworemove/{id}")
+    @PostMapping("/hotSightTwoRemove/{id}")
     public ResponseVo hotSightTwoRemove(@PathVariable("id") Long hotSightTwoId) {
         return hotSightTwoService.hotSightTwoDelete(hotSightTwoId);
     }
 
-    @PostMapping("/hotsighttwonamemodify/{id}")
+    @PostMapping("/hotSightTwoNameModify/{id}")
     public ResponseVo hotSightTwoNameModify(
             @PathVariable("id") Long hotSightTwoId,
             @RequestBody HotSightTwoNameModifyRequest req) {
@@ -43,7 +43,7 @@ public class HotSightTwoController {  // 특별한 관광지 종류 2
         return hotSightTwoService.hostSightTwoNameAlert(hotSightTwoNameModifyDto);
     }
 
-    @PostMapping("/hotsighttwoimgmodify/{id}")
+    @PostMapping("/hotSightTwoImgModify/{id}")
     public ResponseVo hotSightTwoImgModify(
             @PathVariable("id") Long hotSightTwoId,
             @RequestPart MultipartFile file) {

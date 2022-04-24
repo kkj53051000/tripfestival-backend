@@ -16,7 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class HotspotTypeController {
     private final HotspotTypeService hotspotTypeService;
 
-    @PostMapping("/hotspottypeprocess")
+    @PostMapping("/hotspotTypeProcess")
     public ResponseVo hotspotTypeProcess(
             @RequestPart MultipartFile file,
             @RequestPart("value")HotspotTypeProcessRequest req) {
@@ -29,12 +29,12 @@ public class HotspotTypeController {
         return hotspotTypeService.hotspotTypeInsert(hotspotTypeProcessDto);
     }
 
-    @PostMapping("/hotspottyperemove/{id}")
+    @PostMapping("/hotspotTypeRemove/{id}")
     public ResponseVo hotspotTypeRemove(@PathVariable("id") Long hotspotTypeId) {
         return hotspotTypeService.hotspotTypeRemove(hotspotTypeId);
     }
 
-    @PostMapping("/hotspottypenamemodify/{id}")
+    @PostMapping("/hotspotTypeNameModify/{id}")
     public ResponseVo hotspotTypeNameModify(
             @PathVariable("id") Long hotspotTypeId,
             @RequestBody HotspotTypeNameModifyRequest req) {

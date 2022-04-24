@@ -17,7 +17,7 @@ import java.util.List;
 public class EventImgController {  // 축제 이미지
     private final EventImgService eventImgService;
 
-    @PostMapping("/eventimgprocess")
+    @PostMapping("/eventImgProcess")
     public ResponseVo eventImgProcess(
             @RequestPart List<MultipartFile> files,
             @RequestPart(name = "value")EventImgProcessRequest req) {
@@ -27,12 +27,12 @@ public class EventImgController {  // 축제 이미지
         return eventImgService.eventImgInsert(eventImgProcessDto);
     }
 
-    @PostMapping("/eventimgremove/{id}")
+    @PostMapping("/eventImgRemove/{id}")
     public ResponseVo eventImgRemove(@PathVariable("id") Long eventImgId) {
         return eventImgService.eventImgDelete(eventImgId);
     }
 
-    @GetMapping("/eventimglist")
+    @GetMapping("/eventImgList")
     public EventImgListVo eventImgList(@RequestParam Long eventId) {
         return eventImgService.eventImgList(eventId);
     }

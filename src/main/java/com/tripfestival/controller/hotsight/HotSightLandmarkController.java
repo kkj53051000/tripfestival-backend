@@ -17,17 +17,17 @@ public class HotSightLandmarkController {  // 특별한 관광지
 
     private final HotSightLandmarkService hotSightLandmarkService;
 
-    @PostMapping("/hotsightlandmarkprocess")
+    @PostMapping("/hotSightLandmarkProcess")
     public ResponseVo hotSightLandmarkProcess(@RequestBody HotSightLandmarkProcessRequest req) {
         return hotSightLandmarkService.hotSightLandmarkInsert(req);
     }
 
-    @PostMapping("/hotsightlandmarkremove/{id}")
+    @PostMapping("/hotsightLandmarkRemove/{id}")
     public ResponseVo hotSightLandmarkRemove(@PathVariable("id") Long hotSightLandmarkId) {
         return hotSightLandmarkService.hotSightLandmarkDelete(hotSightLandmarkId);
     }
 
-    @PostMapping("/hotsightlandmarkdescriptionmodify/{id}")
+    @PostMapping("/hotsightLandmarkDescriptionModify/{id}")
     public ResponseVo hotSightLandmarkDescriptionModify(
             @PathVariable("id") Long hotSightLandmarkId,
             @RequestBody HotSightLandmarkDescriptionModifyRequest req) {
@@ -38,7 +38,7 @@ public class HotSightLandmarkController {  // 특별한 관광지
         return hotSightLandmarkService.hotSightDescriptionAlert(hotSightLandmarkDescriptionModifyDto);
     }
 
-    @PostMapping("/hotsightlandmarkhotsighttwomodify/{id}")
+    @PostMapping("/hotsightLandmarkHotSightTwoModify/{id}")
     public ResponseVo hotSightLandmarkHotSightTwoModify(
             @PathVariable("id") Long hotSightLandmarkId,
             @RequestBody HotSightLandmarkHotSightTwoModifyRequest req) {

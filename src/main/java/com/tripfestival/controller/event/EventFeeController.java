@@ -15,17 +15,17 @@ import org.springframework.web.bind.annotation.*;
 public class EventFeeController {
     private final EventFeeService eventFeeService;
 
-    @PostMapping("/eventfeeprocess")
+    @PostMapping("/eventFeeProcess")
     public ResponseVo eventFeeProcess(@RequestBody EventFeeProcessRequest req) {
         return eventFeeService.eventFeeInsert(req);
     }
 
-    @PostMapping("/eventfeeremove/{id}")
+    @PostMapping("/eventFeeRemove/{id}")
     public ResponseVo eventFeeRemove(@PathVariable Long eventFeeId) {
         return eventFeeService.eventFeeDelete(eventFeeId);
     }
 
-    @PostMapping("/eventfeemodify/{id}")
+    @PostMapping("/eventFeeModify/{id}")
     public ResponseVo eventFeeModify(@PathVariable("id") Long eventFeeId, @RequestBody EventFeeModifyRequest req) {
         EventFeeModifyDto eventFeeModifyDto = EventFeeModifyDto.builder()
                 .eventFeeId(eventFeeId)
@@ -36,7 +36,7 @@ public class EventFeeController {
         return eventFeeService.eventFeeAlert(eventFeeModifyDto);
     }
 
-    @GetMapping("/eventfeelist")
+    @GetMapping("/eventFeeList")
     public EventFeeListVo eventFeeList(@RequestParam Long eventId) {
         return eventFeeService.eventFeeListSelect(eventId);
     }

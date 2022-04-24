@@ -12,12 +12,12 @@ import org.springframework.web.bind.annotation.*;
 public class LandmarkReviewController {
     private final LandmarkReviewService landmarkReviewService;
 
-    @PostMapping("/landmarkreviewprocess")
+    @PostMapping("/landmarkReviewProcess")
     public ResponseVo landmarkReviewProcess(@RequestBody LandmarkReviewProcessRequest req) {
         return landmarkReviewService.landmarkReviewInsert(req);
     }
 
-    @PostMapping("/landmarkreviewremove/{id}")
+    @PostMapping("/landmarkReviewRemove/{id}")
     public ResponseVo landmarkReviewRemove(@PathVariable("id") Long landmarkReviewId) {
         return landmarkReviewService.landmarkReviewDelete(landmarkReviewId);
     }

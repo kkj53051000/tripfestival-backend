@@ -14,17 +14,17 @@ import org.springframework.web.bind.annotation.*;
 public class LandmarkFeeController {
     private LandmarkFeeService landmarkFeeService;
 
-    @PostMapping("/landmarkfeeprocess")
+    @PostMapping("/landmarkFeeProcess")
     public ResponseVo landmarkFeeProcess(@RequestBody LandmarkFeeProcessRequest req) {
         return landmarkFeeService.landmarkFeeInsert(req);
     }
 
-    @PostMapping("/landmarkfeeremove/{id}")
+    @PostMapping("/landmarkFeeRemove/{id}")
     public ResponseVo landmarkFeeRemove(@PathVariable("id") Long landmarkFeeId) {
         return landmarkFeeService.landmarkFeeDelete(landmarkFeeId);
     }
 
-    @PostMapping("/landmarkfeemodify/{id}")
+    @PostMapping("/landmarkFeeModify/{id}")
     public ResponseVo landmarkFeeModify(@PathVariable("id") Long landmarkFeeId, @RequestBody LandmarkFeeModifyRequest req) {
         LandmarkFeeModifyDto landmarkFeeModifyDto = LandmarkFeeModifyDto.builder()
                 .landmarkFeeId(landmarkFeeId)

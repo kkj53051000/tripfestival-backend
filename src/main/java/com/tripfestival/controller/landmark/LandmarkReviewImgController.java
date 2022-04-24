@@ -16,7 +16,7 @@ import java.util.List;
 public class LandmarkReviewImgController {
     private final LandmarkReviewImgService landmarkReviewImgService;
 
-    @PostMapping("/landmarkreviewimgprocess")
+    @PostMapping("/landmarkReviewImgProcess")
     public ResponseVo landmarkReviewImgProcess(
             @RequestPart List<MultipartFile> files,
             @RequestPart(name = "value")LandmarkReviewImgProcessRequest req) {
@@ -26,7 +26,7 @@ public class LandmarkReviewImgController {
         return landmarkReviewImgService.landmarkReviewImgInsert(landmarkReviewImgProcessDto);
     }
 
-    @PostMapping("/landmarkreviewimgremove/{id}")
+    @PostMapping("/landmarkReviewImgRemove/{id}")
     public ResponseVo landmarkReviewImgRemove(@PathVariable("id") Long landmarkReviewImgId) {
         return landmarkReviewImgService.landmarkReviewImgDelete(landmarkReviewImgId);
     }

@@ -14,17 +14,17 @@ import org.springframework.web.bind.annotation.*;
 public class LandmarkTimeController {
     private final LandmarkTimeService landmarkTimeService;
 
-    @PostMapping("/landmarktimeprocess")
+    @PostMapping("/landmarkTimeProcess")
     public ResponseVo landmarkTimeProcess(@RequestBody LandmarkTimeProcessRequest req) {
         return landmarkTimeService.landmarkTimeInsert(req);
     }
 
-    @PostMapping("/landmarktimeremove/{id}")
+    @PostMapping("/landmarkTimeRemove/{id}")
     public ResponseVo landmarkTimeRemove(@PathVariable("id") Long landmarkTimeId) {
         return landmarkTimeService.landmarkTimeDelete(landmarkTimeId);
     }
 
-    @PostMapping("/landmarktimemodify/{id}")
+    @PostMapping("/landmarkTimeModify/{id}")
     public ResponseVo landmarkTimeModify(
             @PathVariable("id") Long landmarkTimeId,
             @RequestBody LandmarkTimeModifyRequest req) {

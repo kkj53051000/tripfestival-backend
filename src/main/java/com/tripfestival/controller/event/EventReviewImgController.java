@@ -16,7 +16,7 @@ import java.util.List;
 public class EventReviewImgController {
     private final EventReviewImgService eventReviewImgService;
 
-    @PostMapping("/eventreviewimgprocess")
+    @PostMapping("/eventReviewImgProcess")
     public ResponseVo eventReviewImgProcess(
             @RequestPart List<MultipartFile> files,
             @RequestPart(name = "value") EventReviewImgProcessRequest req) {
@@ -26,7 +26,7 @@ public class EventReviewImgController {
         return eventReviewImgService.eventReviewImgInsert(eventReviewImgProcessDto);
     }
 
-    @PostMapping("/eventreviewimgremove/{id}")
+    @PostMapping("/eventReviewImgRemove/{id}")
     public ResponseVo eventReviewImgRemove(@PathVariable("id") Long eventReviewImgId) {
         return eventReviewImgService.eventReviewImgDelete(eventReviewImgId);
     }

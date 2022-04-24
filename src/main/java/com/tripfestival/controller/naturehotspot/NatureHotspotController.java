@@ -16,17 +16,17 @@ import org.springframework.web.bind.annotation.RestController;
 public class NatureHotspotController {  // 자연관광지
     private final NatureHotspotService natureHotspotService;
 
-    @PostMapping("/naturehotspotprocess")
+    @PostMapping("/natureHotspotProcess")
     public ResponseVo natureHotspotProcess(@RequestBody NatureHotspotProcessRequest req) {
         return natureHotspotService.natureHotspotInsert(req);
     }
 
-    @PostMapping("/naturehotspotremove/{id}")
+    @PostMapping("/natureHotspotRemove/{id}")
     public ResponseVo natureHotspotRemove(@PathVariable("id") Long natureHotspotId) {
         return natureHotspotService.natureHotspotDelete(natureHotspotId);
     }
 
-    @PostMapping("/naturehotspotnaturehotspottypemodify/{id}")
+    @PostMapping("/natureHotspotNatureHotspotTypeModify/{id}")
     public ResponseVo natureHotspotNatureHotspotTypeModify(
             @PathVariable("id") Long natureHotspotId,
             @RequestBody NatureHotspotNatureHotspotTypeModifyRequest req) {

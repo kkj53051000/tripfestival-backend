@@ -18,7 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class EventCategoryController {  // 축제 종류
     private final EventCategoryService eventCategoryService;
 
-    @PostMapping("/eventcategoryprocess")
+    @PostMapping("/eventCategoryProcess")
     public ResponseVo eventCategoryProcess(
             @RequestPart MultipartFile file,
             @RequestPart("value") EventCategoryProcessRequest req) {
@@ -28,12 +28,12 @@ public class EventCategoryController {  // 축제 종류
         return eventCategoryService.eventCategoryInsert(eventCategoryProcessDto);
     }
 
-    @PostMapping("/eventcategoryremove/{id}")
+    @PostMapping("/eventCategoryRemove/{id}")
     public ResponseVo eventCategoryRemove(@PathVariable("id") Long eventCategoryId) {
         return eventCategoryService.eventCategoryDelete(eventCategoryId);
     }
 
-    @PostMapping("/eventcategorynamemodify/{id}")
+    @PostMapping("/eventCategoryNameModify/{id}")
     public ResponseVo eventCategoryNameModify(
             @PathVariable("id") Long eventCategoryId,
             @RequestBody EventCategoryModifyRequest req) {
@@ -44,7 +44,7 @@ public class EventCategoryController {  // 축제 종류
         return eventCategoryService.eventCategoryNameModify(eventCategoryNameModifyDto);
     }
 
-    @PostMapping("/eventcategoryimgmodify/{id}")
+    @PostMapping("/eventCategoryImgModify/{id}")
     public ResponseVo eventCategoryImgModify(
             @PathVariable("id") Long eventCategoryId,
             @RequestPart MultipartFile file) {
@@ -55,7 +55,7 @@ public class EventCategoryController {  // 축제 종류
         return eventCategoryService.eventCategoryImgModify(eventCategoryImgModifyDto);
     }
 
-    @PostMapping("/eventcategoryalllist")
+    @PostMapping("/eventCategoryAllList")
     public EventCategoryAllListVo eventCategoryAllList() {
         return eventCategoryService.eventCategoryAllSelect();
     }
