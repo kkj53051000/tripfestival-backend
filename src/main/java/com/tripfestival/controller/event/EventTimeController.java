@@ -4,6 +4,7 @@ import com.tripfestival.dto.event.EventTimeModifyDto;
 import com.tripfestival.request.event.EventTimeModifyRequest;
 import com.tripfestival.request.event.EventTimeProcessRequest;
 import com.tripfestival.service.event.EventTimeService;
+import com.tripfestival.vo.EventTimeListVo;
 import com.tripfestival.vo.ResponseVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -37,5 +38,10 @@ public class EventTimeController {
                 .build();
 
         return eventTimeService.eventTimeAlert(eventTimeModifyDto);
+    }
+
+    @GetMapping("/eventtimelist")
+    public EventTimeListVo eventTimeList(@RequestParam Long eventId) {
+        return eventTimeService.eventTimeListSelect(eventId);
     }
 }

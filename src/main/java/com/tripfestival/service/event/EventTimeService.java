@@ -8,6 +8,7 @@ import com.tripfestival.exception.event.EventTimeNotFoundException;
 import com.tripfestival.repository.event.EventRepository;
 import com.tripfestival.repository.event.EventTimeRepository;
 import com.tripfestival.request.event.EventTimeProcessRequest;
+import com.tripfestival.vo.EventTimeListVo;
 import com.tripfestival.vo.Response;
 import com.tripfestival.vo.ResponseVo;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalTime;
+import java.util.List;
 
 @Service
 @Transactional
@@ -64,5 +66,15 @@ public class EventTimeService {
         }
 
         return new ResponseVo(Response.SUCCESS, null);
+    }
+
+    public EventTimeListVo eventTimeListSelect(Long eventId) {
+        Event event = eventRepository.findById(eventId)
+                .orElseThrow(() -> new EventTimeNotFoundException());
+
+        List<EventTime> eventTimeList = eventTimeRepository.findByEvent(event)
+                .orElseThrow(() -> new EventTimeNotFoundException());
+
+        return new EventTimeListVo(eventTimeList);
     }
 }
