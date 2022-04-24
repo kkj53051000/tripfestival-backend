@@ -20,7 +20,7 @@ public class NatureHotspotTypeController {
     @PostMapping("/naturehotspottypeprocess")
     public ResponseVo natureHotspotTypeProcess(
             @RequestPart MultipartFile file,
-            @RequestPart("value")NatureHotspotTypeRequest req) {
+            @RequestPart("value") NatureHotspotTypeRequest req) {
 
         NatureHotspotTypeDto natureHotspotTypeDto = NatureHotspotTypeDto.builder()
                 .name(req.getName())
