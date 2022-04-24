@@ -5,5 +5,6 @@ import lombok.Getter;
 @Getter
 public class LandmarkTimeModifyRequest {
     private String title;
-    private String time;
+    private String startTime;
+    private String endTime;
 }

@@ -32,7 +32,8 @@ public class EventTimeController {
         EventTimeModifyDto eventTimeModifyDto = EventTimeModifyDto.builder()
                 .eventTimeId(eventTimeId)
                 .title(req.getTitle())
-                .time(req.getTime())
+                .startTime(req.getStartTime())
+                .endTime(req.getEndTime())
                 .build();
 
         return eventTimeService.eventTimeAlert(eventTimeModifyDto);

@@ -12,6 +12,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalTime;
+
 @Service
 @Transactional
 @RequiredArgsConstructor
@@ -23,7 +25,8 @@ public class LandmarkTimeService {
     public ResponseVo landmarkTimeInsert(LandmarkTimeProcessRequest req) {
         LandmarkTime landmarkTime = LandmarkTime.builder()
                 .title(req.getTitle())
-                .time(req.getTime())
+                .startTime(LocalTime.parse(req.getStartTime()))
+                .endTime(LocalTime.parse(req.getEndTime()))
                 .landmark(landmarkRepository.findById(req.getLandmarkId()).orElseThrow(() -> new LandmarkTimeNotFoundException()))
                 .build();
 
@@ -48,8 +51,11 @@ public class LandmarkTimeService {
         if(req.getTitle() != null) {
             landmarkTime.setTitle(req.getTitle());
         }
-        if(req.getTime() != null) {
-            landmarkTime.setTime(req.getTime());
+        if(req.getStartTime() != null) {
+            landmarkTime.setStartTime(LocalTime.parse(req.getStartTime()));
+        }
+        if(req.getEndTime() != null) {
+            landmarkTime.setEndTime(LocalTime.parse(req.getEndTime()));
         }
 
         return new ResponseVo(Response.SUCCESS, null);

@@ -14,6 +14,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalTime;
+
 @Service
 @Transactional
 @RequiredArgsConstructor
@@ -28,7 +30,8 @@ public class EventTimeService {
 
         EventTime eventTime = EventTime.builder()
                 .title(req.getTitle())
-                .time(req.getTime())
+                .startTime(LocalTime.parse(req.getStartTime()))
+                .endTime(LocalTime.parse(req.getEndTime()))
                 .event(event)
                 .build();
 
@@ -53,8 +56,11 @@ public class EventTimeService {
         if(req.getTitle() != null) {
             eventTime.setTitle(req.getTitle());
         }
-        if(req.getTime() != null) {
-            eventTime.setTime(req.getTime());
+        if(req.getStartTime() != null) {
+            eventTime.setStartTime(LocalTime.parse(req.getStartTime()));
+        }
+        if(req.getEndTime() != null) {
+            eventTime.setEndTime(LocalTime.parse(req.getEndTime()));
         }
 
         return new ResponseVo(Response.SUCCESS, null);

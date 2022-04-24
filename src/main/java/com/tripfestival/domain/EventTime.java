@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalTime;
 
 @Entity
 @Data
@@ -23,15 +24,10 @@ public class EventTime {
     private Long id;
 
     private String title;
-    private String time;
+    private LocalTime startTime;
+    private LocalTime endTime;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "event_id")
     private Event event;
-
-    public EventTime(String title, String time, Event event) {
-        this.title = title;
-        this.time = time;
-        this.event = event;
-    }
 }

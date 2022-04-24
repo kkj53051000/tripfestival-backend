@@ -25,11 +25,14 @@ public class LandmarkTimeController {
     }
 
     @PostMapping("/landmarktimemodify/{id}")
-    public ResponseVo landmarkTimeModify(@PathVariable("id") Long landmarkTimeId, @RequestBody LandmarkTimeModifyRequest req) {
+    public ResponseVo landmarkTimeModify(
+            @PathVariable("id") Long landmarkTimeId,
+            @RequestBody LandmarkTimeModifyRequest req) {
         LandmarkTimeModifyDto landmarkTimeModifyDto = LandmarkTimeModifyDto.builder()
                 .landmarkTimeId(landmarkTimeId)
                 .title(req.getTitle())
-                .time(req.getTime())
+                .startTime(req.getStartTime())
+                .endTime(req.getEndTime())
                 .build();
 
         return landmarkTimeService.landmarkTimeAlert(landmarkTimeModifyDto);

@@ -8,5 +8,6 @@ import lombok.Getter;
 public class LandmarkTimeModifyDto {
     private Long landmarkTimeId;
     private String title;
-    private String time;
+    private String startTime;
+    private String endTime;
 }

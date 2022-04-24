@@ -8,5 +8,6 @@ import lombok.Getter;
 public class EventTimeModifyDto {
     private Long eventTimeId;
     private String title;
-    private String time;
+    private String startTime;
+    private String endTime;
 }
