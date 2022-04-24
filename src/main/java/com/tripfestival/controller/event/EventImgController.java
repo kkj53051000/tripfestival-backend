@@ -3,6 +3,7 @@ package com.tripfestival.controller.event;
 import com.tripfestival.dto.event.EventImgProcessDto;
 import com.tripfestival.request.event.EventImgProcessRequest;
 import com.tripfestival.service.event.EventImgService;
+import com.tripfestival.vo.EventImgListVo;
 import com.tripfestival.vo.ResponseVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +14,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api")
-public class EventImgController {
+public class EventImgController {  // 축제 이미지
     private final EventImgService eventImgService;
 
     @PostMapping("/eventimgprocess")
@@ -29,5 +30,10 @@ public class EventImgController {
     @PostMapping("/eventimgremove/{id}")
     public ResponseVo eventImgRemove(@PathVariable("id") Long eventImgId) {
         return eventImgService.eventImgDelete(eventImgId);
+    }
+
+    @GetMapping("/eventimglist")
+    public EventImgListVo eventImgList(@RequestParam Long eventId) {
+        return eventImgService.eventImgList(eventId);
     }
 }

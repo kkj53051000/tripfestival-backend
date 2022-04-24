@@ -1,7 +1,6 @@
 package com.tripfestival.controller.event;
 
 import com.tripfestival.dto.event.EventFeeModifyDto;
-import com.tripfestival.request.event.EventFeeListRequest;
 import com.tripfestival.request.event.EventFeeModifyRequest;
 import com.tripfestival.request.event.EventFeeProcessRequest;
 import com.tripfestival.service.event.EventFeeService;
@@ -37,8 +36,8 @@ public class EventFeeController {
         return eventFeeService.eventFeeAlert(eventFeeModifyDto);
     }
 
-    @PostMapping("/eventfeelist")
-    public EventFeeListVo eventFeeList(@RequestBody EventFeeListRequest req) {
-        return eventFeeService.eventFeeListSelect(req);
+    @GetMapping("/eventfeelist")
+    public EventFeeListVo eventFeeList(@RequestParam Long eventId) {
+        return eventFeeService.eventFeeListSelect(eventId);
     }
 }

@@ -8,6 +8,7 @@ import com.tripfestival.exception.event.EventNotFoundException;
 import com.tripfestival.repository.event.EventImgRepository;
 import com.tripfestival.repository.event.EventRepository;
 import com.tripfestival.service.file.FileService;
+import com.tripfestival.vo.EventImgListVo;
 import com.tripfestival.vo.Response;
 import com.tripfestival.vo.ResponseVo;
 import lombok.RequiredArgsConstructor;
@@ -52,5 +53,15 @@ public class EventImgService {
         eventImgRepository.delete(eventImg);
 
         return new ResponseVo(Response.SUCCESS, null);
+    }
+
+    public EventImgListVo eventImgList(Long eventId) {
+        Event event = eventRepository.findById(eventId)
+                .orElseThrow(() -> new EventNotFoundException());
+
+        List<EventImg> eventImgList = eventImgRepository.findByEvent(event)
+                .orElseThrow(() -> new EventImgNotFoundException());
+
+        return new EventImgListVo(eventImgList);
     }
 }
