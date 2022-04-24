@@ -7,12 +7,16 @@ import com.tripfestival.exception.event.EventFeeNotFoundException;
 import com.tripfestival.exception.event.EventNotFoundException;
 import com.tripfestival.repository.event.EventFeeRepository;
 import com.tripfestival.repository.event.EventRepository;
+import com.tripfestival.request.event.EventFeeListRequest;
 import com.tripfestival.request.event.EventFeeProcessRequest;
+import com.tripfestival.vo.EventFeeListVo;
 import com.tripfestival.vo.Response;
 import com.tripfestival.vo.ResponseVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @Transactional
@@ -59,6 +63,16 @@ public class EventFeeService {
         }
 
         return new ResponseVo(Response.SUCCESS, null);
+    }
+
+    public EventFeeListVo eventFeeListSelect(EventFeeListRequest req) {
+        Event event = eventRepository.findById(req.getEventId())
+                .orElseThrow(() -> new EventNotFoundException());
+
+        List<EventFee> eventFeeList = eventFeeRepository.findByEvent(event)
+                .orElseThrow(() -> new EventFeeNotFoundException());
+
+        return new EventFeeListVo(eventFeeList);
     }
 
 }
