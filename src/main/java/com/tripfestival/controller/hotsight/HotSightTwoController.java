@@ -6,6 +6,7 @@ import com.tripfestival.dto.hotSight.HotSightTwoProcessDto;
 import com.tripfestival.request.hotsight.HotSightTwoNameModifyRequest;
 import com.tripfestival.request.hotsight.HotSightTwoProcessRequest;
 import com.tripfestival.service.hotsight.HotSightTwoService;
+import com.tripfestival.vo.HotSightTwoListVo;
 import com.tripfestival.vo.ResponseVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -50,5 +51,10 @@ public class HotSightTwoController {  // 특별한 관광지 종류 2
         HotSightTwoImgModifyDto hotSightTwoImgModifyDto = new HotSightTwoImgModifyDto(hotSightTwoId, file);
 
         return hotSightTwoService.hotSightTwoImgAlert(hotSightTwoImgModifyDto);
+    }
+
+    @PostMapping("/hotSightTwoList")
+    public HotSightTwoListVo hotSightTwoList(@RequestParam Long hotSightOneId) {
+        return hotSightTwoService.hotSightTwoListSelect(hotSightOneId);
     }
 }
