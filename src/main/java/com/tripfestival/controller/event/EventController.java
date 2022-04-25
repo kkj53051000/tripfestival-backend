@@ -28,17 +28,7 @@ public class EventController {
     public ResponseVo eventModify(
             @PathVariable("id") Long eventId,
             @RequestBody EventModifyRequest req) {
-        EventModifyDto eventModifyDto = EventModifyDto.builder()
-                .eventId(eventId)
-                .name(req.getName())
-                .description(req.getDescription())
-                .address(req.getAddress())
-                .visitor(req.getVisitor())
-                .inout(req.getInout())
-                .worldCountryCityId(req.getWorldCountryCityId())
-                .eventCategoryId(req.getEventCategoryId())
-                .eventSeasonId(req.getEventSeasonId())
-                .build();
+        EventModifyDto eventModifyDto = new EventModifyDto(eventId, req);
 
         return eventService.eventAlert(eventModifyDto);
     }

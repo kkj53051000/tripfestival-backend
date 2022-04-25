@@ -9,7 +9,7 @@ public class EventModifyRequest {
     private String address;
     private Integer visitor;
     private Boolean inout;
-    private Long worldCountryCityId;
+    private Long worldCountryCityRegionId;
     private Long eventCategoryId;
     private Long eventSeasonId;
 }

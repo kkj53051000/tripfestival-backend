@@ -4,7 +4,9 @@ import com.tripfestival.domain.landmark.Landmark;
 import com.tripfestival.dto.landmark.LandmarkModifyDto;
 import com.tripfestival.exception.landmark.LandmarkNotFoundException;
 import com.tripfestival.exception.world.WorldCountryCityNotFoundException;
+import com.tripfestival.exception.world.WorldCountryCityRegionNotFoundException;
 import com.tripfestival.repository.landmark.LandmarkRepository;
+import com.tripfestival.repository.world.WorldCountryCityRegionRepository;
 import com.tripfestival.repository.world.WorldCountryCityRepository;
 import com.tripfestival.request.landmark.LandmarkProcessRequest;
 import com.tripfestival.vo.Response;
@@ -21,6 +23,8 @@ public class LandmarkService {
 
     private final WorldCountryCityRepository worldCountryCityRepository;
 
+    private final WorldCountryCityRegionRepository worldCountryCityRegionRepository;
+
     public ResponseVo landmarkInsert(LandmarkProcessRequest req) {
 
         Landmark landmark = Landmark.builder()
@@ -28,7 +32,8 @@ public class LandmarkService {
                 .description(req.getDescription())
                 .address(req.getAddress())
                 .homepage(req.getHomepage())
-                .worldCountryCity(worldCountryCityRepository.findById(req.getWorldCountryCityId()).orElseThrow(() -> new LandmarkNotFoundException()))
+                .worldCountryCityRegion(worldCountryCityRegionRepository.findById(req.getWorldCountryCityRegionId())
+                        .orElseThrow(() -> new WorldCountryCityRegionNotFoundException()))
                 .build();
 
         landmarkRepository.save(landmark);
@@ -61,9 +66,9 @@ public class LandmarkService {
         if(req.getHomepage() != null){
             landmark.setHomepage(req.getHomepage());
         }
-        if(req.getWorldCountryCityId() != null){
-            landmark.setWorldCountryCity(worldCountryCityRepository.findById(req.getWorldCountryCityId())
-                    .orElseThrow(() -> new WorldCountryCityNotFoundException()));
+        if(req.getWorldCountryCityRegionId() != null){
+            landmark.setWorldCountryCityRegion(worldCountryCityRegionRepository.findById(req.getWorldCountryCityRegionId())
+                    .orElseThrow(() -> new WorldCountryCityRegionNotFoundException()));
         }
 
         return new ResponseVo(Response.SUCCESS, null);

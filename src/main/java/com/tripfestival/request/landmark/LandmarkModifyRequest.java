@@ -8,5 +8,5 @@ public class LandmarkModifyRequest {
     private String description;
     private String address;
     private String homepage;
-    private Long worldCountryCityId;
+    private Long worldCountryCityRegionId;
 }

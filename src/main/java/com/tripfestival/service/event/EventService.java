@@ -3,15 +3,16 @@ package com.tripfestival.service.event;
 import com.tripfestival.domain.event.Event;
 import com.tripfestival.domain.event.EventCategory;
 import com.tripfestival.domain.event.EventSeason;
-import com.tripfestival.domain.world.WorldCountryCity;
+import com.tripfestival.domain.world.WorldCountryCityRegion;
 import com.tripfestival.dto.event.EventModifyDto;
 import com.tripfestival.exception.event.EventCategoryNotFoundException;
 import com.tripfestival.exception.event.EventNotFoundException;
 import com.tripfestival.exception.event.EventSeasonNotFoundException;
-import com.tripfestival.exception.world.WorldCountryCityNotFoundException;
+import com.tripfestival.exception.world.WorldCountryCityRegionNotFoundException;
 import com.tripfestival.repository.event.EventCategoryRepository;
 import com.tripfestival.repository.event.EventRepository;
 import com.tripfestival.repository.event.EventSeasonRepository;
+import com.tripfestival.repository.world.WorldCountryCityRegionRepository;
 import com.tripfestival.repository.world.WorldCountryCityRepository;
 import com.tripfestival.request.event.EventProcessRequest;
 import com.tripfestival.vo.Response;
@@ -28,14 +29,16 @@ public class EventService {
 
     private final WorldCountryCityRepository worldCountryCityRepository;
 
+    private final WorldCountryCityRegionRepository worldCountryCityRegionRepository;
+
     private final EventCategoryRepository eventCategoryRepository;
 
     private final EventSeasonRepository eventSeasonRepository;
 
     public ResponseVo eventInsert(EventProcessRequest req) {
 
-        WorldCountryCity worldCountryCity = worldCountryCityRepository.findById(req.getWorldCountryCityId())
-                .orElseThrow(() -> new WorldCountryCityNotFoundException());
+        WorldCountryCityRegion worldCountryCityRegion = worldCountryCityRegionRepository.findById(req.getWorldCountryCityRegionId())
+                .orElseThrow(() -> new WorldCountryCityRegionNotFoundException());
 
         EventCategory eventCategory = eventCategoryRepository.findById(req.getEventCategoryId())
                 .orElseThrow(() -> new EventCategoryNotFoundException());
@@ -49,7 +52,7 @@ public class EventService {
                 .address(req.getAddress())
                 .visitor(req.getVisitor())
                 .inout(req.isInout())
-                .worldCountryCity(worldCountryCity)
+                .worldCountryCityRegion(worldCountryCityRegion)
                 .eventCategory(eventCategory)
                 .eventSeason(eventSeason)
                 .build();
@@ -87,11 +90,11 @@ public class EventService {
         if(req.getInout() != null){
             event.setInout(req.getInout());
         }
-        if(req.getWorldCountryCityId() != null){
-            WorldCountryCity worldCountryCity = worldCountryCityRepository.findById(req.getWorldCountryCityId())
-                    .orElseThrow(() -> new WorldCountryCityNotFoundException());
+        if(req.getWorldCountryCityRegionId() != null){
+            WorldCountryCityRegion worldCountryCityRegion = worldCountryCityRegionRepository.findById(req.getWorldCountryCityRegionId())
+                    .orElseThrow(() -> new WorldCountryCityRegionNotFoundException());
 
-            event.setWorldCountryCity(worldCountryCity);
+            event.setWorldCountryCityRegion(worldCountryCityRegion);
         }
         if(req.getEventCategoryId() != null) {
             EventCategory eventCategory = eventCategoryRepository.findById(req.getEventCategoryId())

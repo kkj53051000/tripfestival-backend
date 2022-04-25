@@ -10,13 +10,13 @@ public class LandmarkProcessRequest {
     private String description;
     private String address;
     private String homepage;
-    private Long worldCountryCityId;
+    private Long worldCountryCityRegionId;
 
-    public LandmarkProcessRequest(String name, String description, String address, String homepage, Long worldCountryCityId) {
+    public LandmarkProcessRequest(String name, String description, String address, String homepage, Long worldCountryCityRegionId) {
         this.name = name;
         this.description = description;
         this.address = address;
         this.homepage = homepage;
-        this.worldCountryCityId = worldCountryCityId;
+        this.worldCountryCityRegionId = worldCountryCityRegionId;
     }
 }

@@ -1,6 +1,7 @@
 package com.tripfestival.domain.event;
 
 import com.tripfestival.domain.world.WorldCountryCity;
+import com.tripfestival.domain.world.WorldCountryCityRegion;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -32,8 +33,8 @@ public class Event {  // 축제
 
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "wordcountrycity_id")
-    private WorldCountryCity worldCountryCity;
+    @JoinColumn(name = "wordcountrycityregion_id")
+    private WorldCountryCityRegion worldCountryCityRegion;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "eventcategory_id")
@@ -43,13 +44,13 @@ public class Event {  // 축제
     @JoinColumn(name = "eventseason_id")
     private EventSeason eventSeason;
 
-    public Event(String name, String description, String address, Integer visitor, Boolean inout, WorldCountryCity worldCountryCity, EventCategory eventCategory, EventSeason eventSeason) {
+    public Event(String name, String description, String address, Integer visitor, Boolean inout, WorldCountryCityRegion worldCountryCityRegion, EventCategory eventCategory, EventSeason eventSeason) {
         this.name = name;
         this.description = description;
         this.address = address;
         this.visitor = visitor;
         this.inout = inout;
-        this.worldCountryCity = worldCountryCity;
+        this.worldCountryCityRegion = worldCountryCityRegion;
         this.eventCategory = eventCategory;
         this.eventSeason = eventSeason;
     }

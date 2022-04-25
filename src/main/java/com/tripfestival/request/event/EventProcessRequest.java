@@ -9,7 +9,7 @@ public class EventProcessRequest {
     private String address;
     private int visitor;
     private boolean inout;
-    private Long worldCountryCityId;
+    private Long worldCountryCityRegionId;
     private Long eventCategoryId;
     private Long eventSeasonId;
 }

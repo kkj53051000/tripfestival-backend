@@ -1,5 +1,6 @@
 package com.tripfestival.dto.event;
 
+import com.tripfestival.request.event.EventModifyRequest;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -12,7 +13,19 @@ public class EventModifyDto {
     private String address;
     private Integer visitor;
     private Boolean inout;
-    private Long worldCountryCityId;
+    private Long worldCountryCityRegionId;
     private Long eventCategoryId;
     private Long eventSeasonId;
+
+    public EventModifyDto(Long eventId, EventModifyRequest req) {
+        this.eventId = eventId;
+        this.name = req.getName();
+        this.description = req.getDescription();
+        this.address = req.getAddress();
+        this.visitor = req.getVisitor();
+        this.inout = req.getInout();
+        this.worldCountryCityRegionId = req.getWorldCountryCityRegionId();
+        this.eventCategoryId = req.getEventCategoryId();
+        this.eventSeasonId = req.getEventSeasonId();
+    }
 }

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api")
-public class LandmarkController {
+public class LandmarkController {  // 관광지
     private final LandmarkService landmarkService;
 
     @PostMapping("/landmarkProcess")
@@ -35,7 +35,7 @@ public class LandmarkController {
                 .description(req.getDescription())
                 .address(req.getAddress())
                 .homepage(req.getHomepage())
-                .worldCountryCityId(req.getWorldCountryCityId())
+                .worldCountryCityRegionId(req.getWorldCountryCityRegionId())
                 .build();
 
         return landmarkService.landmarkAlert(landmarkModifyDto);

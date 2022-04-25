@@ -1,6 +1,7 @@
 package com.tripfestival.domain.landmark;
 
 import com.tripfestival.domain.world.WorldCountryCity;
+import com.tripfestival.domain.world.WorldCountryCityRegion;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -30,6 +31,6 @@ public class Landmark {  // 관광지
     private String homepage;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "wordcountrycity_id")
-    private WorldCountryCity worldCountryCity;
+    @JoinColumn(name = "wordcountrycityregion_id")
+    private WorldCountryCityRegion worldCountryCityRegion;
 }
