@@ -4,11 +4,9 @@ import com.tripfestival.dto.naturehotspot.NatureHotspotTypeDto;
 import com.tripfestival.request.naturehotspot.NatureHotspotTypeRequest;
 import com.tripfestival.service.naturehotspot.NatureHotspotTypeService;
 import com.tripfestival.vo.ResponseVo;
+import com.tripfestival.vo.naturehotspot.NatureHotspotTypeAllListVo;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 @RestController
@@ -32,5 +30,10 @@ public class NatureHotspotTypeController {  // 자연관광지 타입
     @PostMapping("/natureHotspotTypeRemove/{id}")
     public ResponseVo natureHotspotTypeRemove(@PathVariable("id") Long natureHotspotTypeId) {
         return natureHotspotTypeService.natureHotspotTypeDelete(natureHotspotTypeId);
+    }
+
+    @GetMapping("/natureHotspotTypeAllList")
+    public NatureHotspotTypeAllListVo natureHotspotTypeAllList() {
+        return natureHotspotTypeService.natureHotspotTypeAllSelect();
     }
 }

@@ -7,9 +7,12 @@ import com.tripfestival.repository.naturehotspot.NatureHotspotTypeRepository;
 import com.tripfestival.service.file.FileService;
 import com.tripfestival.vo.Response;
 import com.tripfestival.vo.ResponseVo;
+import com.tripfestival.vo.naturehotspot.NatureHotspotTypeAllListVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @Transactional
@@ -39,5 +42,11 @@ public class NatureHotspotTypeService {
         natureHotspotTypeRepository.delete(natureHotspotType);
 
         return new ResponseVo(Response.SUCCESS, null);
+    }
+
+    public NatureHotspotTypeAllListVo natureHotspotTypeAllSelect() {
+        List<NatureHotspotType> natureHotspotTypeList = natureHotspotTypeRepository.findAll();
+
+        return new NatureHotspotTypeAllListVo(natureHotspotTypeList);
     }
 }
