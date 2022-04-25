@@ -4,6 +4,7 @@ import com.tripfestival.dto.landmark.LandmarkReviewImgProcessDto;
 import com.tripfestival.request.landmark.LandmarkReviewImgProcessRequest;
 import com.tripfestival.service.landmark.LandmarkReviewImgService;
 import com.tripfestival.vo.ResponseVo;
+import com.tripfestival.vo.landmark.LandmarkReviewImgListVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -29,5 +30,10 @@ public class LandmarkReviewImgController {
     @PostMapping("/landmarkReviewImgRemove/{id}")
     public ResponseVo landmarkReviewImgRemove(@PathVariable("id") Long landmarkReviewImgId) {
         return landmarkReviewImgService.landmarkReviewImgDelete(landmarkReviewImgId);
+    }
+
+    @GetMapping("/landmarkReviewImgList")
+    public LandmarkReviewImgListVo landmarkReviewImgList(@RequestParam Long landmarkReviewId) {
+        return landmarkReviewImgService.landmarkReviewImgListSelect(landmarkReviewId);
     }
 }
