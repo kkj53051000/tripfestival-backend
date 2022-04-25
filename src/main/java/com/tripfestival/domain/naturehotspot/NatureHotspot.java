@@ -13,15 +13,13 @@ import javax.persistence.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@TableGenerator(
-        name = "NATUREHOTSPOT_SEQ_GENERATOR",
-        table = "TRIPFESTIVAL_SEQUENCES",
-        pkColumnValue = "NATUREHOTSPOT_SEQ", allocationSize = 10)
 public class NatureHotspot {  // 자연 관광지
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "NATUREHOTSPOT_SEQ_GENERATOR")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "naturehotspot_id")
     private Long id;
+
+    private String img;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "landmark_id")
@@ -30,9 +28,4 @@ public class NatureHotspot {  // 자연 관광지
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "naturehotspottype_id")
     private NatureHotspotType natureHotspotType;
-
-    public NatureHotspot(Landmark landmark, NatureHotspotType natureHotspotType) {
-        this.landmark = landmark;
-        this.natureHotspotType = natureHotspotType;
-    }
 }
