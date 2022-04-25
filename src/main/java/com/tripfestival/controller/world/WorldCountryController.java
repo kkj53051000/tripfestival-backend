@@ -5,6 +5,7 @@ import com.tripfestival.request.world.WorldCountryModifyRequest;
 import com.tripfestival.request.world.WorldCountryProcessRequest;
 import com.tripfestival.service.world.WorldCountryService;
 import com.tripfestival.vo.ResponseVo;
+import com.tripfestival.vo.world.WorldCountryNameListVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -35,5 +36,10 @@ public class WorldCountryController {
         WorldCountryModifyDto worldCountryModifyDto = new WorldCountryModifyDto(worldCountryId, req);
 
         return worldCountryService.worldCountryAlert(worldCountryModifyDto);
+    }
+
+    @GetMapping("/worldCountryNameList")
+    public WorldCountryNameListVo worldCountryNameList() {
+        return worldCountryService.worldCountryNameListSelect();
     }
 }
