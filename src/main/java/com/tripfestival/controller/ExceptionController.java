@@ -11,6 +11,7 @@ import com.tripfestival.exception.naturehotspot.NatureHotspotNotFoundException;
 import com.tripfestival.exception.naturehotspot.NatureHotspotTypeNotFoundException;
 import com.tripfestival.exception.user.UserNotFoundException;
 import com.tripfestival.exception.world.WorldCountryCityNotFoundException;
+import com.tripfestival.exception.world.WorldCountryCityRegionNotFoundException;
 import com.tripfestival.exception.world.WorldCountryNotFoundException;
 import com.tripfestival.vo.Response;
 import com.tripfestival.vo.ResponseVo;
@@ -138,7 +139,12 @@ public class ExceptionController {
     }
 
     @ExceptionHandler(HotSightLandmarkNotFoundException.class)
-    public ResponseVo hotSightLandmarkNotFounHandler() {
-        return new ResponseVo(Response.FAILURE, "HotSightLandmarkNotFoun");
+    public ResponseVo hotSightLandmarkNotFoundHandler() {
+        return new ResponseVo(Response.FAILURE, "HotSightLandmarkNotFound");
+    }
+
+    @ExceptionHandler(WorldCountryCityRegionNotFoundException.class)
+    public ResponseVo worldCountryCityRegionNotFoundHandler() {
+        return new ResponseVo(Response.SUCCESS, "WorldCountryCityRegionNotFound");
     }
 }
