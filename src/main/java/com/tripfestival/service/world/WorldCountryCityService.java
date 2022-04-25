@@ -11,10 +11,13 @@ import com.tripfestival.request.world.WorldCountryCityProcessRequest;
 import com.tripfestival.service.file.FileService;
 import com.tripfestival.vo.Response;
 import com.tripfestival.vo.ResponseVo;
+import com.tripfestival.vo.world.WorldCountryCityNameListVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 @Service
 @Transactional
@@ -58,5 +61,11 @@ public class WorldCountryCityService {
         worldCountryCity.setName(req.getName());
 
         return new ResponseVo(Response.SUCCESS, null);
+    }
+
+    public WorldCountryCityNameListVo worldCountryCityNameList() {
+        List<WorldCountryCity> worldCountryCityList = worldCountryCityRepository.findAll();
+
+        return new WorldCountryCityNameListVo(worldCountryCityList);
     }
 }
