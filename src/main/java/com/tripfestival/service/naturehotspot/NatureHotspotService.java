@@ -3,6 +3,7 @@ package com.tripfestival.service.naturehotspot;
 import com.tripfestival.domain.landmark.Landmark;
 import com.tripfestival.domain.naturehotspot.NatureHotspot;
 import com.tripfestival.domain.naturehotspot.NatureHotspotType;
+import com.tripfestival.dto.naturehotspot.NatureHotspotImgModifyDto;
 import com.tripfestival.dto.naturehotspot.NatureHotspotNatureHotspotTypeModifyDto;
 import com.tripfestival.dto.naturehotspot.NatureHotspotProcessDto;
 import com.tripfestival.exception.landmark.LandmarkNotFoundException;
@@ -69,6 +70,17 @@ public class NatureHotspotService {
                 .orElseThrow(() -> new NatureHotspotTypeNotFoundException());
 
         natureHotspot.setNatureHotspotType(natureHotspotType);
+
+        return new ResponseVo(Response.SUCCESS, null);
+    }
+
+    public ResponseVo natureHotspotImgAlert(NatureHotspotImgModifyDto req) {
+        NatureHotspot natureHotspot = natureHotspotRepository.findById(req.getNatureHotspotId())
+                .orElseThrow(() -> new NatureHotspotNotFoundException());
+
+        String url = fileService.s3UploadProcess(req.getFile());
+
+        natureHotspot.setImg(url);
 
         return new ResponseVo(Response.SUCCESS, null);
     }
