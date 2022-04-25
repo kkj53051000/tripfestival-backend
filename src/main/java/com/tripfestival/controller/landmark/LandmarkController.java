@@ -41,5 +41,4 @@ public class LandmarkController {  // 관광지
         return landmarkService.landmarkAlert(landmarkModifyDto);
     }
 
-
 }

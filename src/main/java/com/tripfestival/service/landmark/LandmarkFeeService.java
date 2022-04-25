@@ -1,16 +1,21 @@
 package com.tripfestival.service.landmark;
 
+import com.tripfestival.domain.landmark.Landmark;
 import com.tripfestival.domain.landmark.LandmarkFee;
 import com.tripfestival.dto.landmark.LandmarkFeeModifyDto;
 import com.tripfestival.exception.landmark.LandmarkFeeNotFoundException;
+import com.tripfestival.exception.landmark.LandmarkNotFoundException;
 import com.tripfestival.repository.landmark.LandmarkFeeRepository;
 import com.tripfestival.repository.landmark.LandmarkRepository;
 import com.tripfestival.request.landmark.LandmarkFeeProcessRequest;
+import com.tripfestival.vo.LandmarkFeeListVo;
 import com.tripfestival.vo.Response;
 import com.tripfestival.vo.ResponseVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @Transactional
@@ -53,6 +58,16 @@ public class LandmarkFeeService {
         }
 
         return new ResponseVo(Response.SUCCESS, null);
+    }
+
+    public LandmarkFeeListVo landmarkFeeListSelect(Long landmarkId) {
+        Landmark landmark = landmarkRepository.findById(landmarkId)
+                .orElseThrow(() -> new LandmarkNotFoundException());
+
+        List<LandmarkFee> landmarkFeeList = landmarkFeeRepository.findByLandmark(landmark)
+                .orElseThrow(() -> new LandmarkFeeNotFoundException());
+
+        return new LandmarkFeeListVo(landmarkFeeList);
     }
 
 }
