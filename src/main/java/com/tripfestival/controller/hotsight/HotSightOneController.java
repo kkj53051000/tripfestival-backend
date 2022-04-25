@@ -6,7 +6,7 @@ import com.tripfestival.dto.hotSight.HotSightOneProcessDto;
 import com.tripfestival.request.hotsight.HotSightOneNameModifyRequest;
 import com.tripfestival.request.hotsight.HotSightOneProcessRequest;
 import com.tripfestival.service.hotsight.HotSightOneService;
-import com.tripfestival.vo.HotSightOneListVo;
+import com.tripfestival.vo.hotsight.HotSightOneListVo;
 import com.tripfestival.vo.ResponseVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;

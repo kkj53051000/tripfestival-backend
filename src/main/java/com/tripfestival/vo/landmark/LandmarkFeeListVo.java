@@ -1,4 +1,4 @@
-package com.tripfestival.vo;
+package com.tripfestival.vo.landmark;
 
 import com.tripfestival.domain.landmark.LandmarkFee;
 import lombok.Getter;

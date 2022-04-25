@@ -8,7 +8,7 @@ import com.tripfestival.exception.event.EventNotFoundException;
 import com.tripfestival.repository.event.EventImgRepository;
 import com.tripfestival.repository.event.EventRepository;
 import com.tripfestival.service.file.FileService;
-import com.tripfestival.vo.EventImgListVo;
+import com.tripfestival.vo.event.EventImgListVo;
 import com.tripfestival.vo.Response;
 import com.tripfestival.vo.ResponseVo;
 import lombok.RequiredArgsConstructor;

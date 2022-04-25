@@ -10,7 +10,7 @@ import com.tripfestival.exception.hotSight.HotSightTwoNotFoundException;
 import com.tripfestival.repository.hotsight.HotSightOneRepository;
 import com.tripfestival.repository.hotsight.HotSightTwoRepository;
 import com.tripfestival.service.file.FileService;
-import com.tripfestival.vo.HotSightTwoListVo;
+import com.tripfestival.vo.hotsight.HotSightTwoListVo;
 import com.tripfestival.vo.Response;
 import com.tripfestival.vo.ResponseVo;
 import lombok.RequiredArgsConstructor;

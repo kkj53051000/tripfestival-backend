@@ -5,5 +5,6 @@ import lombok.Getter;
 @Getter
 public class LandmarkReviewProcessRequest {
     private String content;
-    private byte score;
+    private Byte score;
+    private Long landmarkId;
 }

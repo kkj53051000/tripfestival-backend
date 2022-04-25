@@ -4,7 +4,7 @@ import com.tripfestival.dto.landmark.LandmarkFeeModifyDto;
 import com.tripfestival.request.landmark.LandmarkFeeModifyRequest;
 import com.tripfestival.request.landmark.LandmarkFeeProcessRequest;
 import com.tripfestival.service.landmark.LandmarkFeeService;
-import com.tripfestival.vo.LandmarkFeeListVo;
+import com.tripfestival.vo.landmark.LandmarkFeeListVo;
 import com.tripfestival.vo.ResponseVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;

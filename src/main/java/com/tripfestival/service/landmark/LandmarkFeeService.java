@@ -8,7 +8,7 @@ import com.tripfestival.exception.landmark.LandmarkNotFoundException;
 import com.tripfestival.repository.landmark.LandmarkFeeRepository;
 import com.tripfestival.repository.landmark.LandmarkRepository;
 import com.tripfestival.request.landmark.LandmarkFeeProcessRequest;
-import com.tripfestival.vo.LandmarkFeeListVo;
+import com.tripfestival.vo.landmark.LandmarkFeeListVo;
 import com.tripfestival.vo.Response;
 import com.tripfestival.vo.ResponseVo;
 import lombok.RequiredArgsConstructor;

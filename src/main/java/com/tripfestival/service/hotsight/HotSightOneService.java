@@ -7,7 +7,7 @@ import com.tripfestival.dto.hotSight.HotSightOneProcessDto;
 import com.tripfestival.exception.hotSight.HotSightOneNotFoundException;
 import com.tripfestival.repository.hotsight.HotSightOneRepository;
 import com.tripfestival.service.file.FileService;
-import com.tripfestival.vo.HotSightOneListVo;
+import com.tripfestival.vo.hotsight.HotSightOneListVo;
 import com.tripfestival.vo.Response;
 import com.tripfestival.vo.ResponseVo;
 import lombok.RequiredArgsConstructor;

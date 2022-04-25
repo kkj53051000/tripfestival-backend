@@ -1,4 +1,4 @@
-package com.tripfestival.vo;
+package com.tripfestival.vo.hotsight;
 
 import com.tripfestival.domain.hotsight.HotSightOne;
 import lombok.Getter;

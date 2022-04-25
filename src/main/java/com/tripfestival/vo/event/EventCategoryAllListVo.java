@@ -1,4 +1,4 @@
-package com.tripfestival.vo;
+package com.tripfestival.vo.event;
 
 import com.tripfestival.domain.event.EventCategory;
 import lombok.Data;

@@ -5,7 +5,7 @@ import com.tripfestival.dto.event.EventSeasonNameModifyDto;
 import com.tripfestival.request.event.EventSeasonNameModifyRequest;
 import com.tripfestival.request.event.EventSeasonProcessRequest;
 import com.tripfestival.service.event.EventSeasonService;
-import com.tripfestival.vo.EventSeasonListVo;
+import com.tripfestival.vo.event.EventSeasonListVo;
 import com.tripfestival.vo.ResponseVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;

@@ -6,7 +6,7 @@ import com.tripfestival.dto.hotspot.HotspotTypeProcessDto;
 import com.tripfestival.exception.hotspot.HotspotTypeNotFoundException;
 import com.tripfestival.repository.hotspot.HotspotTypeRepository;
 import com.tripfestival.service.file.FileService;
-import com.tripfestival.vo.HotspotTypeAllListVo;
+import com.tripfestival.vo.hotspot.HotspotTypeAllListVo;
 import com.tripfestival.vo.Response;
 import com.tripfestival.vo.ResponseVo;
 import lombok.RequiredArgsConstructor;

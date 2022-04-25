@@ -7,7 +7,7 @@ import com.tripfestival.dto.event.EventCategoryProcessDto;
 import com.tripfestival.exception.event.EventCategoryNotFoundException;
 import com.tripfestival.repository.event.EventCategoryRepository;
 import com.tripfestival.service.file.FileService;
-import com.tripfestival.vo.EventCategoryAllListVo;
+import com.tripfestival.vo.event.EventCategoryAllListVo;
 import com.tripfestival.vo.Response;
 import com.tripfestival.vo.ResponseVo;
 import lombok.RequiredArgsConstructor;

@@ -3,7 +3,7 @@ package com.tripfestival.controller.landmark;
 import com.tripfestival.dto.landmark.LandmarkImgProcessDto;
 import com.tripfestival.request.landmark.LandmarkImgProcessRequest;
 import com.tripfestival.service.landmark.LandmarkImgService;
-import com.tripfestival.vo.LandmarkImgListVo;
+import com.tripfestival.vo.landmark.LandmarkImgListVo;
 import com.tripfestival.vo.ResponseVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;

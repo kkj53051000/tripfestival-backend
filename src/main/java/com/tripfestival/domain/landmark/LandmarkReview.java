@@ -24,15 +24,13 @@ public class LandmarkReview {
     private Long id;
 
     private String content;
-    private byte score;
+    private Byte score;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 
-    public LandmarkReview(String content, byte score, User user) {
-        this.content = content;
-        this.score = score;
-        this.user = user;
-    }
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "landmark_id")
+    private Landmark landmark;
 }

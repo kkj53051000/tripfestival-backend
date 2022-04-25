@@ -9,7 +9,7 @@ import com.tripfestival.exception.landmark.LandmarkTimeNotFoundException;
 import com.tripfestival.repository.landmark.LandmarkImgRepository;
 import com.tripfestival.repository.landmark.LandmarkRepository;
 import com.tripfestival.service.file.FileService;
-import com.tripfestival.vo.LandmarkImgListVo;
+import com.tripfestival.vo.landmark.LandmarkImgListVo;
 import com.tripfestival.vo.Response;
 import com.tripfestival.vo.ResponseVo;
 import lombok.RequiredArgsConstructor;

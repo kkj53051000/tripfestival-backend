@@ -4,7 +4,7 @@ import com.tripfestival.dto.event.EventFeeModifyDto;
 import com.tripfestival.request.event.EventFeeModifyRequest;
 import com.tripfestival.request.event.EventFeeProcessRequest;
 import com.tripfestival.service.event.EventFeeService;
-import com.tripfestival.vo.EventFeeListVo;
+import com.tripfestival.vo.event.EventFeeListVo;
 import com.tripfestival.vo.ResponseVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;

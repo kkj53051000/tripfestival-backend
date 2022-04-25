@@ -6,7 +6,7 @@ import com.tripfestival.dto.event.EventCategoryProcessDto;
 import com.tripfestival.request.event.EventCategoryModifyRequest;
 import com.tripfestival.request.event.EventCategoryProcessRequest;
 import com.tripfestival.service.event.EventCategoryService;
-import com.tripfestival.vo.EventCategoryAllListVo;
+import com.tripfestival.vo.event.EventCategoryAllListVo;
 import com.tripfestival.vo.ResponseVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;

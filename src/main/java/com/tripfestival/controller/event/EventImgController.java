@@ -3,7 +3,7 @@ package com.tripfestival.controller.event;
 import com.tripfestival.dto.event.EventImgProcessDto;
 import com.tripfestival.request.event.EventImgProcessRequest;
 import com.tripfestival.service.event.EventImgService;
-import com.tripfestival.vo.EventImgListVo;
+import com.tripfestival.vo.event.EventImgListVo;
 import com.tripfestival.vo.ResponseVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;

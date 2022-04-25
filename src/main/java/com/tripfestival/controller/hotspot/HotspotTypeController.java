@@ -5,7 +5,7 @@ import com.tripfestival.dto.hotspot.HotspotTypeProcessDto;
 import com.tripfestival.request.hotspot.HotspotTypeNameModifyRequest;
 import com.tripfestival.request.hotspot.HotspotTypeProcessRequest;
 import com.tripfestival.service.hotspot.HotspotTypeService;
-import com.tripfestival.vo.HotspotTypeAllListVo;
+import com.tripfestival.vo.hotspot.HotspotTypeAllListVo;
 import com.tripfestival.vo.ResponseVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;

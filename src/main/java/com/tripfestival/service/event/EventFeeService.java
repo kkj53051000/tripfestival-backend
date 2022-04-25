@@ -8,7 +8,7 @@ import com.tripfestival.exception.event.EventNotFoundException;
 import com.tripfestival.repository.event.EventFeeRepository;
 import com.tripfestival.repository.event.EventRepository;
 import com.tripfestival.request.event.EventFeeProcessRequest;
-import com.tripfestival.vo.EventFeeListVo;
+import com.tripfestival.vo.event.EventFeeListVo;
 import com.tripfestival.vo.Response;
 import com.tripfestival.vo.ResponseVo;
 import lombok.RequiredArgsConstructor;

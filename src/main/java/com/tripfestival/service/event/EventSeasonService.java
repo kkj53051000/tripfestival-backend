@@ -7,7 +7,7 @@ import com.tripfestival.exception.event.EventSeasonNotFoundException;
 import com.tripfestival.repository.event.EventSeasonRepository;
 import com.tripfestival.request.event.EventSeasonProcessRequest;
 import com.tripfestival.service.file.FileService;
-import com.tripfestival.vo.EventSeasonListVo;
+import com.tripfestival.vo.event.EventSeasonListVo;
 import com.tripfestival.vo.Response;
 import com.tripfestival.vo.ResponseVo;
 import lombok.RequiredArgsConstructor;

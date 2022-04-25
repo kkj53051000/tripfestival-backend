@@ -12,7 +12,7 @@ import com.tripfestival.repository.hotsight.HotSightLandmarkRepository;
 import com.tripfestival.repository.hotsight.HotSightTwoRepository;
 import com.tripfestival.repository.landmark.LandmarkRepository;
 import com.tripfestival.service.file.FileService;
-import com.tripfestival.vo.HotSightLandmarkListVo;
+import com.tripfestival.vo.hotsight.HotSightLandmarkListVo;
 import com.tripfestival.vo.Response;
 import com.tripfestival.vo.ResponseVo;
 import lombok.RequiredArgsConstructor;

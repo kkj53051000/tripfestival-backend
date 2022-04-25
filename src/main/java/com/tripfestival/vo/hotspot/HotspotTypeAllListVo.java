@@ -1,4 +1,4 @@
-package com.tripfestival.vo;
+package com.tripfestival.vo.hotspot;
 
 import com.tripfestival.domain.hotspot.HotspotType;
 import lombok.Getter;
