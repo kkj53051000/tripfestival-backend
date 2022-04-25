@@ -6,6 +6,7 @@ import com.tripfestival.request.world.WorldCountryCityRegionNameModifyRequest;
 import com.tripfestival.request.world.WorldCountryCityRegionProcessRequest;
 import com.tripfestival.service.world.WorldCountryCityRegionService;
 import com.tripfestival.vo.ResponseVo;
+import com.tripfestival.vo.WorldCountryCityRegionListVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -14,7 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 @RequiredArgsConstructor
 @RequestMapping("/api")
 public class WorldCountryCityRegionController {
-    private WorldCountryCityRegionService worldCountryCityRegionService;
+    private final WorldCountryCityRegionService worldCountryCityRegionService;
 
     @PostMapping("/worldCountryCityRegionProcess")
     public ResponseVo worldCountryCityRegionProcess(
@@ -41,5 +42,10 @@ public class WorldCountryCityRegionController {
                 = new WorldCountryCityRegionNameModifyDto(worldCountryCityId, req);
 
         return worldCountryCityRegionService.worldCountryCityRegionNameAlert(worldCountryCityRegionNameModifyDto);
+    }
+
+    @GetMapping("/worldCountryCityRegionList")
+    public WorldCountryCityRegionListVo worldCountryCityRegionList(@RequestParam Long worldCountryCityId) {
+        return worldCountryCityRegionService.worldCountryCityRegionListSelect(worldCountryCityId);
     }
 }
