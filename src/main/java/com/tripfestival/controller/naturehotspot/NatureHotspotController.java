@@ -7,6 +7,7 @@ import com.tripfestival.request.naturehotspot.NatureHotspotNatureHotspotTypeModi
 import com.tripfestival.request.naturehotspot.NatureHotspotProcessRequest;
 import com.tripfestival.service.naturehotspot.NatureHotspotService;
 import com.tripfestival.vo.ResponseVo;
+import com.tripfestival.vo.naturehotspot.NatureHotspotListVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -52,5 +53,10 @@ public class NatureHotspotController {  // 자연관광지
                 = new NatureHotspotImgModifyDto(natureHotspotId, file);
 
         return natureHotspotService.natureHotspotImgAlert(natureHotspotImgModifyDto);
+    }
+
+    @GetMapping("/natureHotspotList")
+    public NatureHotspotListVo natureHotspotList(@RequestParam Long natureHotspotTypeId) {
+        return natureHotspotService.natureHotspotListSelect(natureHotspotTypeId);
     }
 }
