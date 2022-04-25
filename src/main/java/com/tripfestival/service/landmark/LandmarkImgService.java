@@ -4,10 +4,12 @@ import com.tripfestival.domain.landmark.Landmark;
 import com.tripfestival.domain.landmark.LandmarkImg;
 import com.tripfestival.dto.landmark.LandmarkImgProcessDto;
 import com.tripfestival.exception.landmark.LandmarkImgNotFoundException;
+import com.tripfestival.exception.landmark.LandmarkNotFoundException;
 import com.tripfestival.exception.landmark.LandmarkTimeNotFoundException;
 import com.tripfestival.repository.landmark.LandmarkImgRepository;
 import com.tripfestival.repository.landmark.LandmarkRepository;
 import com.tripfestival.service.file.FileService;
+import com.tripfestival.vo.LandmarkImgListVo;
 import com.tripfestival.vo.Response;
 import com.tripfestival.vo.ResponseVo;
 import lombok.RequiredArgsConstructor;
@@ -44,7 +46,6 @@ public class LandmarkImgService {
         return new ResponseVo(Response.SUCCESS, null);
     }
 
-
     public ResponseVo landmarkImgDelete(Long landmarkImgId) {
         LandmarkImg landmarkImg = landmarkImgRepository.findById(landmarkImgId)
                 .orElseThrow(() -> new LandmarkImgNotFoundException());
@@ -52,5 +53,15 @@ public class LandmarkImgService {
         landmarkImgRepository.delete(landmarkImg);
 
         return new ResponseVo(Response.SUCCESS, null);
+    }
+
+    public LandmarkImgListVo landmarkImgListSelect(Long landmarkId) {
+        Landmark landmark = landmarkRepository.findById(landmarkId)
+                .orElseThrow(() -> new LandmarkNotFoundException());
+
+        List<LandmarkImg> landmarkImgList = landmarkImgRepository.findByLandmark(landmark)
+                .orElseThrow(() -> new LandmarkImgNotFoundException());
+
+        return new LandmarkImgListVo(landmarkImgList);
     }
 }
