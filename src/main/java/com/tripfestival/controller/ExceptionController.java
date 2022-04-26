@@ -147,4 +147,9 @@ public class ExceptionController {
     public ResponseVo worldCountryCityRegionNotFoundHandler() {
         return new ResponseVo(Response.SUCCESS, "WorldCountryCityRegionNotFound");
     }
+
+    @ExceptionHandler(EventHashTagNotFoundException.class)
+    public ResponseVo eventHashTagNotFoundHandler() {
+        return new ResponseVo(Response.SUCCESS, "EventHashTagNotFound");
+    }
 }
