@@ -152,4 +152,9 @@ public class ExceptionController {
     public ResponseVo eventHashTagNotFoundHandler() {
         return new ResponseVo(Response.SUCCESS, "EventHashTagNotFound");
     }
+
+    @ExceptionHandler(LandmarkHashTagNotFoundException.class)
+    public ResponseVo landmarkHashTagNotFoundHandler() {
+        return new ResponseVo(Response.SUCCESS, "LandmarkHashTagNotFound");
+    }
 }
