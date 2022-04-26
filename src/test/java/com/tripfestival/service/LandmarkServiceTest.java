@@ -2,7 +2,9 @@ package com.tripfestival.service;
 
 import com.tripfestival.domain.world.WorldCountry;
 import com.tripfestival.domain.world.WorldCountryCity;
+import com.tripfestival.domain.world.WorldCountryCityRegion;
 import com.tripfestival.repository.landmark.LandmarkRepository;
+import com.tripfestival.repository.world.WorldCountryCityRegionRepository;
 import com.tripfestival.repository.world.WorldCountryCityRepository;
 import com.tripfestival.repository.world.WorldCountryRepository;
 import com.tripfestival.request.landmark.LandmarkProcessRequest;
@@ -26,6 +28,9 @@ class LandmarkServiceTest {
     WorldCountryCityRepository worldCountryCityRepository;
 
     @Autowired
+    WorldCountryCityRegionRepository worldCountryCityRegionRepository;
+
+    @Autowired
     LandmarkRepository landmarkRepository;
 
     @Test
@@ -36,13 +41,15 @@ class LandmarkServiceTest {
         worldCountryRepository.save(worldCountry);
         WorldCountryCity worldCountryCity = new WorldCountryCity("t", "t", worldCountry);
         worldCountryCityRepository.save(worldCountryCity);
+        WorldCountryCityRegion worldCountryCityRegion = new WorldCountryCityRegion("t", "t", worldCountryCity);
+        worldCountryCityRegionRepository.save(worldCountryCityRegion);
 
         LandmarkProcessRequest landmarkProcessRequest = LandmarkProcessRequest.builder()
                 .name("t")
                 .description("t")
                 .address("t")
                 .homepage("t")
-                .worldCountryCityId(worldCountryCity.getId())
+                .worldCountryCityRegionId(worldCountryCityRegion.getId())
                 .build();
 
         // when

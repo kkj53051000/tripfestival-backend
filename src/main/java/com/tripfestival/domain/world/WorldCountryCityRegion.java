@@ -24,4 +24,10 @@ public class WorldCountryCityRegion {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "wordcountrycity_id")
     private WorldCountryCity worldCountryCity;
+
+    public WorldCountryCityRegion(String name, String img, WorldCountryCity worldCountryCity) {
+        this.name = name;
+        this.img = img;
+        this.worldCountryCity = worldCountryCity;
+    }
 }

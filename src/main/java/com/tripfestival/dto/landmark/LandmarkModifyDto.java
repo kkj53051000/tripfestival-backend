@@ -1,11 +1,15 @@
 package com.tripfestival.dto.landmark;
 
 import com.tripfestival.request.landmark.LandmarkModifyRequest;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Builder
 @Getter
+@NoArgsConstructor
+@AllArgsConstructor
 public class LandmarkModifyDto {
     private Long landmarkId;
     private String name;

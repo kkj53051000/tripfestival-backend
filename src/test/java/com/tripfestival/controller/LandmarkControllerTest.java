@@ -4,7 +4,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tripfestival.domain.landmark.Landmark;
 import com.tripfestival.domain.world.WorldCountry;
 import com.tripfestival.domain.world.WorldCountryCity;
+import com.tripfestival.domain.world.WorldCountryCityRegion;
 import com.tripfestival.repository.landmark.LandmarkRepository;
+import com.tripfestival.repository.world.WorldCountryCityRegionRepository;
 import com.tripfestival.repository.world.WorldCountryCityRepository;
 import com.tripfestival.repository.world.WorldCountryRepository;
 import com.tripfestival.request.landmark.LandmarkProcessRequest;
@@ -36,6 +38,9 @@ class LandmarkControllerTest {
     WorldCountryCityRepository worldCountryCityRepository;
 
     @Autowired
+    WorldCountryCityRegionRepository worldCountryCityRegionRepository;
+
+    @Autowired
     LandmarkRepository landmarkRepository;
 
     ObjectMapper objectMapper = new ObjectMapper();
@@ -48,13 +53,15 @@ class LandmarkControllerTest {
         worldCountryRepository.save(worldCountry);
         WorldCountryCity worldCountryCity =new WorldCountryCity("t", "t", worldCountry);
         worldCountryCityRepository.save(worldCountryCity);
+        WorldCountryCityRegion worldCountryCityRegion = new WorldCountryCityRegion("t", "t", worldCountryCity);
+        worldCountryCityRegionRepository.save(worldCountryCityRegion);
 
         Landmark landmark = Landmark.builder()
                 .name("test")
                 .description("test")
                 .address("test")
                 .homepage("test")
-                .worldCountryCity(worldCountryCity)
+                .worldCountryCityRegion(worldCountryCityRegion)
                 .build();
 
         landmarkRepository.save(landmark);

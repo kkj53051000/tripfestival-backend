@@ -1,11 +1,15 @@
 package com.tripfestival.dto.event;
 
 import com.tripfestival.request.event.EventModifyRequest;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Builder
 @Getter
+@NoArgsConstructor
+@AllArgsConstructor
 public class EventModifyDto {
     private Long eventId;
     private String name;
