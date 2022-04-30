@@ -53,7 +53,7 @@ public class LandmarkService {
         Landmark landmark = landmarkRepository.findById(req.getLandmarkId())
                 .orElseThrow(() -> new LandmarkNotFoundException());
 
-        // find change value
+        // find change
         if(req.getName() != null){
             landmark.setName(req.getName());
         }

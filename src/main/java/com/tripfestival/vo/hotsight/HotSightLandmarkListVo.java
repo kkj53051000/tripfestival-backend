@@ -5,7 +5,9 @@ import lombok.Getter;
 
 import javax.persistence.Lob;
 import java.util.List;
+import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Getter
 public class HotSightLandmarkListVo {
@@ -13,9 +15,14 @@ public class HotSightLandmarkListVo {
     private List<HotSightLandmarkVo> items = null;
 
     public HotSightLandmarkListVo(List<HotSightLandmark> hotSightLandmarkList) {
-        items = hotSightLandmarkList.stream()
+        items = hotSightLandmarkList
+                .stream()
                 .map(hotSightLandmark -> new HotSightLandmarkVo(hotSightLandmark))
                 .collect(Collectors.toList());
+
+//        Stream<HotSightLandmark> HotSightLandmarkStream = hotSightLandmarkList.stream();
+//        Stream<HotSightLandmarkVo> hotSightLandmarkVoStream = HotSightLandmarkStream.map(hotSightLandmark -> new HotSightLandmarkVo(hotSightLandmark));
+//        List<HotSightLandmarkVo> collect = hotSightLandmarkVoStream.collect(Collectors.toList());
     }
 
     @Getter

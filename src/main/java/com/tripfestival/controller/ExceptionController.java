@@ -1,5 +1,6 @@
 package com.tripfestival.controller;
 
+import com.tripfestival.exception.JwtVerifyFailException;
 import com.tripfestival.exception.event.*;
 import com.tripfestival.exception.hotSight.HotSightLandmarkNotFoundException;
 import com.tripfestival.exception.hotSight.HotSightOneNotFoundException;
@@ -145,16 +146,21 @@ public class ExceptionController {
 
     @ExceptionHandler(WorldCountryCityRegionNotFoundException.class)
     public ResponseVo worldCountryCityRegionNotFoundHandler() {
-        return new ResponseVo(Response.SUCCESS, "WorldCountryCityRegionNotFound");
+        return new ResponseVo(Response.FAILURE, "WorldCountryCityRegionNotFound");
     }
 
     @ExceptionHandler(EventHashTagNotFoundException.class)
     public ResponseVo eventHashTagNotFoundHandler() {
-        return new ResponseVo(Response.SUCCESS, "EventHashTagNotFound");
+        return new ResponseVo(Response.FAILURE, "EventHashTagNotFound");
     }
 
     @ExceptionHandler(LandmarkHashTagNotFoundException.class)
     public ResponseVo landmarkHashTagNotFoundHandler() {
-        return new ResponseVo(Response.SUCCESS, "LandmarkHashTagNotFound");
+        return new ResponseVo(Response.FAILURE, "LandmarkHashTagNotFound");
+    }
+
+    @ExceptionHandler(JwtVerifyFailException.class)
+    public ResponseVo hwtVerifyFailHandler() {
+        return new ResponseVo(Response.FAILURE, "JwtVerifyFail");
     }
 }

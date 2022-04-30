@@ -6,7 +6,6 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 
 import javax.annotation.PostConstruct;
 import java.util.TimeZone;
-
 @SpringBootApplication
 public class TripfestivalApplication {
 

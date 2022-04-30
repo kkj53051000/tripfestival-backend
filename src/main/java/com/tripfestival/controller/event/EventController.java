@@ -28,6 +28,7 @@ public class EventController {
     public ResponseVo eventModify(
             @PathVariable("id") Long eventId,
             @RequestBody EventModifyRequest req) {
+
         EventModifyDto eventModifyDto = new EventModifyDto(eventId, req);
 
         return eventService.eventAlert(eventModifyDto);
