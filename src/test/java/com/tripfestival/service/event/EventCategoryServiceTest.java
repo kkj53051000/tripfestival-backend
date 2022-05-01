@@ -34,4 +34,21 @@ class EventCategoryServiceTest {
         //then
         Assertions.assertNotNull(eventCategoryRepository.findByName("test").get());
     }
+
+    @Test
+    void EVENT_CATEGORY_DELETE_TEST() {
+        //given
+        EventCategory eventCategory = EventCategory.builder()
+                .name("test")
+                .img("test.png")
+                .build();
+
+        eventCategoryRepository.save(eventCategory);
+
+        //when
+        eventCategoryService.eventCategoryDelete(eventCategory.getId());
+
+        //then
+        Assertions.assertFalse(eventCategoryRepository.existsById(eventCategory.getId()));
+    }
 }

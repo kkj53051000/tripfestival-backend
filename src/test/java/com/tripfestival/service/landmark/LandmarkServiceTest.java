@@ -1,4 +1,4 @@
-package com.tripfestival.service;
+package com.tripfestival.service.landmark;
 
 import com.tripfestival.domain.world.WorldCountry;
 import com.tripfestival.domain.world.WorldCountryCity;

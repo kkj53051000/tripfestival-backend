@@ -1,4 +1,4 @@
-package com.tripfestival.repository;
+package com.tripfestival.repository.landmark;
 
 import com.tripfestival.domain.landmark.Landmark;
 import com.tripfestival.domain.world.WorldCountry;
