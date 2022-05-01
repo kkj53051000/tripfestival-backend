@@ -55,7 +55,7 @@ public class EventCategoryController {  // 축제 종류
         return eventCategoryService.eventCategoryImgModify(eventCategoryImgModifyDto);
     }
 
-    @PostMapping("/eventCategoryAllList")
+    @GetMapping("/eventCategoryAllList")
     public EventCategoryAllListVo eventCategoryAllList() {
         return eventCategoryService.eventCategoryAllSelect();
     }

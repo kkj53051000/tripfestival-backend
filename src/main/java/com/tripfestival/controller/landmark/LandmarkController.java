@@ -16,7 +16,6 @@ public class LandmarkController {  // 관광지
 
     @PostMapping("/landmarkProcess")
     public ResponseVo landmarkProcess(@RequestBody LandmarkProcessRequest req) {
-        System.out.println(req.getName());
         return landmarkService.landmarkInsert(req);
     }
 

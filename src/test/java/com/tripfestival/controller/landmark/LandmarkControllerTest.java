@@ -1,4 +1,4 @@
-package com.tripfestival.controller;
+package com.tripfestival.controller.landmark;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tripfestival.domain.landmark.Landmark;
@@ -46,12 +46,11 @@ class LandmarkControllerTest {
     ObjectMapper objectMapper = new ObjectMapper();
 
     @Test
-    @Transactional
     public void LANDMARK_PROCESS_TEST() throws Exception {
         //given
         WorldCountry worldCountry = new WorldCountry("t", "t", "t", "t", "t");
         worldCountryRepository.save(worldCountry);
-        WorldCountryCity worldCountryCity =new WorldCountryCity("t", "t", worldCountry);
+        WorldCountryCity worldCountryCity = new WorldCountryCity("t", "t", worldCountry);
         worldCountryCityRepository.save(worldCountryCity);
         WorldCountryCityRegion worldCountryCityRegion = new WorldCountryCityRegion("t", "t", worldCountryCity);
         worldCountryCityRegionRepository.save(worldCountryCityRegion);
@@ -66,16 +65,16 @@ class LandmarkControllerTest {
 
         landmarkRepository.save(landmark);
 
-        LandmarkProcessRequest req = new LandmarkProcessRequest("t", "t", "t", "t", worldCountryCity.getId());
+        LandmarkProcessRequest req = new LandmarkProcessRequest("t", "t", "t", "t", worldCountryCityRegion.getId());
 
-        String jsonReq = objectMapper.writeValueAsString(req);
+        String value = objectMapper.writeValueAsString(req);
 
 
         //when
         //then
-        this.mockMvc.perform(post("/api/landmarkprocess")
+        this.mockMvc.perform(post("/api/landmarkProcess")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(jsonReq))
+                        .content(value))
                 .andExpect(status().isOk())
                 .andExpect(content().string(objectMapper.writeValueAsString(new ResponseVo(Response.SUCCESS, null))))
                 .andDo(print());

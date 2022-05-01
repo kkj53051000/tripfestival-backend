@@ -15,14 +15,14 @@ import javax.persistence.*;
 public class WorldCountryCityRegion {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "wordcountrycityregion_id")
+    @Column(name = "worldcountrycityregion_id")
     private Long id;
 
     private String name;
     private String img;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "wordcountrycity_id")
+    @JoinColumn(name = "worldcountrycity_id")
     private WorldCountryCity worldCountryCity;
 
     public WorldCountryCityRegion(String name, String img, WorldCountryCity worldCountryCity) {

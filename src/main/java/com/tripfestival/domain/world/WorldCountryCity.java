@@ -15,7 +15,7 @@ import javax.persistence.*;
 public class WorldCountryCity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "wordcountrycity_id")
+    @Column(name = "worldcountrycity_id")
     private Long id;
 
     private String name;

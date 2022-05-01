@@ -1,6 +1,7 @@
 package com.tripfestival.service.landmark;
 
 import com.tripfestival.domain.landmark.Landmark;
+import com.tripfestival.domain.world.WorldCountryCityRegion;
 import com.tripfestival.dto.landmark.LandmarkModifyDto;
 import com.tripfestival.exception.landmark.LandmarkNotFoundException;
 import com.tripfestival.exception.world.WorldCountryCityNotFoundException;
@@ -27,13 +28,15 @@ public class LandmarkService {
 
     public ResponseVo landmarkInsert(LandmarkProcessRequest req) {
 
+        WorldCountryCityRegion worldCountryCityRegion = worldCountryCityRegionRepository.findById(req.getWorldCountryCityRegionId())
+                .orElseThrow(() -> new WorldCountryCityRegionNotFoundException());
+
         Landmark landmark = Landmark.builder()
                 .name(req.getName())
                 .description(req.getDescription())
                 .address(req.getAddress())
                 .homepage(req.getHomepage())
-                .worldCountryCityRegion(worldCountryCityRegionRepository.findById(req.getWorldCountryCityRegionId())
-                        .orElseThrow(() -> new WorldCountryCityRegionNotFoundException()))
+                .worldCountryCityRegion(worldCountryCityRegion)
                 .build();
 
         landmarkRepository.save(landmark);

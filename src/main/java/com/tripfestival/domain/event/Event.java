@@ -33,7 +33,7 @@ public class Event {  // 축제
 
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "wordcountrycityregion_id")
+    @JoinColumn(name = "worldcountrycityregion_id")
     private WorldCountryCityRegion worldCountryCityRegion;
 
     @ManyToOne(fetch = FetchType.LAZY)

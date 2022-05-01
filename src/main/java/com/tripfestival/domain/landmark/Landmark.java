@@ -31,6 +31,6 @@ public class Landmark {  // 관광지
     private String homepage;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "wordcountrycityregion_id")
+    @JoinColumn(name = "worldcountrycityregion_id")
     private WorldCountryCityRegion worldCountryCityRegion;
 }

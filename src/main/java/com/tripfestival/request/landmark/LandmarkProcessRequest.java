@@ -3,8 +3,8 @@ package com.tripfestival.request.landmark;
 import lombok.*;
 
 @Data
-@NoArgsConstructor
 @Builder
+@NoArgsConstructor
 public class LandmarkProcessRequest {
     private String name;
     private String description;
