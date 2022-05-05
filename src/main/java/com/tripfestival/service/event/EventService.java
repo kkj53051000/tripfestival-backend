@@ -5,6 +5,7 @@ import com.tripfestival.domain.event.EventCategory;
 import com.tripfestival.domain.event.EventSeason;
 import com.tripfestival.domain.world.WorldCountryCityRegion;
 import com.tripfestival.dto.event.EventModifyDto;
+import com.tripfestival.dto.event.EventProcessDto;
 import com.tripfestival.exception.event.EventCategoryNotFoundException;
 import com.tripfestival.exception.event.EventNotFoundException;
 import com.tripfestival.exception.event.EventSeasonNotFoundException;
@@ -15,11 +16,15 @@ import com.tripfestival.repository.event.EventSeasonRepository;
 import com.tripfestival.repository.world.WorldCountryCityRegionRepository;
 import com.tripfestival.repository.world.WorldCountryCityRepository;
 import com.tripfestival.request.event.EventProcessRequest;
+import com.tripfestival.service.file.FileService;
 import com.tripfestival.vo.Response;
 import com.tripfestival.vo.ResponseVo;
+import com.tripfestival.vo.event.EventAllListVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @Transactional
@@ -35,7 +40,11 @@ public class EventService {
 
     private final EventSeasonRepository eventSeasonRepository;
 
-    public ResponseVo eventInsert(EventProcessRequest req) {
+    private final FileService fileService;
+
+    public ResponseVo eventInsert(EventProcessDto req) {
+
+        String url = fileService.s3UploadProcess(req.getFile());
 
         WorldCountryCityRegion worldCountryCityRegion = worldCountryCityRegionRepository.findById(req.getWorldCountryCityRegionId())
                 .orElseThrow(() -> new WorldCountryCityRegionNotFoundException());
@@ -48,10 +57,11 @@ public class EventService {
 
         Event event = Event.builder()
                 .name(req.getName())
+                .img(url)
                 .description(req.getDescription())
                 .address(req.getAddress())
                 .visitor(req.getVisitor())
-                .inout(req.isInout())
+                .inout((req.getInout() != 0))
                 .worldCountryCityRegion(worldCountryCityRegion)
                 .eventCategory(eventCategory)
                 .eventSeason(eventSeason)
@@ -110,5 +120,11 @@ public class EventService {
         }
 
         return new ResponseVo(Response.SUCCESS, null);
+    }
+
+    public EventAllListVo eventAllListSelect() {
+        List<Event> eventList = eventRepository.findAll();
+
+        return new EventAllListVo(eventList);
     }
 }

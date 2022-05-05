@@ -17,11 +17,20 @@ public class WorldCountryNameListVo {
                 .collect(Collectors.toList());
     }
 
+    @Getter
     class WorldCountryNameVo {
+        private Long id;
         private String name;
+        private String currency;
+        private String capital;
+        private String exchangeRatio;
 
         public WorldCountryNameVo(WorldCountry worldCountry) {
+            this.id = worldCountry.getId();
             this.name = worldCountry.getName();
+            this.currency = worldCountry.getCurrency();
+            this.capital = worldCountry.getCapital();
+            this.exchangeRatio = worldCountry.getExchangeRatio();
         }
     }
 }

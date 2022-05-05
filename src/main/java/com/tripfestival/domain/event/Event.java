@@ -25,6 +25,7 @@ public class Event {  // 축제
     private Long id;
 
     private String name;
+    private String img;
     private String description;
     private String address;
     private Integer visitor;
@@ -44,9 +45,10 @@ public class Event {  // 축제
     @JoinColumn(name = "eventseason_id")
     private EventSeason eventSeason;
 
-    public Event(String name, String description, String address, Integer visitor, Boolean inout, WorldCountryCityRegion worldCountryCityRegion, EventCategory eventCategory, EventSeason eventSeason) {
+    public Event(String name, String description, String img, String address, Integer visitor, Boolean inout, WorldCountryCityRegion worldCountryCityRegion, EventCategory eventCategory, EventSeason eventSeason) {
         this.name = name;
         this.description = description;
+        this.img = img;
         this.address = address;
         this.visitor = visitor;
         this.inout = inout;

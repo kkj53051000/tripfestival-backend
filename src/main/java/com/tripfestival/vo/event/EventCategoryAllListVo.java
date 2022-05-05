@@ -22,10 +22,12 @@ public class EventCategoryAllListVo {
 
     @Getter
     class EventCategoryVo {
+        private Long id;
         private String name;
         private String img;
 
         public EventCategoryVo(EventCategory eventCategory) {
+            this.id = eventCategory.getId();
             this.name = eventCategory.getName();
             this.img = eventCategory.getImg();
         }

@@ -17,10 +17,13 @@ public class WorldCountryCityRegionListVo {
                 .collect(Collectors.toList());
     }
 
+    @Getter
     class WorldCountryCityRegionVo {
+        private Long id;
         private String name;
 
         public WorldCountryCityRegionVo(WorldCountryCityRegion worldCountryCityRegion) {
+            this.id = worldCountryCityRegion.getId();
             this.name = worldCountryCityRegion.getName();
         }
     }

@@ -8,6 +8,7 @@ import com.tripfestival.exception.world.WorldCountryCityNotFoundException;
 import com.tripfestival.exception.world.WorldCountryCityRegionNotFoundException;
 import com.tripfestival.repository.world.WorldCountryCityRegionRepository;
 import com.tripfestival.repository.world.WorldCountryCityRepository;
+import com.tripfestival.request.world.WorldCountryCityRegionListRequest;
 import com.tripfestival.request.world.WorldCountryCityRegionNameModifyRequest;
 import com.tripfestival.service.file.FileService;
 import com.tripfestival.vo.Response;
@@ -16,6 +17,7 @@ import com.tripfestival.vo.WorldCountryCityRegionListVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
@@ -33,9 +35,13 @@ public class WorldCountryCityRegionService {
     public ResponseVo worldCountryCityRegionInsert(WorldCountryCityRegionProcessDto req) {
         String url = fileService.s3UploadProcess(req.getFile());
 
+        WorldCountryCity worldCountryCity = worldCountryCityRepository.findById(req.getWorldCountryCityId())
+                .orElseThrow(() -> new WorldCountryCityNotFoundException());
+
         WorldCountryCityRegion worldCountryCityRegion = WorldCountryCityRegion.builder()
                 .name(req.getName())
                 .img(url)
+                .worldCountryCity(worldCountryCity)
                 .build();
 
         worldCountryCityRegionRepository.save(worldCountryCityRegion);
@@ -62,12 +68,9 @@ public class WorldCountryCityRegionService {
         return new ResponseVo(Response.SUCCESS, null);
     }
 
-    public WorldCountryCityRegionListVo worldCountryCityRegionListSelect(@RequestParam Long worldCountryCityId) {
-        WorldCountryCity worldCountryCity = worldCountryCityRepository.findById(worldCountryCityId)
-                .orElseThrow(() -> new WorldCountryCityNotFoundException());
+    public WorldCountryCityRegionListVo worldCountryCityRegionListSelect() {
 
-        List<WorldCountryCityRegion> worldCountryCityRegionList = worldCountryCityRegionRepository.findByWorldCountryCity(worldCountryCity)
-                .orElseThrow(() -> new WorldCountryCityRegionNotFoundException());
+        List<WorldCountryCityRegion> worldCountryCityRegionList = worldCountryCityRegionRepository.findAll();
 
         return new WorldCountryCityRegionListVo(worldCountryCityRegionList);
     }

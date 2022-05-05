@@ -15,17 +15,21 @@ import org.springframework.web.bind.annotation.*;
 public class EventTimeController {
     private final EventTimeService eventTimeService;
 
-    @PostMapping("/eventTimeProcess")
+    @PostMapping("/admin/eventTimeProcess")
     public ResponseVo eventTimeProcess(@RequestBody EventTimeProcessRequest req) {
+
+        System.out.println(req.getStartTime());
+        System.out.println(req.getTitle());
+
         return eventTimeService.eventTimeInsert(req);
     }
 
-    @PostMapping("/eventTimeRemove/{id}")
+    @PostMapping("/admin/eventTimeRemove/{id}")
     public ResponseVo eventTimeRemove(@PathVariable("id") Long eventTimeId) {
         return eventTimeService.eventTimeDelete(eventTimeId);
     }
 
-    @PostMapping("/eventTimeModify/{id}")
+    @PostMapping("/admin/eventTimeModify/{id}")
     public ResponseVo eventTimeModify(
             @PathVariable("id") Long eventTimeId,
             @RequestBody EventTimeModifyRequest req) {

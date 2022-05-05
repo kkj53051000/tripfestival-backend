@@ -13,6 +13,8 @@ import com.tripfestival.vo.world.WorldCountryNameListVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -25,14 +27,16 @@ public class WorldCountryService {
 
     private final FileService fileService;
 
-    public ResponseVo worldCountryInsert(MultipartFile file, WorldCountryProcessRequest req) {
+    public ResponseVo worldCountryInsert(
+            @RequestPart MultipartFile file,
+            @RequestPart WorldCountryProcessRequest req) {
 
         WorldCountry worldCountry = WorldCountry.builder()
                 .name(req.getName())
                 .flagImg(fileService.s3UploadProcess(file))
-                .currency("")
-                .capital("")
-                .exchangeRatio("")
+                .currency(req.getCurrency())
+                .capital(req.getCapital())
+                .exchangeRatio(req.getExchangeRatio())
                 .build();
 
         worldCountryRepository.save(worldCountry);

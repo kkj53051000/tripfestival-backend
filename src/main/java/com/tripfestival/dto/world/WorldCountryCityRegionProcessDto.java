@@ -8,9 +8,11 @@ import org.springframework.web.multipart.MultipartFile;
 public class WorldCountryCityRegionProcessDto {
     private MultipartFile file;
     private String name;
+    private Long worldCountryCityId;
 
     public WorldCountryCityRegionProcessDto(MultipartFile file, WorldCountryCityRegionProcessRequest req) {
         this.file = file;
-        this.name = name;
+        this.name = req.getName();
+        this.worldCountryCityId = req.getWorldCountryCityId();
     }
 }

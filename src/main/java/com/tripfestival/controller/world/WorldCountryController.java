@@ -16,20 +16,20 @@ import org.springframework.web.multipart.MultipartFile;
 public class WorldCountryController {
     private final WorldCountryService worldCountryService;
 
-    @PostMapping("/worldCountryProcess")
+    @PostMapping("/admin/worldCountryProcess")
     public ResponseVo worldCountryProcess(
-            @RequestPart(name = "file", required = true) MultipartFile file,
-            @RequestPart(name = "value", required = false) WorldCountryProcessRequest req) {
+            @RequestPart(name = "file") MultipartFile file,
+            @RequestPart(name = "value") WorldCountryProcessRequest req) {
 
         return worldCountryService.worldCountryInsert(file, req);
     }
 
-    @PostMapping("/worldCountryRemove/{id}")
+    @PostMapping("/admin/worldCountryRemove/{id}")
     public ResponseVo worldCountryRemove(@PathVariable("id") Long worldCountryId) {
         return worldCountryService.worldCountryDelete(worldCountryId);
     }
 
-    @PostMapping("/worldCountryModify/{id}")
+    @PostMapping("/admin/worldCountryModify/{id}")
     public ResponseVo worldCountryModify(
             @PathVariable("id") Long worldCountryId,
             @RequestBody WorldCountryModifyRequest req) {

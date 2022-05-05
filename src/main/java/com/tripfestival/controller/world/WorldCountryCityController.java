@@ -16,22 +16,22 @@ import org.springframework.web.multipart.MultipartFile;
 public class WorldCountryCityController {
     private final WorldCountryCityService worldCountryCityService;
 
-    @PostMapping("/worldCountryCityProcess")
+    @PostMapping("/admin/worldCountryCityProcess")
     public ResponseVo worldCountryCityProcess(
-            @RequestPart(name = "file", required = true) MultipartFile file,
-            @RequestPart(name = "value", required = false) WorldCountryCityProcessRequest req) {
+            @RequestPart(name = "file") MultipartFile file,
+            @RequestPart(name = "value") WorldCountryCityProcessRequest req) {
         return worldCountryCityService.worldCountryCityInsert(file, req);
     }
 
-    @PostMapping("/worldCountryCityRemmove/{id}")
+    @PostMapping("/admin/worldCountryCityRemove/{id}")
     public ResponseVo worldCountryCityRemove(@PathVariable("id") Long worldCountryCityId) {
         return worldCountryCityService.worldCountryCityDelete(worldCountryCityId);
     }
 
-    @PostMapping("/worldCountryCityNameModify/{id}")
+    @PostMapping("/admin/worldCountryCityNameModify/{id}")
     public ResponseVo worldCountryCityNameModify(
             @PathVariable("id") Long worldCountryCityId,
-            WorldCountryCityNameModifyRequest req) {
+            @RequestBody WorldCountryCityNameModifyRequest req) {
 
         WorldCountryCityNameModifyDto worldCountryCityNameModifyDto
                 = new WorldCountryCityNameModifyDto(worldCountryCityId, req);

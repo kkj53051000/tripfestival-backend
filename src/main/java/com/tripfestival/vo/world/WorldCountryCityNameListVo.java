@@ -19,9 +19,11 @@ public class WorldCountryCityNameListVo {
 
     @Getter
     class WorldCountryCityNameVo {
+        private Long id;
         private String name;
 
         public WorldCountryCityNameVo(WorldCountryCity worldCountryCity) {
+            this.id = worldCountryCity.getId();
             this.name  = worldCountryCity.getName();
         }
     }

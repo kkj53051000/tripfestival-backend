@@ -2,6 +2,7 @@ package com.tripfestival.controller.world;
 
 import com.tripfestival.dto.world.WorldCountryCityRegionNameModifyDto;
 import com.tripfestival.dto.world.WorldCountryCityRegionProcessDto;
+import com.tripfestival.request.world.WorldCountryCityRegionListRequest;
 import com.tripfestival.request.world.WorldCountryCityRegionNameModifyRequest;
 import com.tripfestival.request.world.WorldCountryCityRegionProcessRequest;
 import com.tripfestival.service.world.WorldCountryCityRegionService;
@@ -17,10 +18,10 @@ import org.springframework.web.multipart.MultipartFile;
 public class WorldCountryCityRegionController {
     private final WorldCountryCityRegionService worldCountryCityRegionService;
 
-    @PostMapping("/worldCountryCityRegionProcess")
+    @PostMapping("/admin/worldCountryCityRegionProcess")
     public ResponseVo worldCountryCityRegionProcess(
-            @RequestPart MultipartFile file,
-            @RequestPart WorldCountryCityRegionProcessRequest req) {
+            @RequestPart(name = "file") MultipartFile file,
+            @RequestPart(name = "value") WorldCountryCityRegionProcessRequest req) {
 
         WorldCountryCityRegionProcessDto worldCountryCityRegionProcessDto
                 = new WorldCountryCityRegionProcessDto(file, req);
@@ -28,12 +29,12 @@ public class WorldCountryCityRegionController {
         return worldCountryCityRegionService.worldCountryCityRegionInsert(worldCountryCityRegionProcessDto);
     }
 
-    @PostMapping("/worldCountryCityRegionRemove/{id}")
+    @PostMapping("/admin/worldCountryCityRegionRemove/{id}")
     public ResponseVo worldCountryCityRegionRemove(@PathVariable("id") Long worldCountryCityId) {
         return worldCountryCityRegionService.worldCountryCityRegionDelete(worldCountryCityId);
     }
 
-    @PostMapping("/worldCountryCityRegionNameModify/{id}")
+    @PostMapping("/admin/worldCountryCityRegionNameModify/{id}")
     public ResponseVo worldCountryCityRegionNameModify(
             @PathVariable("id") Long worldCountryCityId,
             @RequestBody WorldCountryCityRegionNameModifyRequest req) {
@@ -45,7 +46,7 @@ public class WorldCountryCityRegionController {
     }
 
     @GetMapping("/worldCountryCityRegionList")
-    public WorldCountryCityRegionListVo worldCountryCityRegionList(@RequestParam Long worldCountryCityId) {
-        return worldCountryCityRegionService.worldCountryCityRegionListSelect(worldCountryCityId);
+    public WorldCountryCityRegionListVo worldCountryCityRegionList() {
+        return worldCountryCityRegionService.worldCountryCityRegionListSelect();
     }
 }

@@ -19,7 +19,7 @@ import javax.persistence.*;
 public class WorldCountry {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "WORLDCOUNTRY_SEQ_GENERATOR")
-    @Column(name = "wordcountry_id")
+    @Column(name = "worldcountry_id")
     private Long id;
 
     private String name;

@@ -22,7 +22,7 @@ public class WorldCountryCity {
     private String cityImg;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "wordcountry_id")
+    @JoinColumn(name = "worldcountry_id")
     private WorldCountry worldCountry;
 
     public WorldCountryCity(String name, String cityImg, WorldCountry worldCountry) {
