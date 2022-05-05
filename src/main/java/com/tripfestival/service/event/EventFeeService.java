@@ -8,6 +8,7 @@ import com.tripfestival.exception.event.EventNotFoundException;
 import com.tripfestival.repository.event.EventFeeRepository;
 import com.tripfestival.repository.event.EventRepository;
 import com.tripfestival.request.event.EventFeeProcessRequest;
+import com.tripfestival.vo.event.EventFeeAllListVo;
 import com.tripfestival.vo.event.EventFeeListVo;
 import com.tripfestival.vo.Response;
 import com.tripfestival.vo.ResponseVo;
@@ -72,6 +73,13 @@ public class EventFeeService {
                 .orElseThrow(() -> new EventFeeNotFoundException());
 
         return new EventFeeListVo(eventFeeList);
+    }
+
+    public EventFeeAllListVo eventFeeAllListSelect() {
+
+        List<EventFee> eventFeeList = eventFeeRepository.findAll();
+
+        return new EventFeeAllListVo(eventFeeList);
     }
 
 }
