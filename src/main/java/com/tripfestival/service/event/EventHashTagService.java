@@ -9,9 +9,13 @@ import com.tripfestival.repository.event.EventRepository;
 import com.tripfestival.request.event.EventHashTagProcessRequest;
 import com.tripfestival.vo.Response;
 import com.tripfestival.vo.ResponseVo;
+import com.tripfestival.vo.event.EventHashTagAllListVo;
+import com.tripfestival.vo.event.EventHashTagListVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @Transactional
@@ -43,4 +47,22 @@ public class EventHashTagService {
 
         return new ResponseVo(Response.SUCCESS, null);
     }
+
+    public EventHashTagListVo eventHashTagListSelect(Long eventId) {
+
+        Event event = eventRepository.findById(eventId)
+                .orElseThrow(() -> new EventNotFoundException());
+
+        List<EventHashTag> eventHashTagList = eventHashTagRepository.findByEvent(event);
+
+        return new EventHashTagListVo(eventHashTagList);
+    }
+
+    public EventHashTagAllListVo eventHashTagListAllSelect() {
+
+        List<EventHashTag> eventHashTagList = eventHashTagRepository.findAll();
+
+        return new EventHashTagAllListVo(eventHashTagList);
+    }
+
 }
