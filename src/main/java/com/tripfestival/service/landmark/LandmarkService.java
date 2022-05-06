@@ -14,9 +14,12 @@ import com.tripfestival.request.landmark.LandmarkProcessRequest;
 import com.tripfestival.service.file.FileService;
 import com.tripfestival.vo.Response;
 import com.tripfestival.vo.ResponseVo;
+import com.tripfestival.vo.landmark.LandmarkAllListVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @Transactional
@@ -82,5 +85,15 @@ public class LandmarkService {
         }
 
         return new ResponseVo(Response.SUCCESS, null);
+    }
+
+    public LandmarkAllListVo landmarkAllListSelect() {
+        List<Landmark> landmarkList = landmarkRepository.findAll();
+
+        if (landmarkList.size() == 0) {
+            throw new LandmarkNotFoundException();
+        }
+
+        return new LandmarkAllListVo(landmarkList);
     }
 }

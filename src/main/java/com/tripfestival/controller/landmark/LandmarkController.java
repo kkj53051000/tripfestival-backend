@@ -6,6 +6,7 @@ import com.tripfestival.request.landmark.LandmarkModifyRequest;
 import com.tripfestival.request.landmark.LandmarkProcessRequest;
 import com.tripfestival.service.landmark.LandmarkService;
 import com.tripfestival.vo.ResponseVo;
+import com.tripfestival.vo.landmark.LandmarkAllListVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -16,7 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class LandmarkController {  // 관광지
     private final LandmarkService landmarkService;
 
-    @PostMapping("/landmarkProcess")
+    @PostMapping("/admin/landmarkProcess")
     public ResponseVo landmarkProcess(
             @RequestPart(name = "file") MultipartFile file,
             @RequestBody LandmarkProcessRequest req) {
@@ -26,12 +27,12 @@ public class LandmarkController {  // 관광지
         return landmarkService.landmarkInsert(landmarkProcessDto);
     }
 
-    @PostMapping("/landmarkRemove/{id}")
+    @PostMapping("/admin/landmarkRemove/{id}")
     public ResponseVo landmarkRemove(@PathVariable("id") Long landmarkId) {
         return landmarkService.landmarkDelete(landmarkId);
     }
 
-    @PostMapping("/landmarkModify/{id}")
+    @PostMapping("/admin/landmarkModify/{id}")
     public ResponseVo landmarkModify(@PathVariable("id") Long landmarkId,
                                      @RequestBody LandmarkModifyRequest req) {
 
@@ -45,6 +46,11 @@ public class LandmarkController {  // 관광지
                 .build();
 
         return landmarkService.landmarkAlert(landmarkModifyDto);
+    }
+
+    @GetMapping("/landmarkAllList")
+    public LandmarkAllListVo landmarkAllList() {
+        return landmarkService.landmarkAllListSelect();
     }
 
 }
