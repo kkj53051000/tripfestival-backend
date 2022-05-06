@@ -25,6 +25,7 @@ public class Landmark {  // 관광지
     private Long id;
 
     private String name;
+    private String img;
     @Lob
     private String description;
     private String address;

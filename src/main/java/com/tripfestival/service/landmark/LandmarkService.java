@@ -3,6 +3,7 @@ package com.tripfestival.service.landmark;
 import com.tripfestival.domain.landmark.Landmark;
 import com.tripfestival.domain.world.WorldCountryCityRegion;
 import com.tripfestival.dto.landmark.LandmarkModifyDto;
+import com.tripfestival.dto.landmark.LandmarkProcessDto;
 import com.tripfestival.exception.landmark.LandmarkNotFoundException;
 import com.tripfestival.exception.world.WorldCountryCityNotFoundException;
 import com.tripfestival.exception.world.WorldCountryCityRegionNotFoundException;
@@ -10,6 +11,7 @@ import com.tripfestival.repository.landmark.LandmarkRepository;
 import com.tripfestival.repository.world.WorldCountryCityRegionRepository;
 import com.tripfestival.repository.world.WorldCountryCityRepository;
 import com.tripfestival.request.landmark.LandmarkProcessRequest;
+import com.tripfestival.service.file.FileService;
 import com.tripfestival.vo.Response;
 import com.tripfestival.vo.ResponseVo;
 import lombok.RequiredArgsConstructor;
@@ -26,13 +28,18 @@ public class LandmarkService {
 
     private final WorldCountryCityRegionRepository worldCountryCityRegionRepository;
 
-    public ResponseVo landmarkInsert(LandmarkProcessRequest req) {
+    private final FileService fileService;
+
+    public ResponseVo landmarkInsert(LandmarkProcessDto req) {
+
+        String url = fileService.s3UploadProcess(req.getFile());
 
         WorldCountryCityRegion worldCountryCityRegion = worldCountryCityRegionRepository.findById(req.getWorldCountryCityRegionId())
                 .orElseThrow(() -> new WorldCountryCityRegionNotFoundException());
 
         Landmark landmark = Landmark.builder()
                 .name(req.getName())
+                .img(url)
                 .description(req.getDescription())
                 .address(req.getAddress())
                 .homepage(req.getHomepage())
