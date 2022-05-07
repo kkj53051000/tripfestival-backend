@@ -20,7 +20,7 @@ public class LandmarkController {  // 관광지
     @PostMapping("/admin/landmarkProcess")
     public ResponseVo landmarkProcess(
             @RequestPart(name = "file") MultipartFile file,
-            @RequestBody LandmarkProcessRequest req) {
+            @RequestPart(name = "value") LandmarkProcessRequest req) {
 
         LandmarkProcessDto landmarkProcessDto = new LandmarkProcessDto(file, req);
 

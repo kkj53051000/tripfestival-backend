@@ -8,6 +8,7 @@ import com.tripfestival.exception.landmark.LandmarkNotFoundException;
 import com.tripfestival.repository.landmark.LandmarkFeeRepository;
 import com.tripfestival.repository.landmark.LandmarkRepository;
 import com.tripfestival.request.landmark.LandmarkFeeProcessRequest;
+import com.tripfestival.vo.landmark.LandmarkFeeAllListVo;
 import com.tripfestival.vo.landmark.LandmarkFeeListVo;
 import com.tripfestival.vo.Response;
 import com.tripfestival.vo.ResponseVo;
@@ -68,6 +69,16 @@ public class LandmarkFeeService {
                 .orElseThrow(() -> new LandmarkFeeNotFoundException());
 
         return new LandmarkFeeListVo(landmarkFeeList);
+    }
+
+    public LandmarkFeeAllListVo landmarkFeeAllListSelect() {
+        List<LandmarkFee> landmarkFeeList = landmarkFeeRepository.findAll();
+
+        if(landmarkFeeList.size() == 0) {
+            throw new LandmarkFeeNotFoundException();
+        }
+
+        return new LandmarkFeeAllListVo(landmarkFeeList);
     }
 
 }

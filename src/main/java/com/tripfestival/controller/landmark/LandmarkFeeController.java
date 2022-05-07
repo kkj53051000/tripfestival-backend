@@ -4,6 +4,7 @@ import com.tripfestival.dto.landmark.LandmarkFeeModifyDto;
 import com.tripfestival.request.landmark.LandmarkFeeModifyRequest;
 import com.tripfestival.request.landmark.LandmarkFeeProcessRequest;
 import com.tripfestival.service.landmark.LandmarkFeeService;
+import com.tripfestival.vo.landmark.LandmarkFeeAllListVo;
 import com.tripfestival.vo.landmark.LandmarkFeeListVo;
 import com.tripfestival.vo.ResponseVo;
 import lombok.RequiredArgsConstructor;
@@ -13,19 +14,19 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @RequestMapping("/api")
 public class LandmarkFeeController {
-    private LandmarkFeeService landmarkFeeService;
+    private final LandmarkFeeService landmarkFeeService;
 
-    @PostMapping("/landmarkFeeProcess")
+    @PostMapping("/admin/landmarkFeeProcess")
     public ResponseVo landmarkFeeProcess(@RequestBody LandmarkFeeProcessRequest req) {
         return landmarkFeeService.landmarkFeeInsert(req);
     }
 
-    @PostMapping("/landmarkFeeRemove/{id}")
+    @PostMapping("/admin/landmarkFeeRemove/{id}")
     public ResponseVo landmarkFeeRemove(@PathVariable("id") Long landmarkFeeId) {
         return landmarkFeeService.landmarkFeeDelete(landmarkFeeId);
     }
 
-    @PostMapping("/landmarkFeeModify/{id}")
+    @PostMapping("/admin/landmarkFeeModify/{id}")
     public ResponseVo landmarkFeeModify(@PathVariable("id") Long landmarkFeeId, @RequestBody LandmarkFeeModifyRequest req) {
         LandmarkFeeModifyDto landmarkFeeModifyDto = LandmarkFeeModifyDto.builder()
                 .landmarkFeeId(landmarkFeeId)
@@ -39,5 +40,10 @@ public class LandmarkFeeController {
     @GetMapping("/landmarkFeeList")
     public LandmarkFeeListVo landmarkFeeList(@RequestParam Long landmarkId) {
         return landmarkFeeService.landmarkFeeListSelect(landmarkId);
+    }
+
+    @GetMapping("/landmarkFeeAllList")
+    public LandmarkFeeAllListVo landmarkFeeAllList() {
+        return landmarkFeeService.landmarkFeeAllListSelect();
     }
 }
