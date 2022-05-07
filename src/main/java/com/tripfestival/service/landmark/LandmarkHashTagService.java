@@ -9,9 +9,12 @@ import com.tripfestival.repository.landmark.LandmarkRepository;
 import com.tripfestival.request.landmark.LandmarkHashTagProcessRequest;
 import com.tripfestival.vo.Response;
 import com.tripfestival.vo.ResponseVo;
+import com.tripfestival.vo.landmark.LandmarkHashTagAllListVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @Transactional
@@ -42,5 +45,15 @@ public class LandmarkHashTagService {
         landmarkHashTagRepository.delete(landmarkHashTag);
 
         return new ResponseVo(Response.SUCCESS, null);
+    }
+
+    public LandmarkHashTagAllListVo landmarkHashTagAllListSelect() {
+        List<LandmarkHashTag> landmarkHashTagList = landmarkHashTagRepository.findAll();
+
+        if(landmarkHashTagList.size() == 0) {
+            throw new LandmarkHashTagNotFoundException();
+        }
+
+        return new LandmarkHashTagAllListVo(landmarkHashTagList);
     }
 }
