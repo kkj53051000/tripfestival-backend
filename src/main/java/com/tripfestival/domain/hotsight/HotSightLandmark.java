@@ -23,8 +23,6 @@ public class HotSightLandmark { // 특별한 관광지
     @Column(name = "hotsightlandmark_id")
     private Long id;
 
-    private String img;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "landmark_id")
     private Landmark landmark;
@@ -32,10 +30,4 @@ public class HotSightLandmark { // 특별한 관광지
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "hotsighttwo_id")
     private HotSightTwo hotSightTwo;
-
-    public HotSightLandmark(String img, Landmark landmark, HotSightTwo hotSightTwo) {
-        this.img = img;
-        this.landmark = landmark;
-        this.hotSightTwo = hotSightTwo;
-    }
 }

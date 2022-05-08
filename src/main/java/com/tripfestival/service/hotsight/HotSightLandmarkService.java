@@ -5,13 +5,14 @@ import com.tripfestival.domain.hotsight.HotSightTwo;
 import com.tripfestival.domain.landmark.Landmark;
 import com.tripfestival.dto.hotSight.HotSightLandmarkImgModifyDto;
 import com.tripfestival.dto.hotSight.HotSightLandmarkHotSightTwoModifyDto;
-import com.tripfestival.dto.hotSight.HotSightLandmarkProcessDto;
 import com.tripfestival.exception.hotSight.HotSightLandmarkNotFoundException;
 import com.tripfestival.exception.hotSight.HotSightTwoNotFoundException;
 import com.tripfestival.repository.hotsight.HotSightLandmarkRepository;
 import com.tripfestival.repository.hotsight.HotSightTwoRepository;
 import com.tripfestival.repository.landmark.LandmarkRepository;
+import com.tripfestival.request.hotsight.HotSightLandmarkProcessRequest;
 import com.tripfestival.service.file.FileService;
+import com.tripfestival.vo.hotsight.HotSightLandmarkAllListVo;
 import com.tripfestival.vo.hotsight.HotSightLandmarkListVo;
 import com.tripfestival.vo.Response;
 import com.tripfestival.vo.ResponseVo;
@@ -33,17 +34,14 @@ public class HotSightLandmarkService {
 
     private final FileService fileService;
 
-    public ResponseVo hotSightLandmarkInsert(HotSightLandmarkProcessDto req) {
+    public ResponseVo hotSightLandmarkInsert(HotSightLandmarkProcessRequest req) {
         Landmark landmark = landmarkRepository.findById(req.getLandmarkId())
                 .orElseThrow(() -> new HotSightLandmarkNotFoundException());
 
         HotSightTwo hotSightTwo = hotSightTwoRepository.findById(req.getHotSightTwoId())
                 .orElseThrow(() -> new HotSightTwoNotFoundException());
 
-        String url = fileService.s3UploadProcess(req.getFile());
-
         HotSightLandmark hotSightLandmark = HotSightLandmark.builder()
-                .img(url)
                 .landmark(landmark)
                 .hotSightTwo(hotSightTwo)
                 .build();
@@ -58,17 +56,6 @@ public class HotSightLandmarkService {
                 .orElseThrow(() -> new HotSightLandmarkNotFoundException());
 
         hotSightLandmarkRepository.delete(hotSightLandmark);
-
-        return new ResponseVo(Response.SUCCESS, null);
-    }
-
-    public ResponseVo hotSightImgAlert(HotSightLandmarkImgModifyDto req) {
-        HotSightLandmark hotSightLandmark = hotSightLandmarkRepository.findById(req.getHotSightLandmarkId())
-                .orElseThrow(() -> new HotSightLandmarkNotFoundException());
-
-        String url = fileService.s3UploadProcess(req.getFile());
-
-        hotSightLandmark.setImg(url);
 
         return new ResponseVo(Response.SUCCESS, null);
     }
@@ -94,5 +81,15 @@ public class HotSightLandmarkService {
 
 
         return new HotSightLandmarkListVo(hotSightLandmarkList);
+    }
+
+    public HotSightLandmarkAllListVo hotSightLandmarkAllListSelect() {
+        List<HotSightLandmark> hotSightLandmarkList = hotSightLandmarkRepository.findAll();
+
+        if (hotSightLandmarkList.size() == 0) {
+            throw new HotSightLandmarkNotFoundException();
+        }
+
+        return new HotSightLandmarkAllListVo(hotSightLandmarkList);
     }
 }

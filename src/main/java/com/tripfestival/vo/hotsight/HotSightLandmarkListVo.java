@@ -29,12 +29,10 @@ public class HotSightLandmarkListVo {
     class HotSightLandmarkVo {
         private Long id;
         private String name;
-        private String img;
 
         public HotSightLandmarkVo(HotSightLandmark hotSightLandmark) {
             this.id = hotSightLandmark.getId();
             this.name = hotSightLandmark.getLandmark().getName();
-            this.img = hotSightLandmark.getImg();
         }
     }
 }
