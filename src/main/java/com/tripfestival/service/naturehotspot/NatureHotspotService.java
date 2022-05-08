@@ -16,6 +16,7 @@ import com.tripfestival.request.naturehotspot.NatureHotspotProcessRequest;
 import com.tripfestival.service.file.FileService;
 import com.tripfestival.vo.Response;
 import com.tripfestival.vo.ResponseVo;
+import com.tripfestival.vo.naturehotspot.NatureHotspotAllListVo;
 import com.tripfestival.vo.naturehotspot.NatureHotspotListVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -96,5 +97,15 @@ public class NatureHotspotService {
                 .orElseThrow(() -> new NatureHotspotNotFoundException());
 
         return new NatureHotspotListVo(natureHotspotList);
+    }
+
+    public NatureHotspotAllListVo natureHotspotAllListSelect() {
+        List<NatureHotspot> natureHotspotList = natureHotspotRepository.findAll();
+
+        if (natureHotspotList.size() == 0) {
+            throw new NatureHotspotNotFoundException();
+        }
+
+        return new NatureHotspotAllListVo(natureHotspotList);
     }
 }

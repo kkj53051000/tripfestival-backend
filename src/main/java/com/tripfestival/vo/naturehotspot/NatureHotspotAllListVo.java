@@ -7,12 +7,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Getter
-public class NatureHotspotListVo {
+public class NatureHotspotAllListVo {
 
     private List<NatureHotspotVo> items = null;
 
-    public NatureHotspotListVo(List<NatureHotspot> natureHotspotList) {
-        items = natureHotspotList.stream()
+    public NatureHotspotAllListVo(List<NatureHotspot> natureHotspotList) {
+        this.items = natureHotspotList.stream()
                 .map(natureHotspot -> new NatureHotspotVo(natureHotspot))
                 .collect(Collectors.toList());
     }
@@ -21,12 +21,13 @@ public class NatureHotspotListVo {
     class NatureHotspotVo {
         private Long id;
         private String landmarkName;
-        private String img;
+        private String natureHotspotTypeName;
 
         public NatureHotspotVo(NatureHotspot natureHotspot) {
             this.id = natureHotspot.getId();
             this.landmarkName = natureHotspot.getLandmark().getName();
-            this.img = natureHotspot.getImg();
+            this.natureHotspotTypeName = natureHotspot.getNatureHotspotType().getName();
         }
+
     }
 }

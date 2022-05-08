@@ -24,7 +24,7 @@ public class HotspotController {  // 인공 관광지
     }
 
     @PostMapping("/admin/hotspotRemove/{id}")
-    public ResponseVo hotspotRemove(@PathVariable Long hotspotId) {
+    public ResponseVo hotspotRemove(@PathVariable("id") Long hotspotId) {
         return hotspotService.hotspotDelete(hotspotId);
     }
 

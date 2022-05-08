@@ -17,10 +17,13 @@ public class NatureHotspotTypeAllListVo {
                 .collect(Collectors.toList());
     }
 
+    @Getter
     class NatureHotspotTypeAllVo {
+        private Long id;
         private String name;
 
         public NatureHotspotTypeAllVo(NatureHotspotType natureHotspotType) {
+            this.id = natureHotspotType.getId();
             this.name = natureHotspotType.getName();
         }
     }

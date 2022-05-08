@@ -7,6 +7,7 @@ import com.tripfestival.request.naturehotspot.NatureHotspotNatureHotspotTypeModi
 import com.tripfestival.request.naturehotspot.NatureHotspotProcessRequest;
 import com.tripfestival.service.naturehotspot.NatureHotspotService;
 import com.tripfestival.vo.ResponseVo;
+import com.tripfestival.vo.naturehotspot.NatureHotspotAllListVo;
 import com.tripfestival.vo.naturehotspot.NatureHotspotListVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -14,13 +15,14 @@ import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/api")
 public class NatureHotspotController {  // 자연관광지
     private final NatureHotspotService natureHotspotService;
 
-    @PostMapping("/natureHotspotProcess")
+    @PostMapping("/admin/natureHotspotProcess")
     public ResponseVo natureHotspotProcess(
-            @RequestPart MultipartFile file,
-            @RequestPart NatureHotspotProcessRequest req) {
+            @RequestPart(name = "file") MultipartFile file,
+            @RequestPart(name = "value") NatureHotspotProcessRequest req) {
 
         NatureHotspotProcessDto natureHotspotProcessDto
                 = new NatureHotspotProcessDto(file, req);
@@ -28,12 +30,12 @@ public class NatureHotspotController {  // 자연관광지
         return natureHotspotService.natureHotspotInsert(natureHotspotProcessDto);
     }
 
-    @PostMapping("/natureHotspotRemove/{id}")
+    @PostMapping("/admin/natureHotspotRemove/{id}")
     public ResponseVo natureHotspotRemove(@PathVariable("id") Long natureHotspotId) {
         return natureHotspotService.natureHotspotDelete(natureHotspotId);
     }
 
-    @PostMapping("/natureHotspotNatureHotspotTypeModify/{id}")
+    @PostMapping("/admin/natureHotspotNatureHotspotTypeModify/{id}")
     public ResponseVo natureHotspotNatureHotspotTypeModify(
             @PathVariable("id") Long natureHotspotId,
             @RequestBody NatureHotspotNatureHotspotTypeModifyRequest req) {
@@ -44,7 +46,7 @@ public class NatureHotspotController {  // 자연관광지
         return natureHotspotService.natureHotspotNatureHotspotTypeAlert(natureHotspotNatureHotspotTypeModifyDto);
     }
 
-    @PostMapping("/natureHotspotImgModify/{id}")
+    @PostMapping("/admin/natureHotspotImgModify/{id}")
     public ResponseVo natureHotspotImgModify(
             @PathVariable("id") Long natureHotspotId,
             @RequestPart MultipartFile file) {
@@ -58,5 +60,10 @@ public class NatureHotspotController {  // 자연관광지
     @GetMapping("/natureHotspotList")
     public NatureHotspotListVo natureHotspotList(@RequestParam Long natureHotspotTypeId) {
         return natureHotspotService.natureHotspotListSelect(natureHotspotTypeId);
+    }
+
+    @GetMapping("/natureHotspotAllList")
+    public NatureHotspotAllListVo natureHotspotAllList() {
+        return natureHotspotService.natureHotspotAllListSelect();
     }
 }

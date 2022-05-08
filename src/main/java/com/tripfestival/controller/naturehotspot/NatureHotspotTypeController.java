@@ -11,10 +11,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/api")
 public class NatureHotspotTypeController {  // 자연관광지 타입
     private final NatureHotspotTypeService natureHotspotTypeService;
 
-    @PostMapping("/natureHotspotTypeProcess")
+    @PostMapping("/admin/natureHotspotTypeProcess")
     public ResponseVo natureHotspotTypeProcess(
             @RequestPart MultipartFile file,
             @RequestPart("value") NatureHotspotTypeRequest req) {
@@ -27,7 +28,7 @@ public class NatureHotspotTypeController {  // 자연관광지 타입
         return natureHotspotTypeService.natureHotspotTypeInsert(natureHotspotTypeDto);
     }
 
-    @PostMapping("/natureHotspotTypeRemove/{id}")
+    @PostMapping("/admin/natureHotspotTypeRemove/{id}")
     public ResponseVo natureHotspotTypeRemove(@PathVariable("id") Long natureHotspotTypeId) {
         return natureHotspotTypeService.natureHotspotTypeDelete(natureHotspotTypeId);
     }
