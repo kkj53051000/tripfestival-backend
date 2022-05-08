@@ -21,10 +21,14 @@ public class LandmarkHashTagAllListVo {
     class LandmarkHashTagVo {
         private Long id;
         private String name;
+        private Long landmarkId;
+        private String landmarkName;
 
         public LandmarkHashTagVo(LandmarkHashTag landmarkHashTag) {
             this.id = landmarkHashTag.getId();
             this.name = landmarkHashTag.getName();
+            this.landmarkId = landmarkHashTag.getLandmark().getId();
+            this.landmarkName = landmarkHashTag.getLandmark().getName();
         }
     }
 }

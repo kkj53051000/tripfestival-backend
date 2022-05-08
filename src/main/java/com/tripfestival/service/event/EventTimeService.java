@@ -8,6 +8,7 @@ import com.tripfestival.exception.event.EventTimeNotFoundException;
 import com.tripfestival.repository.event.EventRepository;
 import com.tripfestival.repository.event.EventTimeRepository;
 import com.tripfestival.request.event.EventTimeProcessRequest;
+import com.tripfestival.vo.event.EventTimeAllListVo;
 import com.tripfestival.vo.event.EventTimeListVo;
 import com.tripfestival.vo.Response;
 import com.tripfestival.vo.ResponseVo;
@@ -76,5 +77,15 @@ public class EventTimeService {
                 .orElseThrow(() -> new EventTimeNotFoundException());
 
         return new EventTimeListVo(eventTimeList);
+    }
+
+    public EventTimeAllListVo eventTimeAllListSelect() {
+        List<EventTime> eventTimeList = eventTimeRepository.findAll();
+
+        if (eventTimeList.size() == 0) {
+            throw new EventTimeNotFoundException();
+        }
+
+        return new EventTimeAllListVo(eventTimeList);
     }
 }

@@ -4,6 +4,7 @@ import com.tripfestival.dto.event.EventTimeModifyDto;
 import com.tripfestival.request.event.EventTimeModifyRequest;
 import com.tripfestival.request.event.EventTimeProcessRequest;
 import com.tripfestival.service.event.EventTimeService;
+import com.tripfestival.vo.event.EventTimeAllListVo;
 import com.tripfestival.vo.event.EventTimeListVo;
 import com.tripfestival.vo.ResponseVo;
 import lombok.RequiredArgsConstructor;
@@ -47,5 +48,10 @@ public class EventTimeController {
     @GetMapping("/eventTimeList")
     public EventTimeListVo eventTimeList(@RequestParam Long eventId) {
         return eventTimeService.eventTimeListSelect(eventId);
+    }
+
+    @GetMapping("/eventTimeAllList")
+    public EventTimeAllListVo eventTimeAllList() {
+        return eventTimeService.eventTimeAllListSelect();
     }
 }

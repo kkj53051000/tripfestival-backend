@@ -23,12 +23,16 @@ public class LandmarkTimeAllListVo {
         private String title;
         private String startTime;
         private String endTime;
+        private Long landmarkId;
+        private String landmarkName;
 
         public LandmarkTimeVo(LandmarkTime landmarkTime) {
             this.id = landmarkTime.getId();
             this.title = landmarkTime.getTitle();
             this.startTime = String.valueOf(landmarkTime.getStartTime());
             this.endTime = String.valueOf(landmarkTime.getEndTime());
+            this.landmarkId = landmarkTime.getLandmark().getId();
+            this.landmarkName = landmarkTime.getLandmark().getName();
         }
     }
 }
