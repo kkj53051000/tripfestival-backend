@@ -5,6 +5,7 @@ import com.tripfestival.request.landmark.LandmarkTimeModifyRequest;
 import com.tripfestival.request.landmark.LandmarkTimeProcessRequest;
 import com.tripfestival.service.landmark.LandmarkTimeService;
 import com.tripfestival.vo.ResponseVo;
+import com.tripfestival.vo.landmark.LandmarkTimeAllListVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,17 +15,17 @@ import org.springframework.web.bind.annotation.*;
 public class LandmarkTimeController {
     private final LandmarkTimeService landmarkTimeService;
 
-    @PostMapping("/landmarkTimeProcess")
+    @PostMapping("/admin/landmarkTimeProcess")
     public ResponseVo landmarkTimeProcess(@RequestBody LandmarkTimeProcessRequest req) {
         return landmarkTimeService.landmarkTimeInsert(req);
     }
 
-    @PostMapping("/landmarkTimeRemove/{id}")
+    @PostMapping("/admin/landmarkTimeRemove/{id}")
     public ResponseVo landmarkTimeRemove(@PathVariable("id") Long landmarkTimeId) {
         return landmarkTimeService.landmarkTimeDelete(landmarkTimeId);
     }
 
-    @PostMapping("/landmarkTimeModify/{id}")
+    @PostMapping("/admin/landmarkTimeModify/{id}")
     public ResponseVo landmarkTimeModify(
             @PathVariable("id") Long landmarkTimeId,
             @RequestBody LandmarkTimeModifyRequest req) {
@@ -36,5 +37,10 @@ public class LandmarkTimeController {
                 .build();
 
         return landmarkTimeService.landmarkTimeAlert(landmarkTimeModifyDto);
+    }
+
+    @GetMapping("/landmarkTimeAllList")
+    public LandmarkTimeAllListVo landmarkTimeAllList() {
+        return landmarkTimeService.landmarkTimeAllListSelect();
     }
 }

@@ -5,10 +5,7 @@ import com.tripfestival.service.landmark.LandmarkHashTagService;
 import com.tripfestival.vo.ResponseVo;
 import com.tripfestival.vo.landmark.LandmarkHashTagAllListVo;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -17,7 +14,7 @@ public class LandmarkHashTagController {
     private final LandmarkHashTagService landmarkHashTagService;
 
     @PostMapping("/admin/landmarkHashTagProcess")
-    public ResponseVo landmarkHashTagProcess(LandmarkHashTagProcessRequest req) {
+    public ResponseVo landmarkHashTagProcess(@RequestBody LandmarkHashTagProcessRequest req) {
         return landmarkHashTagService.landmarkHashTagInsert(req);
     }
 
@@ -26,7 +23,7 @@ public class LandmarkHashTagController {
         return landmarkHashTagService.landmarkHashTagDelete(landmarkHashTagId);
     }
 
-    @PostMapping("/landmarkHashTagAllList")
+    @GetMapping("/landmarkHashTagAllList")
     public LandmarkHashTagAllListVo landmarkHashTagAllList() {
         return landmarkHashTagService.landmarkHashTagAllListSelect();
     }
