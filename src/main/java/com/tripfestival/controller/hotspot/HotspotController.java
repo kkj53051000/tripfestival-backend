@@ -5,6 +5,7 @@ import com.tripfestival.request.hotspot.HotspotHotspotTypeModifyRequest;
 import com.tripfestival.request.hotspot.HotspotProcessRequest;
 import com.tripfestival.service.hotspot.HotspotService;
 import com.tripfestival.vo.ResponseVo;
+import com.tripfestival.vo.hotspot.HotspotAllListVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,26 +16,21 @@ public class HotspotController {  // 인공 관광지
 
     private final HotspotService hotspotService;
 
-    @PostMapping("/hotspotProcess")
+    @PostMapping("/admin/hotspotProcess")
     public ResponseVo hotspotProcess(
-            @RequestPart(name = "value") HotspotProcessRequest req) {
+            @RequestBody HotspotProcessRequest req) {
 
         return hotspotService.hotspotInsert(req);
     }
 
-    @PostMapping("/hotspotRemove/{id}")
+    @PostMapping("/admin/hotspotRemove/{id}")
     public ResponseVo hotspotRemove(@PathVariable Long hotspotId) {
         return hotspotService.hotspotDelete(hotspotId);
     }
 
-    @PostMapping("/hotspotHotspotTypeModify/{id}")
-    public ResponseVo hotspotHotspotTypeModify(
-            @PathVariable Long hotspotId,
-            @RequestBody HotspotHotspotTypeModifyRequest req) {
 
-        HotspotHotspotTypeModifyDto hotspotHotspotTypeModifyDto =
-                new HotspotHotspotTypeModifyDto(hotspotId, req);
-
-        return hotspotService.hotspotHotspotTypeAlert(hotspotHotspotTypeModifyDto);
+    @GetMapping("/hotspotAllList")
+    public HotspotAllListVo hotspotAllList() {
+        return hotspotService.hotspotAllListSelect();
     }
 }

@@ -13,9 +13,12 @@ import com.tripfestival.repository.landmark.LandmarkRepository;
 import com.tripfestival.request.hotspot.HotspotProcessRequest;
 import com.tripfestival.vo.Response;
 import com.tripfestival.vo.ResponseVo;
+import com.tripfestival.vo.hotspot.HotspotAllListVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @Transactional
@@ -53,15 +56,13 @@ public class HotspotService {
         return new ResponseVo(Response.SUCCESS, null);
     }
 
-    public ResponseVo hotspotHotspotTypeAlert(HotspotHotspotTypeModifyDto req) {
-        Hotspot hotspot = hotspotRepository.findById(req.getHotspotId())
-                .orElseThrow(() -> new HotspotNotFoundException());
+    public HotspotAllListVo hotspotAllListSelect() {
+        List<Hotspot> hotspotList = hotspotRepository.findAll();
 
-        HotspotType hotspotType = hotspotTypeRepository.findById(req.getHotspotTypeId())
-                .orElseThrow(() -> new HotspotTypeNotFoundException());
+        if (hotspotList.size() == 0) {
+            throw new HotspotNotFoundException();
+        }
 
-        hotspot.setHotspotType(hotspotType);
-
-        return new ResponseVo(Response.SUCCESS, null);
+        return new HotspotAllListVo(hotspotList);
     }
 }

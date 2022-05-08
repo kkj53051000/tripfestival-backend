@@ -18,7 +18,7 @@ public class HotspotTypeController { // 인공 관광지 종류
 
     private final HotspotTypeService hotspotTypeService;
 
-    @PostMapping("/hotspotTypeProcess")
+    @PostMapping("/admin/hotspotTypeProcess")
     public ResponseVo hotspotTypeProcess(
             @RequestPart MultipartFile file,
             @RequestPart("value")HotspotTypeProcessRequest req) {
@@ -31,12 +31,12 @@ public class HotspotTypeController { // 인공 관광지 종류
         return hotspotTypeService.hotspotTypeInsert(hotspotTypeProcessDto);
     }
 
-    @PostMapping("/hotspotTypeRemove/{id}")
+    @PostMapping("/admin/hotspotTypeRemove/{id}")
     public ResponseVo hotspotTypeRemove(@PathVariable("id") Long hotspotTypeId) {
         return hotspotTypeService.hotspotTypeRemove(hotspotTypeId);
     }
 
-    @PostMapping("/hotspotTypeNameModify/{id}")
+    @PostMapping("/admin/hotspotTypeNameModify/{id}")
     public ResponseVo hotspotTypeNameModify(
             @PathVariable("id") Long hotspotTypeId,
             @RequestBody HotspotTypeNameModifyRequest req) {

@@ -20,9 +20,4 @@ public class HotspotType { // 인공 관광지 종류
 
     private String name;
     private String img;
-
-    public HotspotType(String name, String img) {
-        this.name = name;
-        this.img = img;
-    }
 }
