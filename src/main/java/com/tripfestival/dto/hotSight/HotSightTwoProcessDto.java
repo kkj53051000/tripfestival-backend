@@ -9,4 +9,5 @@ import org.springframework.web.multipart.MultipartFile;
 public class HotSightTwoProcessDto {
     private MultipartFile file;
     private String name;
+    private Long hotSightOneId;
 }

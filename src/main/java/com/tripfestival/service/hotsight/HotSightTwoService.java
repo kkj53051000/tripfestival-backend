@@ -10,6 +10,7 @@ import com.tripfestival.exception.hotSight.HotSightTwoNotFoundException;
 import com.tripfestival.repository.hotsight.HotSightOneRepository;
 import com.tripfestival.repository.hotsight.HotSightTwoRepository;
 import com.tripfestival.service.file.FileService;
+import com.tripfestival.vo.hotsight.HotSightTwoAllListVo;
 import com.tripfestival.vo.hotsight.HotSightTwoListVo;
 import com.tripfestival.vo.Response;
 import com.tripfestival.vo.ResponseVo;
@@ -32,9 +33,13 @@ public class HotSightTwoService {
     public ResponseVo hotSightTwoInsert(HotSightTwoProcessDto req) {
         String url = fileService.s3UploadProcess(req.getFile());
 
+        HotSightOne hotSightOne = hotSightOneRepository.findById(req.getHotSightOneId())
+                .orElseThrow(() -> new HotSightOneNotFoundException());
+
         HotSightTwo hotSightTwo = HotSightTwo.builder()
                 .name(req.getName())
                 .img(url)
+                .hotSightOne(hotSightOne)
                 .build();
 
         hotSightTwoRepository.save(hotSightTwo);
@@ -79,6 +84,15 @@ public class HotSightTwoService {
                 .orElseThrow(() -> new HotSightTwoNotFoundException());
 
         return new HotSightTwoListVo(hotSightTwoList);
+    }
 
+    public HotSightTwoAllListVo hotSightTwoAllListSelect() {
+        List<HotSightTwo> hotSightTwoList = hotSightTwoRepository.findAll();
+
+        if (hotSightTwoList.size() == 0) {
+            throw new HotSightTwoNotFoundException();
+        }
+
+        return new HotSightTwoAllListVo(hotSightTwoList);
     }
 }

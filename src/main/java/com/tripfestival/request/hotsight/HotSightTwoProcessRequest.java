@@ -5,4 +5,5 @@ import lombok.Getter;
 @Getter
 public class HotSightTwoProcessRequest {
     private String name;
+    private Long hotSightOneId;
 }

@@ -28,10 +28,4 @@ public class HotSightTwo {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "hotsightone_id")
     private HotSightOne hotSightOne;
-
-    public HotSightTwo(String name, String img, HotSightOne hotSightOne) {
-        this.name = name;
-        this.img = img;
-        this.hotSightOne = hotSightOne;
-    }
 }

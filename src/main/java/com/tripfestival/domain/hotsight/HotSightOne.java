@@ -24,9 +24,4 @@ public class HotSightOne {
 
     private String name;
     private String img;
-
-    public HotSightOne(String name, String img) {
-        this.name = name;
-        this.img = img;
-    }
 }

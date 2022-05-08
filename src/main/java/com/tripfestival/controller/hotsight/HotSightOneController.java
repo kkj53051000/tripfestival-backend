@@ -18,21 +18,21 @@ import org.springframework.web.multipart.MultipartFile;
 public class HotSightOneController {  // 특별한 관광지 종류 1
     private final HotSightOneService hotSightOneService;
 
-    @PostMapping("/hotSightOneProcess")
+    @PostMapping("/admin/hotSightOneProcess")
     public ResponseVo hotSightOneProcess(
-            @RequestPart MultipartFile file,
-            @RequestPart HotSightOneProcessRequest req) {
+            @RequestPart(name ="file") MultipartFile file,
+            @RequestPart(name ="value") HotSightOneProcessRequest req) {
         HotSightOneProcessDto hotSightOneProcessDto = new HotSightOneProcessDto(file, req);
 
         return hotSightOneService.hotSightOneInsert(hotSightOneProcessDto);
     }
 
-    @PostMapping("/hotSightOneRemove/{id}")
+    @PostMapping("/admin/hotSightOneRemove/{id}")
     public ResponseVo hotSightOneRemove(@PathVariable("id") Long hotSightOneId) {
         return hotSightOneService.hotSightOneDelete(hotSightOneId);
     }
 
-    @PostMapping("/hotSightOneNameModify/{id}")
+    @PostMapping("/admin/hotSightOneNameModify/{id}")
     public ResponseVo hotSightOneNameModify(
             @PathVariable("id") Long hotSightOneId,
             @RequestBody HotSightOneNameModifyRequest req) {
@@ -42,7 +42,7 @@ public class HotSightOneController {  // 특별한 관광지 종류 1
         return hotSightOneService.hotSightOneNameAlert(hotSightOneNameModifyDto);
     }
 
-    @PostMapping("/hotSightOneImgModify/{id}")
+    @PostMapping("/admin/hotSightOneImgModify/{id}")
     public ResponseVo hotSightOneImgModify(
             @PathVariable("id") Long hotSightOneId,
             @RequestPart MultipartFile file) {
