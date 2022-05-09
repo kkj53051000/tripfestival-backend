@@ -40,7 +40,6 @@ import java.util.List;
 @Service
 @Transactional
 @RequiredArgsConstructor
-
 public class DataApiService {
 
     String serviceName = "TripFestival";
@@ -58,8 +57,8 @@ public class DataApiService {
     private final LandmarkImgRepository landmarkImgRepository;
 
     @PostConstruct
-    public void init() {
-        if (worldCountryRepository.findByName("대한민국").get() == null) {
+    public void insertWorldCountry() {
+        if (!worldCountryRepository.findByName("대한민국").isPresent()) {
             WorldCountry worldCountry = WorldCountry.builder()
                     .name("대한민국")
                     .build();
@@ -99,10 +98,10 @@ public class DataApiService {
                 System.out.println("이름  : " + getTagValue("name", eElement));
 
                 // DB에 이미 있는지 확인
-                WorldCountryCity checkWorldCountryCity = worldCountryCityRepository.findByName(getTagValue("name", eElement))
-                        .orElseThrow(() -> new WorldCountryCityNotFoundException());
+                Boolean checkWorldCountryCity = worldCountryCityRepository.findByName(getTagValue("name", eElement))
+                        .isPresent();
 
-                if(checkWorldCountryCity == null) {
+                if(!checkWorldCountryCity) {
                     WorldCountryCity worldCountryCity = WorldCountryCity.builder()
                             .name(getTagValue("name", eElement))
                             .areaCode(Integer.valueOf(getTagValue("code", eElement)))
@@ -117,24 +116,24 @@ public class DataApiService {
         return new ResponseVo(Response.SUCCESS, null);
     }
 
-    public void updateCountryCityRegionKorea() throws IOException, ParserConfigurationException, SAXException {
-        StringBuilder urlBuilder = new StringBuilder("http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaCode"); /*URL*/
-        urlBuilder.append("?" + URLEncoder.encode("serviceKey","UTF-8") + "=" + serviceKey); /*Service Key*/
-        urlBuilder.append("&" + URLEncoder.encode("numOfRows","UTF-8") + "=" + URLEncoder.encode("100000", "UTF-8")); /*한 페이지 결과수*/
-        urlBuilder.append("&" + URLEncoder.encode("pageNo","UTF-8") + "=" + URLEncoder.encode("1", "UTF-8")); /*현재 페이지 번호*/
-        urlBuilder.append("&" + URLEncoder.encode("MobileOS","UTF-8") + "=" + URLEncoder.encode("ETC", "UTF-8")); /*IOS (아이폰), AND (안드로이드), WIN (원도우폰), ETC*/
-        urlBuilder.append("&" + URLEncoder.encode("MobileApp","UTF-8") + "=" + URLEncoder.encode(serviceName, "UTF-8")); /*서비스명=어플명*/
+    public ResponseVo updateCountryCityRegionKorea() throws IOException, ParserConfigurationException, SAXException {
+
 
         List<WorldCountryCity> worldCountryCityList = worldCountryCityRepository.findAll();
+
+        System.out.println( "worldCountryCityListSize : " + worldCountryCityList.size());
 
         if(worldCountryCityList.size() == 0) {
             throw new WorldCountryCityNotFoundException();
         }
 
-        for (int i = 0; i < worldCountryCityList.size(); i++) {
-
-            WorldCountryCity worldCountryCity = worldCountryCityList.get(i);
-
+        for (WorldCountryCity worldCountryCity : worldCountryCityList) {
+            StringBuilder urlBuilder = new StringBuilder("http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaCode"); /*URL*/
+            urlBuilder.append("?" + URLEncoder.encode("serviceKey","UTF-8") + "=" + serviceKey); /*Service Key*/
+            urlBuilder.append("&" + URLEncoder.encode("numOfRows","UTF-8") + "=" + URLEncoder.encode("100000", "UTF-8")); /*한 페이지 결과수*/
+            urlBuilder.append("&" + URLEncoder.encode("pageNo","UTF-8") + "=" + URLEncoder.encode("1", "UTF-8")); /*현재 페이지 번호*/
+            urlBuilder.append("&" + URLEncoder.encode("MobileOS","UTF-8") + "=" + URLEncoder.encode("ETC", "UTF-8")); /*IOS (아이폰), AND (안드로이드), WIN (원도우폰), ETC*/
+            urlBuilder.append("&" + URLEncoder.encode("MobileApp","UTF-8") + "=" + URLEncoder.encode(serviceName, "UTF-8")); /*서비스명=어플명*/
             urlBuilder.append("&" + URLEncoder.encode("areaCode","UTF-8") + "=" + URLEncoder.encode(Integer.toString(worldCountryCity.getAreaCode()), "UTF-8")); /*지역코드, 시군구코드*/
             URL url = new URL(urlBuilder.toString());
 
@@ -153,10 +152,10 @@ public class DataApiService {
                     int areaCode = Integer.parseInt(getTagValue("code", eElement));
                     String name = getTagValue("name", eElement);
 
-                    WorldCountryCityRegion checkWorldCountryCityRegion = worldCountryCityRegionRepository.findByName(name)
-                            .orElseThrow(() -> new WorldCountryCityRegionNotFoundException());
+                    Boolean checkWorldCountryCityRegion = worldCountryCityRegionRepository.findByName(name)
+                            .isPresent();
 
-                    if(checkWorldCountryCityRegion == null) {
+                    if(!checkWorldCountryCityRegion) {
                         WorldCountryCityRegion worldCountryCityRegion = WorldCountryCityRegion.builder()
                                 .name(name)
                                 .areaCode(areaCode)
@@ -169,18 +168,10 @@ public class DataApiService {
 
             }
         }
+        return new ResponseVo(Response.SUCCESS, null);
     }
 
-    public void updateLandmarkKorea() throws IOException, ParserConfigurationException, SAXException {
-        StringBuilder urlBuilder = new StringBuilder("http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList"); /*URL*/
-        urlBuilder.append("?" + URLEncoder.encode("serviceKey","UTF-8") + "=" + serviceKey); /*Service Key*/
-        urlBuilder.append("&" + URLEncoder.encode("numOfRows","UTF-8") + "=" + URLEncoder.encode("100000", "UTF-8")); /*한 페이지 결과수*/
-        urlBuilder.append("&" + URLEncoder.encode("pageNo","UTF-8") + "=" + URLEncoder.encode("1", "UTF-8")); /*현재 페이지 번호*/
-        urlBuilder.append("&" + URLEncoder.encode("MobileOS","UTF-8") + "=" + URLEncoder.encode("ETC", "UTF-8")); /*IOS (아이폰), AND (안드로이드), WIN (원도우폰), ETC*/
-        urlBuilder.append("&" + URLEncoder.encode("MobileApp","UTF-8") + "=" + URLEncoder.encode(serviceName, "UTF-8")); /*서비스명=어플명*/
-        urlBuilder.append("&" + URLEncoder.encode("arrange","UTF-8") + "=" + URLEncoder.encode("A", "UTF-8")); /*제목순 정렬*/
-        urlBuilder.append("&" + URLEncoder.encode("contentTypeId","UTF-8") + "=" + URLEncoder.encode("12", "UTF-8")); /*관광타입(관광지, 숙박 등) ID*/
-        urlBuilder.append("&" + URLEncoder.encode("listYN","UTF-8") + "=" + URLEncoder.encode("Y", "UTF-8")); /*관광타입(관광지, 숙박 등) ID*/
+    public ResponseVo updateLandmarkKorea() throws IOException, ParserConfigurationException, SAXException {
 
         List<WorldCountryCity> worldCountryCityList = worldCountryCityRepository.findAll();
 
@@ -189,12 +180,22 @@ public class DataApiService {
         }
 
         for (WorldCountryCity worldCountryCity : worldCountryCityList) {
+
             List<WorldCountryCityRegion> worldCountryCityRegionList = worldCountryCityRegionRepository.findByWorldCountryCity(worldCountryCity)
                     .orElseThrow(() -> new WorldCountryCityNotFoundException());
 
             for (WorldCountryCityRegion worldCountryCityRegion : worldCountryCityRegionList) {
                 String areaCode = String.valueOf(worldCountryCity.getAreaCode());
                 String sigunguCode = String.valueOf(worldCountryCityRegion.getAreaCode());
+                StringBuilder urlBuilder = new StringBuilder("http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList"); /*URL*/
+                urlBuilder.append("?" + URLEncoder.encode("serviceKey","UTF-8") + "=" + serviceKey); /*Service Key*/
+                urlBuilder.append("&" + URLEncoder.encode("numOfRows","UTF-8") + "=" + URLEncoder.encode("1000000", "UTF-8")); /*한 페이지 결과수*/
+                urlBuilder.append("&" + URLEncoder.encode("pageNo","UTF-8") + "=" + URLEncoder.encode("1", "UTF-8")); /*현재 페이지 번호*/
+                urlBuilder.append("&" + URLEncoder.encode("MobileOS","UTF-8") + "=" + URLEncoder.encode("ETC", "UTF-8")); /*IOS (아이폰), AND (안드로이드), WIN (원도우폰), ETC*/
+                urlBuilder.append("&" + URLEncoder.encode("MobileApp","UTF-8") + "=" + URLEncoder.encode(serviceName, "UTF-8")); /*서비스명=어플명*/
+                urlBuilder.append("&" + URLEncoder.encode("arrange","UTF-8") + "=" + URLEncoder.encode("A", "UTF-8")); /*제목순 정렬*/
+                urlBuilder.append("&" + URLEncoder.encode("contentTypeId","UTF-8") + "=" + URLEncoder.encode("12", "UTF-8")); /*관광타입(관광지, 숙박 등) ID*/
+                urlBuilder.append("&" + URLEncoder.encode("listYN","UTF-8") + "=" + URLEncoder.encode("Y", "UTF-8")); /*관광타입(관광지, 숙박 등) ID*/
                 urlBuilder.append("&" + URLEncoder.encode("areaCode","UTF-8") + "=" + URLEncoder.encode(areaCode, "UTF-8")); /*지역코드*/
                 urlBuilder.append("&" + URLEncoder.encode("sigunguCode","UTF-8") + "=" + URLEncoder.encode(sigunguCode, "UTF-8")); /*시군구코드(areaCode 필수)*/
 
@@ -230,21 +231,12 @@ public class DataApiService {
                     }
                 }
             }
-            updateLandmarkDescriptionKorea();
         }
+        return new ResponseVo(Response.SUCCESS, null);
     }
 
 
     public void updateLandmarkDescriptionKorea() throws IOException, ParserConfigurationException, SAXException {
-        StringBuilder urlBuilder = new StringBuilder("http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailCommon"); /*URL*/
-        urlBuilder.append("?" + URLEncoder.encode("serviceKey","UTF-8") + "=" + serviceKey); /*Service Key*/
-        urlBuilder.append("&" + URLEncoder.encode("numOfRows","UTF-8") + "=" + URLEncoder.encode("100000", "UTF-8")); /*한 페이지 결과수*/
-        urlBuilder.append("&" + URLEncoder.encode("pageNo","UTF-8") + "=" + URLEncoder.encode("1", "UTF-8")); /*현재 페이지 번호*/
-        urlBuilder.append("&" + URLEncoder.encode("MobileOS","UTF-8") + "=" + URLEncoder.encode("ETC", "UTF-8")); /*IOS (아이폰), AND (안드로이드), WIN (원도우폰), ETC*/
-        urlBuilder.append("&" + URLEncoder.encode("MobileApp","UTF-8") + "=" + URLEncoder.encode(serviceName, "UTF-8")); /*서비스명=어플명*/
-        urlBuilder.append("&" + URLEncoder.encode("overviewYN","UTF-8") + "=" + URLEncoder.encode("Y", "UTF-8")); /*콘텐츠 개요 조회여부*/
-
-
         List<Landmark> landmarkList = landmarkRepository.findAll();
 
         if(landmarkList.size() == 0) {
@@ -252,6 +244,13 @@ public class DataApiService {
         }
 
         for (Landmark landmark : landmarkList) {
+            StringBuilder urlBuilder = new StringBuilder("http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailCommon"); /*URL*/
+            urlBuilder.append("?" + URLEncoder.encode("serviceKey","UTF-8") + "=" + serviceKey); /*Service Key*/
+            urlBuilder.append("&" + URLEncoder.encode("numOfRows","UTF-8") + "=" + URLEncoder.encode("100000", "UTF-8")); /*한 페이지 결과수*/
+            urlBuilder.append("&" + URLEncoder.encode("pageNo","UTF-8") + "=" + URLEncoder.encode("1", "UTF-8")); /*현재 페이지 번호*/
+            urlBuilder.append("&" + URLEncoder.encode("MobileOS","UTF-8") + "=" + URLEncoder.encode("ETC", "UTF-8")); /*IOS (아이폰), AND (안드로이드), WIN (원도우폰), ETC*/
+            urlBuilder.append("&" + URLEncoder.encode("MobileApp","UTF-8") + "=" + URLEncoder.encode(serviceName, "UTF-8")); /*서비스명=어플명*/
+            urlBuilder.append("&" + URLEncoder.encode("overviewYN","UTF-8") + "=" + URLEncoder.encode("Y", "UTF-8")); /*콘텐츠 개요 조회여부*/
             urlBuilder.append("&" + URLEncoder.encode("contentId","UTF-8") + "=" + URLEncoder.encode(landmark.getContentId(), "UTF-8")); /*콘텐츠ID*/
 
 
@@ -328,10 +327,19 @@ public class DataApiService {
 
 
     private static String getTagValue(String tag, Element eElement) {
-        NodeList nlList = eElement.getElementsByTagName(tag).item(0).getChildNodes();
-        Node nValue = (Node) nlList.item(0);
-        if(nValue == null)
+
+        if(eElement.getElementsByTagName(tag).item(0) != null) {
+            NodeList nlList = eElement.getElementsByTagName(tag).item(0).getChildNodes();
+            Node nValue = (Node) nlList.item(0);
+
+            return nValue.getNodeValue();
+        }else {
             return null;
-        return nValue.getNodeValue();
+        }
+
+
+//        if(nValue == null)
+//            return null;
+
     }
 }

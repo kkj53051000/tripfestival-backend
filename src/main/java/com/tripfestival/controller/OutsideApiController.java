@@ -22,4 +22,14 @@ public class OutsideApiController {
     public ResponseVo updateCountryCityKorea() throws IOException, ParserConfigurationException, SAXException {
         return dataApiService.updateCountryCityKorea();
     }
+
+    @GetMapping("/updateCountryCityRegionKorea")
+    public ResponseVo updateCountryCityRegionKorea() throws IOException, ParserConfigurationException, SAXException {
+        return dataApiService.updateCountryCityRegionKorea();
+    }
+
+    @GetMapping("/updateLandmarkKorea")
+    public ResponseVo updateLandmarkKorea() throws IOException, ParserConfigurationException, SAXException {
+        return dataApiService.updateLandmarkKorea();
+    }
 }
