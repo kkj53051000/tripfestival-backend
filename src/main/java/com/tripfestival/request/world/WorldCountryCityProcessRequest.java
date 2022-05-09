@@ -6,4 +6,5 @@ import lombok.Getter;
 public class WorldCountryCityProcessRequest {
     private String name;
     private Long worldCountryId;
+    private Integer areaCode;
 }

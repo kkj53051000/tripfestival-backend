@@ -20,14 +20,9 @@ public class WorldCountryCity {
 
     private String name;
     private String cityImg;
+    private Integer areaCode;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "worldcountry_id")
     private WorldCountry worldCountry;
-
-    public WorldCountryCity(String name, String cityImg, WorldCountry worldCountry) {
-        this.name = name;
-        this.cityImg = cityImg;
-        this.worldCountry = worldCountry;
-    }
 }

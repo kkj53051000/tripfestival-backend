@@ -36,6 +36,7 @@ public class WorldCountryCityService {
         WorldCountryCity worldCountryCity = WorldCountryCity.builder()
                 .name(req.getName())
                 .cityImg(fileService.s3UploadProcess(file))
+                .areaCode(req.getAreaCode())
                 .worldCountry(worldCountry)
                 .build();
 
