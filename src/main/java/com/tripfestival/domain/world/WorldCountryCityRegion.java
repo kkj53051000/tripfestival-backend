@@ -20,6 +20,7 @@ public class WorldCountryCityRegion {
 
     private String name;
     private String img;
+    private Integer areaCode;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "worldcountrycity_id")

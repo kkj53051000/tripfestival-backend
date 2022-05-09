@@ -9,4 +9,6 @@ import java.util.Optional;
 
 public interface WorldCountryCityRegionRepository extends JpaRepository<WorldCountryCityRegion, Long> {
     Optional<List<WorldCountryCityRegion>> findByWorldCountryCity(WorldCountryCity worldCountryCity);
+
+    Optional<WorldCountryCityRegion> findByName(String name);
 }
