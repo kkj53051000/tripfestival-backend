@@ -121,7 +121,6 @@ public class DataApiService {
 
         List<WorldCountryCity> worldCountryCityList = worldCountryCityRepository.findAll();
 
-        System.out.println( "worldCountryCityListSize : " + worldCountryCityList.size());
 
         if(worldCountryCityList.size() == 0) {
             throw new WorldCountryCityNotFoundException();
@@ -152,7 +151,7 @@ public class DataApiService {
                     int areaCode = Integer.parseInt(getTagValue("code", eElement));
                     String name = getTagValue("name", eElement);
 
-                    Boolean checkWorldCountryCityRegion = worldCountryCityRegionRepository.findByName(name)
+                    Boolean checkWorldCountryCityRegion = worldCountryCityRegionRepository.findByNameAndWorldCountryCity(name, worldCountryCity)
                             .isPresent();
 
                     if(!checkWorldCountryCityRegion) {
