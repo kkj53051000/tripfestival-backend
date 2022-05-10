@@ -45,6 +45,7 @@ class EventCategoryControllerTest {
 
     ObjectMapper objectMapper = new ObjectMapper();
 
+
     @Test
     void EVENT_CATEGORY_PROCESS_TEST() throws Exception {
         //given

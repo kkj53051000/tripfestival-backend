@@ -1,5 +1,6 @@
 package com.tripfestival.util;
 
+import com.tripfestival.domain.user.Role;
 import com.tripfestival.exception.JwtVerifyFailException;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Value;
@@ -17,7 +18,7 @@ public class JwtUtil {
     @Value("${jwt.secret.key}")
     private String secretKey;
 
-    public String createToken(long userId) {
+    public String createToken(long userId, Role role) {
         //Header 부분 설정
         Map<String, Object> headers = new HashMap<>();
         headers.put("typ", "JWT");
@@ -26,6 +27,7 @@ public class JwtUtil {
         //Payload 부분 설정
         Map<String, Object> payloads = new HashMap<>();
         payloads.put("userId", userId);
+        payloads.put("role", role);
 
         Long expiredTime = 1000 * 60L * 60L * 2L; // 토큰 유효 시간 (2시간)
 

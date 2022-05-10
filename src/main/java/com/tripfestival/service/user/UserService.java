@@ -1,5 +1,6 @@
 package com.tripfestival.service.user;
 
+import com.tripfestival.domain.user.Role;
 import com.tripfestival.domain.user.User;
 import com.tripfestival.dto.user.KakaoLoginDto;
 import com.tripfestival.repository.user.UserRepository;
@@ -41,13 +42,14 @@ public class UserService {
                     .nickname(null)
                     .userImg(null)
                     .email(null)
+                    .role(Role.USER)
                     .deleteAt(false)
                     .build();
 
             userRepository.save(newUser);
 
             // JwtKey
-            String jwtKey = jwtUtil.createToken(newUser.getId());
+            String jwtKey = jwtUtil.createToken(newUser.getId(), Role.USER);
 
             userKakaoLoginResponseVo = new UserKakaoLoginResponseVo(Response.SUCCESS, jwtKey);
         }

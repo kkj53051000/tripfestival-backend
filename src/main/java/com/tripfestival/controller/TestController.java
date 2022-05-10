@@ -1,5 +1,6 @@
 package com.tripfestival.controller;
 
+import com.tripfestival.domain.user.Role;
 import com.tripfestival.util.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,7 +18,7 @@ public class TestController {
 
     @GetMapping("/jwttest")
     public String jwtTest() {
-        return jwtUtil.createToken(1L);
+        return jwtUtil.createToken(1L, Role.USER);
     }
 
 

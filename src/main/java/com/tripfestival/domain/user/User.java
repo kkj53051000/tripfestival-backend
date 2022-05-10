@@ -27,14 +27,16 @@ public class User {
     private String nickname;
     private String userImg;
     private String email;
+    private Role role;
     private boolean deleteAt;
 
-    public User(String uid, String upw, String nickname, String userImg, String email, boolean deleteAt) {
+    public User(String uid, String upw, String nickname, String userImg, String email, Role role, boolean deleteAt) {
         this.uid = uid;
         this.upw = upw;
         this.nickname = nickname;
         this.userImg = userImg;
         this.email = email;
+        this.role = role;
         this.deleteAt = deleteAt;
     }
 }

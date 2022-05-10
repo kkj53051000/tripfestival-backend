@@ -16,6 +16,7 @@ import com.tripfestival.exception.world.WorldCountryCityRegionNotFoundException;
 import com.tripfestival.exception.world.WorldCountryNotFoundException;
 import com.tripfestival.vo.Response;
 import com.tripfestival.vo.ResponseVo;
+import io.jsonwebtoken.Jwt;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -160,7 +161,7 @@ public class ExceptionController {
     }
 
     @ExceptionHandler(JwtVerifyFailException.class)
-    public ResponseVo hwtVerifyFailHandler() {
+    public ResponseVo jwtVerifyFailHandler() {
         return new ResponseVo(Response.FAILURE, "JwtVerifyFail");
     }
 }

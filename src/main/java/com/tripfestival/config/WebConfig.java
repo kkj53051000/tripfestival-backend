@@ -1,6 +1,7 @@
 package com.tripfestival.config;
 
 import com.tripfestival.interceptor.LoginInterceptor;
+import lombok.experimental.WithBy;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.multipart.MultipartResolver;
