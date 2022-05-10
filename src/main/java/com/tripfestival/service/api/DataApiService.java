@@ -181,8 +181,11 @@ public class DataApiService {
 
         for (WorldCountryCity worldCountryCity : worldCountryCityList) {
 
-            List<WorldCountryCityRegion> worldCountryCityRegionList = worldCountryCityRegionRepository.findByWorldCountryCity(worldCountryCity)
-                    .orElseThrow(() -> new WorldCountryCityNotFoundException());
+            List<WorldCountryCityRegion> worldCountryCityRegionList = worldCountryCityRegionRepository.findByWorldCountryCity(worldCountryCity);
+
+            if (worldCountryCityList.size() == 0) {
+                throw new WorldCountryCityRegionNotFoundException();
+            }
 
             for (WorldCountryCityRegion worldCountryCityRegion : worldCountryCityRegionList) {
                 String areaCode = String.valueOf(worldCountryCity.getAreaCode());

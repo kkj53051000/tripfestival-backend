@@ -45,6 +45,11 @@ public class WorldCountryCityRegionController {
         return worldCountryCityRegionService.worldCountryCityRegionNameAlert(worldCountryCityRegionNameModifyDto);
     }
 
+    @GetMapping("/worldCountryCityRegion")
+    public WorldCountryCityRegionListVo worldCountryCityRegion(@RequestParam Long worldCountryId) {
+        return worldCountryCityRegionService.worldCountryCityRegionSelect(worldCountryId);
+    }
+
     @GetMapping("/worldCountryCityRegionList")
     public WorldCountryCityRegionListVo worldCountryCityRegionList() {
         return worldCountryCityRegionService.worldCountryCityRegionListSelect();

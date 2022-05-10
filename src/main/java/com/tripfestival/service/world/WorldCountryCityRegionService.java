@@ -68,6 +68,19 @@ public class WorldCountryCityRegionService {
         return new ResponseVo(Response.SUCCESS, null);
     }
 
+    public WorldCountryCityRegionListVo worldCountryCityRegionSelect(Long worldCountryCityId) {
+        WorldCountryCity worldCountryCity = worldCountryCityRepository.findById(worldCountryCityId)
+                .orElseThrow(() -> new WorldCountryCityNotFoundException());
+
+        List<WorldCountryCityRegion> worldCountryCityRegionList = worldCountryCityRegionRepository.findByWorldCountryCity(worldCountryCity);
+
+        if(worldCountryCityRegionList.size() == 0) {
+            throw new WorldCountryCityRegionNotFoundException();
+        }
+
+        return new WorldCountryCityRegionListVo(worldCountryCityRegionList);
+    }
+
     public WorldCountryCityRegionListVo worldCountryCityRegionListSelect() {
 
         List<WorldCountryCityRegion> worldCountryCityRegionList = worldCountryCityRegionRepository.findAll();
