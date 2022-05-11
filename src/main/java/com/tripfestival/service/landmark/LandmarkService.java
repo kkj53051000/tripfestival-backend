@@ -1,7 +1,9 @@
 package com.tripfestival.service.landmark;
 
 import com.tripfestival.domain.landmark.Landmark;
+import com.tripfestival.domain.world.WorldCountryCity;
 import com.tripfestival.domain.world.WorldCountryCityRegion;
+import com.tripfestival.dto.landmark.LandmarkListDto;
 import com.tripfestival.dto.landmark.LandmarkModifyDto;
 import com.tripfestival.dto.landmark.LandmarkProcessDto;
 import com.tripfestival.exception.landmark.LandmarkNotFoundException;
@@ -88,11 +90,25 @@ public class LandmarkService {
         return new ResponseVo(Response.SUCCESS, null);
     }
 
-    public LandmarkListVo landmarkListSelect(Long worldCountryCityRegionId) {
-        WorldCountryCityRegion worldCountryCityRegion = worldCountryCityRegionRepository.findById(worldCountryCityRegionId)
-                .orElseThrow(() -> new WorldCountryCityRegionNotFoundException());
+    public LandmarkListVo landmarkListSelect(LandmarkListDto req) {
 
-        List<Landmark> landmarkList = landmarkRepository.findByWorldCountryCityRegion(worldCountryCityRegion);
+        List<Landmark> landmarkList = null;
+
+        if(req.getWorldCountryCityId() == 0) {
+
+            landmarkList = landmarkRepository.findAll();
+
+        }else if(req.getWorldCountryCityRegionId() == 0) {
+            WorldCountryCity worldCountryCity = worldCountryCityRepository.findById(req.getWorldCountryCityId())
+                    .orElseThrow(() -> new WorldCountryCityNotFoundException());
+
+            landmarkList = landmarkRepository.findByWorldCountryCityRegion_WorldCountryCity(worldCountryCity);
+        }else {
+            WorldCountryCityRegion worldCountryCityRegion = worldCountryCityRegionRepository.findById(req.getWorldCountryCityRegionId())
+                    .orElseThrow(() -> new WorldCountryCityRegionNotFoundException());
+
+            landmarkList = landmarkRepository.findByWorldCountryCityRegion(worldCountryCityRegion);
+        }
 
         if(landmarkList.size() == 0) {
             throw new WorldCountryCityRegionNotFoundException();

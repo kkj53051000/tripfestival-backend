@@ -1,6 +1,7 @@
 package com.tripfestival.controller.naturehotspot;
 
 import com.tripfestival.dto.naturehotspot.NatureHotspotImgModifyDto;
+import com.tripfestival.dto.naturehotspot.NatureHotspotListDto;
 import com.tripfestival.dto.naturehotspot.NatureHotspotNatureHotspotTypeModifyDto;
 import com.tripfestival.dto.naturehotspot.NatureHotspotProcessDto;
 import com.tripfestival.request.naturehotspot.NatureHotspotNatureHotspotTypeModifyRequest;
@@ -58,8 +59,18 @@ public class NatureHotspotController {  // 자연관광지
     }
 
     @GetMapping("/natureHotspotList")
-    public NatureHotspotListVo natureHotspotList(@RequestParam Long natureHotspotTypeId) {
-        return natureHotspotService.natureHotspotListSelect(natureHotspotTypeId);
+    public NatureHotspotListVo natureHotspotList(
+            @RequestParam Long natureHotspotTypeId,
+            @RequestParam Long worldCountryCityId,
+            @RequestParam Long worldCountryCityRegionId) {
+
+        NatureHotspotListDto natureHotspotListDto = NatureHotspotListDto.builder()
+                .natureHotspotTypeId(natureHotspotTypeId)
+                .worldCountryCityId(worldCountryCityId)
+                .worldCountryCityRegionId(worldCountryCityRegionId)
+                .build();
+
+        return natureHotspotService.natureHotspotListSelect(natureHotspotListDto);
     }
 
     @GetMapping("/natureHotspotAllList")

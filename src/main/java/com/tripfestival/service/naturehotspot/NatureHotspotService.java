@@ -3,15 +3,22 @@ package com.tripfestival.service.naturehotspot;
 import com.tripfestival.domain.landmark.Landmark;
 import com.tripfestival.domain.naturehotspot.NatureHotspot;
 import com.tripfestival.domain.naturehotspot.NatureHotspotType;
+import com.tripfestival.domain.world.WorldCountryCity;
+import com.tripfestival.domain.world.WorldCountryCityRegion;
 import com.tripfestival.dto.naturehotspot.NatureHotspotImgModifyDto;
+import com.tripfestival.dto.naturehotspot.NatureHotspotListDto;
 import com.tripfestival.dto.naturehotspot.NatureHotspotNatureHotspotTypeModifyDto;
 import com.tripfestival.dto.naturehotspot.NatureHotspotProcessDto;
 import com.tripfestival.exception.landmark.LandmarkNotFoundException;
 import com.tripfestival.exception.naturehotspot.NatureHotspotNotFoundException;
 import com.tripfestival.exception.naturehotspot.NatureHotspotTypeNotFoundException;
+import com.tripfestival.exception.world.WorldCountryCityNotFoundException;
+import com.tripfestival.exception.world.WorldCountryCityRegionNotFoundException;
 import com.tripfestival.repository.landmark.LandmarkRepository;
 import com.tripfestival.repository.naturehotspot.NatureHotspotRepository;
 import com.tripfestival.repository.naturehotspot.NatureHotspotTypeRepository;
+import com.tripfestival.repository.world.WorldCountryCityRegionRepository;
+import com.tripfestival.repository.world.WorldCountryCityRepository;
 import com.tripfestival.request.naturehotspot.NatureHotspotProcessRequest;
 import com.tripfestival.service.file.FileService;
 import com.tripfestival.vo.Response;
@@ -35,6 +42,10 @@ public class NatureHotspotService {
     private final NatureHotspotTypeRepository natureHotspotTypeRepository;
 
     private final FileService fileService;
+
+    private final WorldCountryCityRepository worldCountryCityRepository;
+
+    private final WorldCountryCityRegionRepository worldCountryCityRegionRepository;
 
     public ResponseVo natureHotspotInsert(NatureHotspotProcessDto req) {
 
@@ -89,12 +100,27 @@ public class NatureHotspotService {
         return new ResponseVo(Response.SUCCESS, null);
     }
 
-    public NatureHotspotListVo natureHotspotListSelect(Long natureHotspotTypeId) {
-        NatureHotspotType natureHotspotType = natureHotspotTypeRepository.findById(natureHotspotTypeId)
+    public NatureHotspotListVo natureHotspotListSelect(NatureHotspotListDto req) {
+        NatureHotspotType natureHotspotType = natureHotspotTypeRepository.findById(req.getNatureHotspotTypeId())
                 .orElseThrow(() -> new NatureHotspotTypeNotFoundException());
 
-        List<NatureHotspot> natureHotspotList = natureHotspotRepository.findByNatureHotspotType(natureHotspotType)
-                .orElseThrow(() -> new NatureHotspotNotFoundException());
+        List<NatureHotspot> natureHotspotList = null;
+
+        if(req.getWorldCountryCityId() == 0) { // 지역 전체
+
+            natureHotspotList = natureHotspotRepository.findByNatureHotspotType(natureHotspotType);
+
+        }else if(req.getWorldCountryCityRegionId() == 0) { // 지역 City만 필터
+            WorldCountryCity worldCountryCity = worldCountryCityRepository.findById(req.getWorldCountryCityId())
+                    .orElseThrow(() -> new WorldCountryCityNotFoundException());
+
+            natureHotspotList = natureHotspotRepository.findByNatureHotspotTypeAndLandmark_WorldCountryCityRegion_WorldCountryCity(natureHotspotType, worldCountryCity);
+        }else { // 지역 City, Region 둘다 필터
+            WorldCountryCityRegion worldCountryCityRegion = worldCountryCityRegionRepository.findById(req.getWorldCountryCityRegionId())
+                    .orElseThrow(() -> new WorldCountryCityRegionNotFoundException());
+
+            natureHotspotList = natureHotspotRepository.findByNatureHotspotTypeAndLandmark_WorldCountryCityRegion(natureHotspotType, worldCountryCityRegion);
+        }
 
         return new NatureHotspotListVo(natureHotspotList);
     }

@@ -1,5 +1,6 @@
 package com.tripfestival.controller.landmark;
 
+import com.tripfestival.dto.landmark.LandmarkListDto;
 import com.tripfestival.dto.landmark.LandmarkModifyDto;
 import com.tripfestival.dto.landmark.LandmarkProcessDto;
 import com.tripfestival.request.landmark.LandmarkModifyRequest;
@@ -50,8 +51,14 @@ public class LandmarkController {  // 관광지
     }
 
     @GetMapping("/landmarkList")
-    public LandmarkListVo landmarkList(@RequestParam Long worldCountryCityRegionId) {
-        return landmarkService.landmarkListSelect(worldCountryCityRegionId);
+    public LandmarkListVo landmarkList(@RequestParam Long worldCountryCityRegionId, @RequestParam Long worldCountryCityId) {
+
+        LandmarkListDto landmarkListDto = LandmarkListDto.builder()
+                .worldCountryCityRegionId(worldCountryCityRegionId)
+                .worldCountryCityId(worldCountryCityId)
+                .build();
+
+        return landmarkService.landmarkListSelect(landmarkListDto);
     }
 
     @GetMapping("/landmarkAllList")
