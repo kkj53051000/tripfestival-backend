@@ -1,15 +1,25 @@
 package com.tripfestival.service.event;
 
+import com.tripfestival.domain.event.Event;
 import com.tripfestival.domain.event.EventCategory;
+import com.tripfestival.domain.world.WorldCountryCity;
+import com.tripfestival.domain.world.WorldCountryCityRegion;
 import com.tripfestival.dto.event.EventCategoryImgModifyDto;
+import com.tripfestival.dto.event.EventCategoryListDto;
 import com.tripfestival.dto.event.EventCategoryNameModifyDto;
 import com.tripfestival.dto.event.EventCategoryProcessDto;
 import com.tripfestival.exception.event.EventCategoryNotFoundException;
+import com.tripfestival.exception.world.WorldCountryCityNotFoundException;
+import com.tripfestival.exception.world.WorldCountryCityRegionNotFoundException;
 import com.tripfestival.repository.event.EventCategoryRepository;
+import com.tripfestival.repository.event.EventRepository;
+import com.tripfestival.repository.world.WorldCountryCityRegionRepository;
+import com.tripfestival.repository.world.WorldCountryCityRepository;
 import com.tripfestival.service.file.FileService;
 import com.tripfestival.vo.event.EventCategoryAllListVo;
 import com.tripfestival.vo.Response;
 import com.tripfestival.vo.ResponseVo;
+import com.tripfestival.vo.event.EventCategoryListVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,7 +32,13 @@ import java.util.List;
 public class EventCategoryService {
     private final EventCategoryRepository eventCategoryRepository;
 
+    private final EventRepository eventRepository;
+
     private final FileService fileService;
+
+    private final WorldCountryCityRepository worldCountryCityRepository;
+
+    private final WorldCountryCityRegionRepository worldCountryCityRegionRepository;
 
     public ResponseVo eventCategoryInsert(EventCategoryProcessDto req) {
         String url = fileService.s3UploadProcess(req.getFile());
@@ -64,6 +80,27 @@ public class EventCategoryService {
         eventCategory.setImg(url);
 
         return new ResponseVo(Response.SUCCESS, null);
+    }
+
+    public EventCategoryListVo eventCategoryListSelect(EventCategoryListDto req) {
+        EventCategory eventCategory = eventCategoryRepository.findById(req.getEventCategoryId())
+                .orElseThrow(() -> new EventCategoryNotFoundException());
+
+        List<Event> eventList = null;
+
+        if (req.getWorldCountryCityRegionId() == 0) {
+            WorldCountryCity worldCountryCity = worldCountryCityRepository.findById(req.getWorldCountryCityId())
+                    .orElseThrow(() -> new WorldCountryCityNotFoundException());
+
+            eventList = eventRepository.findByEventCategoryAndWorldCountryCityRegion_WorldCountryCity(eventCategory, worldCountryCity);
+        }else {
+            WorldCountryCityRegion worldCountryCityRegion = worldCountryCityRegionRepository.findById(req.getWorldCountryCityRegionId())
+                    .orElseThrow(() -> new WorldCountryCityRegionNotFoundException());
+
+            eventList = eventRepository.findByEventCategoryAndWorldCountryCityRegion(eventCategory, worldCountryCityRegion);
+        }
+
+        return new EventCategoryListVo(eventList);
     }
 
     public EventCategoryAllListVo eventCategoryAllSelect() {
