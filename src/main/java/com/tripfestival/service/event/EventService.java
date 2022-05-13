@@ -3,12 +3,15 @@ package com.tripfestival.service.event;
 import com.tripfestival.domain.event.Event;
 import com.tripfestival.domain.event.EventCategory;
 import com.tripfestival.domain.event.EventSeason;
+import com.tripfestival.domain.world.WorldCountryCity;
 import com.tripfestival.domain.world.WorldCountryCityRegion;
+import com.tripfestival.dto.event.EventListDto;
 import com.tripfestival.dto.event.EventModifyDto;
 import com.tripfestival.dto.event.EventProcessDto;
 import com.tripfestival.exception.event.EventCategoryNotFoundException;
 import com.tripfestival.exception.event.EventNotFoundException;
 import com.tripfestival.exception.event.EventSeasonNotFoundException;
+import com.tripfestival.exception.world.WorldCountryCityNotFoundException;
 import com.tripfestival.exception.world.WorldCountryCityRegionNotFoundException;
 import com.tripfestival.repository.event.EventCategoryRepository;
 import com.tripfestival.repository.event.EventRepository;
@@ -20,6 +23,7 @@ import com.tripfestival.service.file.FileService;
 import com.tripfestival.vo.Response;
 import com.tripfestival.vo.ResponseVo;
 import com.tripfestival.vo.event.EventAllListVo;
+import com.tripfestival.vo.event.EventListVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -120,6 +124,25 @@ public class EventService {
         }
 
         return new ResponseVo(Response.SUCCESS, null);
+    }
+
+    public EventListVo eventListSelect(EventListDto req) {
+
+        List<Event> eventList = null;
+
+        if (req.getWorldCountryCityRegionId() == 0) {
+            WorldCountryCity worldCountryCity = worldCountryCityRepository.findById(req.getWorldCountryCityId())
+                    .orElseThrow(() -> new WorldCountryCityNotFoundException());
+
+            eventList = eventRepository.findByWorldCountryCityRegion_WorldCountryCity(worldCountryCity);
+        }else {
+            WorldCountryCityRegion worldCountryCityRegion = worldCountryCityRegionRepository.findById(req.getWorldCountryCityRegionId())
+                    .orElseThrow(() -> new WorldCountryCityRegionNotFoundException());
+
+            eventList = eventRepository.findByWorldCountryCityRegion(worldCountryCityRegion);
+        }
+
+        return new EventListVo(eventList);
     }
 
     public EventAllListVo eventAllListSelect() {

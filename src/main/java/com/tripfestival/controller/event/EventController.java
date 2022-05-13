@@ -1,5 +1,6 @@
 package com.tripfestival.controller.event;
 
+import com.tripfestival.dto.event.EventListDto;
 import com.tripfestival.dto.event.EventModifyDto;
 import com.tripfestival.dto.event.EventProcessDto;
 import com.tripfestival.request.event.EventModifyRequest;
@@ -7,6 +8,7 @@ import com.tripfestival.request.event.EventProcessRequest;
 import com.tripfestival.service.event.EventService;
 import com.tripfestival.vo.ResponseVo;
 import com.tripfestival.vo.event.EventAllListVo;
+import com.tripfestival.vo.event.EventListVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -40,6 +42,16 @@ public class EventController {
         EventModifyDto eventModifyDto = new EventModifyDto(eventId, req);
 
         return eventService.eventAlert(eventModifyDto);
+    }
+
+    @GetMapping("/eventList")
+    public EventListVo eventList(@RequestParam Long worldCountryCityId, @RequestParam Long worldCountryCityRegionId) {
+        EventListDto eventListDto = EventListDto.builder()
+                .worldCountryCityId(worldCountryCityId)
+                .worldCountryCityRegionId(worldCountryCityRegionId)
+                .build();
+
+        return eventService.eventListSelect(eventListDto);
     }
 
     @GetMapping("/eventAllList")

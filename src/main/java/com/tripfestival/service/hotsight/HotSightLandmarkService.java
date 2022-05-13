@@ -18,6 +18,7 @@ import com.tripfestival.vo.Response;
 import com.tripfestival.vo.ResponseVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -34,6 +35,7 @@ public class HotSightLandmarkService {
 
     private final FileService fileService;
 
+    // @Transactional(isolation = Isolation.READ_COMMITTED)
     public ResponseVo hotSightLandmarkInsert(HotSightLandmarkProcessRequest req) {
         Landmark landmark = landmarkRepository.findById(req.getLandmarkId())
                 .orElseThrow(() -> new HotSightLandmarkNotFoundException());

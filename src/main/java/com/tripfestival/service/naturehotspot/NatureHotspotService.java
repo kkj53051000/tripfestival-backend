@@ -101,6 +101,7 @@ public class NatureHotspotService {
     }
 
     public NatureHotspotListVo natureHotspotListSelect(NatureHotspotListDto req) {
+
         NatureHotspotType natureHotspotType = natureHotspotTypeRepository.findById(req.getNatureHotspotTypeId())
                 .orElseThrow(() -> new NatureHotspotTypeNotFoundException());
 
