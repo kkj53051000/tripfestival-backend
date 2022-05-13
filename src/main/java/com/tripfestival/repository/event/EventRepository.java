@@ -3,6 +3,7 @@ package com.tripfestival.repository.event;
 import com.tripfestival.domain.event.Event;
 import com.tripfestival.domain.event.EventCategory;
 import com.tripfestival.domain.event.EventFee;
+import com.tripfestival.domain.event.EventSeason;
 import com.tripfestival.domain.world.WorldCountryCity;
 import com.tripfestival.domain.world.WorldCountryCityRegion;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -18,4 +19,8 @@ public interface EventRepository extends JpaRepository<Event, Long> {
     List<Event> findByEventCategoryAndWorldCountryCityRegion(EventCategory eventCategory, WorldCountryCityRegion worldCountryCityRegion);
 
     List<Event> findByEventCategoryAndWorldCountryCityRegion_WorldCountryCity(EventCategory eventCategory, WorldCountryCity worldCountryCity);
+
+    List<Event> findByEventSeasonAndWorldCountryCityRegion(EventSeason eventSeason, WorldCountryCityRegion worldCountryCityRegion);
+
+    List<Event> findByEventSeasonAndWorldCountryCityRegion_WorldCountryCity(EventSeason eventSeason, WorldCountryCity worldCountryCity);
 }

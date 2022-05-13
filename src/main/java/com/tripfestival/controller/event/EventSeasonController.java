@@ -1,10 +1,12 @@
 package com.tripfestival.controller.event;
 
 import com.tripfestival.dto.event.EventSeasonImgModifyDto;
+import com.tripfestival.dto.event.EventSeasonListDto;
 import com.tripfestival.dto.event.EventSeasonNameModifyDto;
 import com.tripfestival.request.event.EventSeasonNameModifyRequest;
 import com.tripfestival.request.event.EventSeasonProcessRequest;
 import com.tripfestival.service.event.EventSeasonService;
+import com.tripfestival.vo.event.EventListVo;
 import com.tripfestival.vo.event.EventSeasonListVo;
 import com.tripfestival.vo.ResponseVo;
 import lombok.RequiredArgsConstructor;
@@ -54,6 +56,20 @@ public class EventSeasonController {
                 .build();
 
         return eventSeasonService.eventSeasonImgAlert(eventSeasonImgModifyDto);
+    }
+
+    @GetMapping("/eventSeasonList")
+    public EventListVo eventSeasonList(@RequestParam Long eventSeasonId,
+                                       @RequestParam Long worldCountryCityId,
+                                       @RequestParam Long worldCountryCityRegionId) {
+
+        EventSeasonListDto eventSeasonListDto = EventSeasonListDto.builder()
+                .eventSeasonId(eventSeasonId)
+                .worldCountryCityId(worldCountryCityId)
+                .worldCountryCityRegionId(worldCountryCityRegionId)
+                .build();
+
+        return eventSeasonService.eventSeasonListSelect(eventSeasonListDto);
     }
 
     @GetMapping("/eventSeasonAllList")
