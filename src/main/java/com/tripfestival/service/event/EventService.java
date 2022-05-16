@@ -2,6 +2,7 @@ package com.tripfestival.service.event;
 
 import com.tripfestival.domain.event.Event;
 import com.tripfestival.domain.event.EventCategory;
+import com.tripfestival.domain.event.EventHashTag;
 import com.tripfestival.domain.event.EventSeason;
 import com.tripfestival.domain.world.WorldCountryCity;
 import com.tripfestival.domain.world.WorldCountryCityRegion;
@@ -14,6 +15,7 @@ import com.tripfestival.exception.event.EventSeasonNotFoundException;
 import com.tripfestival.exception.world.WorldCountryCityNotFoundException;
 import com.tripfestival.exception.world.WorldCountryCityRegionNotFoundException;
 import com.tripfestival.repository.event.EventCategoryRepository;
+import com.tripfestival.repository.event.EventHashTagRepository;
 import com.tripfestival.repository.event.EventRepository;
 import com.tripfestival.repository.event.EventSeasonRepository;
 import com.tripfestival.repository.world.WorldCountryCityRegionRepository;
@@ -28,6 +30,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -45,6 +48,8 @@ public class EventService {
     private final EventSeasonRepository eventSeasonRepository;
 
     private final FileService fileService;
+
+    private final EventHashTagRepository eventHashTagRepository;
 
     public ResponseVo eventInsert(EventProcessDto req) {
 
@@ -130,19 +135,32 @@ public class EventService {
 
         List<Event> eventList = null;
 
-        if (req.getWorldCountryCityRegionId() == 0) {
+        if (req.getWorldCountryCityRegionId() == 0) {  // city 선택 region 전체
             WorldCountryCity worldCountryCity = worldCountryCityRepository.findById(req.getWorldCountryCityId())
                     .orElseThrow(() -> new WorldCountryCityNotFoundException());
 
             eventList = eventRepository.findByWorldCountryCityRegion_WorldCountryCity(worldCountryCity);
-        }else {
+        }else {  // city 선택 region 선택
             WorldCountryCityRegion worldCountryCityRegion = worldCountryCityRegionRepository.findById(req.getWorldCountryCityRegionId())
                     .orElseThrow(() -> new WorldCountryCityRegionNotFoundException());
 
             eventList = eventRepository.findByWorldCountryCityRegion(worldCountryCityRegion);
         }
 
-        return new EventListVo(eventList);
+        // EventHashTag List
+        List<List<EventHashTag>> eventHashTagListList = new ArrayList<>();
+
+        for (Event event : eventList) {
+            List<EventHashTag> eventHashTagList = eventHashTagRepository.findByEvent(event);
+
+            if(eventHashTagList.size() == 0) {
+                eventHashTagListList.add(new ArrayList<EventHashTag>());
+            }else {
+                eventHashTagListList.add(eventHashTagList);
+            }
+        }
+
+        return new EventListVo(eventList, eventHashTagListList);
     }
 
     public EventAllListVo eventAllListSelect() {
