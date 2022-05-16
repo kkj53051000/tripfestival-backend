@@ -1,13 +1,16 @@
 package com.tripfestival.vo.landmark;
 
+
 import com.tripfestival.domain.landmark.LandmarkHashTag;
 import com.tripfestival.domain.landmark.LandmarkHashTagVo;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Getter
+@NoArgsConstructor
 public class LandmarkHashTagListVo {
 
     List<LandmarkHashTagVo> items = null;

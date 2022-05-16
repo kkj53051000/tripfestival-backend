@@ -2,6 +2,7 @@ package com.tripfestival.service.landmark;
 
 import com.tripfestival.domain.landmark.Landmark;
 import com.tripfestival.domain.landmark.LandmarkHashTag;
+import com.tripfestival.domain.landmark.LandmarkHashTagVo;
 import com.tripfestival.domain.world.WorldCountryCity;
 import com.tripfestival.domain.world.WorldCountryCityRegion;
 import com.tripfestival.dto.landmark.LandmarkListDto;
@@ -25,6 +26,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -117,12 +119,19 @@ public class LandmarkService {
 
 
         // LandmarkHashTag List
-        List<LandmarkHashTagListVo> landmarkHashTagListVoList = null;
+        List<List<LandmarkHashTag>> landmarkHashTagListVoList = new ArrayList<>();
+
         for (Landmark landmark : landmarkList) {
             List<LandmarkHashTag> landmarkHashTagList = landmarkHashTagRepository.findByLandmark(landmark);
 
-            LandmarkHashTagListVo landmarkHashTagListVo = new LandmarkHashTagListVo(landmarkHashTagList);
-            landmarkHashTagListVoList.add(landmarkHashTagListVo);
+            if (landmarkHashTagList.size() == 0) {
+                landmarkHashTagListVoList.add(new ArrayList<LandmarkHashTag>());
+            }else{
+                System.out.println(landmarkHashTagList.size());
+
+                List<LandmarkHashTag> items = landmarkHashTagList;
+                landmarkHashTagListVoList.add(items);
+            }
         }
 
         if(landmarkList.size() == 0) {

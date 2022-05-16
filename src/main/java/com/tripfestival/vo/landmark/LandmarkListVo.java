@@ -1,10 +1,12 @@
 package com.tripfestival.vo.landmark;
 
 import com.tripfestival.domain.landmark.Landmark;
+import com.tripfestival.domain.landmark.LandmarkHashTag;
 import com.tripfestival.domain.landmark.LandmarkHashTagVo;
 import lombok.Getter;
 
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 @Getter
@@ -12,13 +14,11 @@ public class LandmarkListVo {
 
     private List<LandmarkVo> items = null;
 
-    public LandmarkListVo(List<Landmark> landmarkList, List<LandmarkHashTagListVo> landmarkHashTagListVoList) {
-        this.items = landmarkList.stream()
-                .map(landmark -> new LandmarkVo(landmark))
-                .collect(Collectors.toList());
+    public LandmarkListVo(List<Landmark> landmarkList, List<List<LandmarkHashTag>> landmarkHashTagListVoList) {
+        AtomicInteger index = new AtomicInteger();
 
-        this.items = landmarkHashTagListVoList.stream()
-                .map(landmarkHashTagListVo -> new LandmarkVo(landmarkHashTagListVo))
+        this.items = landmarkList.stream()
+                .map(landmark -> new LandmarkVo(landmark, landmarkHashTagListVoList.get(index.getAndIncrement())))
                 .collect(Collectors.toList());
     }
 
@@ -26,15 +26,14 @@ public class LandmarkListVo {
     class LandmarkVo {
         private String name;
         private String img;
-        private List<LandmarkHashTagVo> items = null;
+        private List<String> items = null;
 
-        public LandmarkVo(Landmark landmark) {
+        public LandmarkVo(Landmark landmark, List<LandmarkHashTag> landmarkHashTagList) {
             this.name = landmark.getName();
             this.img = landmark.getImg();
-        }
-
-        public LandmarkVo(LandmarkHashTagListVo landmarkHashTagListVo) {
-            this.items = landmarkHashTagListVo.getItems();
+            this.items = landmarkHashTagList.stream()
+                    .map(name -> name.getName())
+                    .collect(Collectors.toList());
         }
     }
 
