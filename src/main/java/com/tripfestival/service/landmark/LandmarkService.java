@@ -1,6 +1,7 @@
 package com.tripfestival.service.landmark;
 
 import com.tripfestival.domain.landmark.Landmark;
+import com.tripfestival.domain.landmark.LandmarkHashTag;
 import com.tripfestival.domain.world.WorldCountryCity;
 import com.tripfestival.domain.world.WorldCountryCityRegion;
 import com.tripfestival.dto.landmark.LandmarkListDto;
@@ -9,6 +10,7 @@ import com.tripfestival.dto.landmark.LandmarkProcessDto;
 import com.tripfestival.exception.landmark.LandmarkNotFoundException;
 import com.tripfestival.exception.world.WorldCountryCityNotFoundException;
 import com.tripfestival.exception.world.WorldCountryCityRegionNotFoundException;
+import com.tripfestival.repository.landmark.LandmarkHashTagRepository;
 import com.tripfestival.repository.landmark.LandmarkRepository;
 import com.tripfestival.repository.world.WorldCountryCityRegionRepository;
 import com.tripfestival.repository.world.WorldCountryCityRepository;
@@ -17,6 +19,7 @@ import com.tripfestival.service.file.FileService;
 import com.tripfestival.vo.Response;
 import com.tripfestival.vo.ResponseVo;
 import com.tripfestival.vo.landmark.LandmarkAllListVo;
+import com.tripfestival.vo.landmark.LandmarkHashTagListVo;
 import com.tripfestival.vo.landmark.LandmarkListVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -35,6 +38,8 @@ public class LandmarkService {
     private final WorldCountryCityRegionRepository worldCountryCityRegionRepository;
 
     private final FileService fileService;
+
+    private final LandmarkHashTagRepository landmarkHashTagRepository;
 
     public ResponseVo landmarkInsert(LandmarkProcessDto req) {
 
@@ -94,27 +99,37 @@ public class LandmarkService {
 
         List<Landmark> landmarkList = null;
 
-        if(req.getWorldCountryCityId() == 0) {
+        if(req.getWorldCountryCityId() == 0) { // City 전체 Region 전체
 
             landmarkList = landmarkRepository.findAll();
 
-        }else if(req.getWorldCountryCityRegionId() == 0) {
+        }else if(req.getWorldCountryCityRegionId() == 0) {  // City 선택 Region 전체
             WorldCountryCity worldCountryCity = worldCountryCityRepository.findById(req.getWorldCountryCityId())
                     .orElseThrow(() -> new WorldCountryCityNotFoundException());
 
             landmarkList = landmarkRepository.findByWorldCountryCityRegion_WorldCountryCity(worldCountryCity);
-        }else {
+        }else {  // City, Region 둘다 선택
             WorldCountryCityRegion worldCountryCityRegion = worldCountryCityRegionRepository.findById(req.getWorldCountryCityRegionId())
                     .orElseThrow(() -> new WorldCountryCityRegionNotFoundException());
 
             landmarkList = landmarkRepository.findByWorldCountryCityRegion(worldCountryCityRegion);
         }
 
+
+        // LandmarkHashTag List
+        List<LandmarkHashTagListVo> landmarkHashTagListVoList = null;
+        for (Landmark landmark : landmarkList) {
+            List<LandmarkHashTag> landmarkHashTagList = landmarkHashTagRepository.findByLandmark(landmark);
+
+            LandmarkHashTagListVo landmarkHashTagListVo = new LandmarkHashTagListVo(landmarkHashTagList);
+            landmarkHashTagListVoList.add(landmarkHashTagListVo);
+        }
+
         if(landmarkList.size() == 0) {
             throw new WorldCountryCityRegionNotFoundException();
         }
 
-        return new LandmarkListVo(landmarkList);
+        return new LandmarkListVo(landmarkList, landmarkHashTagListVoList);
     }
 
     public LandmarkAllListVo landmarkAllListSelect() {
