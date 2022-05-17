@@ -32,7 +32,7 @@ public class EventListVo {
         private Long id;
         private String name;
         private String img;
-        private List<String> items;
+        private List<HashTagVo> items;
 
         public EventVo(Event event, List<EventHashTag> eventHashTagList) {
             this.id = event.getId();
@@ -40,7 +40,7 @@ public class EventListVo {
             this.img = event.getImg();
 
             this.items = eventHashTagList.stream()
-                    .map(eventHashTag -> eventHashTag.getName())
+                    .map(eventHashTag -> new HashTagVo(eventHashTag.getName()))
                     .collect(Collectors.toList());
         }
 
@@ -48,6 +48,15 @@ public class EventListVo {
             this.id = event.getId();
             this.name = event.getName();
             this.img = event.getImg();
+        }
+    }
+
+    @Getter
+    class HashTagVo {
+        private String name;
+
+        public HashTagVo(String name) {
+            this.name = name;
         }
     }
 }

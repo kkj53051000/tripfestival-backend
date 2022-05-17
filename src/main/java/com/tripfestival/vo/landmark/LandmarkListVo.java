@@ -5,7 +5,9 @@ import com.tripfestival.domain.landmark.LandmarkHashTag;
 import com.tripfestival.domain.landmark.LandmarkHashTagVo;
 import lombok.Getter;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
@@ -24,18 +26,28 @@ public class LandmarkListVo {
 
     @Getter
     class LandmarkVo {
+        private Long id;
         private String name;
         private String img;
-        private List<String> items = null;
+        private List<HashTagVo> items = null;
 
         public LandmarkVo(Landmark landmark, List<LandmarkHashTag> landmarkHashTagList) {
+            this.id = landmark.getId();
             this.name = landmark.getName();
             this.img = landmark.getImg();
             this.items = landmarkHashTagList.stream()
-                    .map(name -> name.getName())
+                    .map(landmarkHashTag -> new HashTagVo(landmarkHashTag.getName()))
                     .collect(Collectors.toList());
         }
     }
 
+    @Getter
+    class HashTagVo {
+        private String name;
+
+        public HashTagVo(String name) {
+            this.name = name;
+        }
+    }
 
 }
