@@ -22,6 +22,7 @@ import com.tripfestival.vo.ResponseVo;
 import com.tripfestival.vo.landmark.LandmarkAllListVo;
 import com.tripfestival.vo.landmark.LandmarkHashTagListVo;
 import com.tripfestival.vo.landmark.LandmarkListVo;
+import com.tripfestival.vo.landmark.LandmarkVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -139,6 +140,13 @@ public class LandmarkService {
         }
 
         return new LandmarkListVo(landmarkList, landmarkHashTagListVoList);
+    }
+
+    public LandmarkVo landmarkSelect(Long landmarkId) {
+        Landmark landmark = landmarkRepository.findById(landmarkId)
+                .orElseThrow(() -> new LandmarkNotFoundException());
+
+        return new LandmarkVo(landmark);
     }
 
     public LandmarkAllListVo landmarkAllListSelect() {

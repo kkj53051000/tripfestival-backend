@@ -9,6 +9,7 @@ import com.tripfestival.service.landmark.LandmarkService;
 import com.tripfestival.vo.ResponseVo;
 import com.tripfestival.vo.landmark.LandmarkAllListVo;
 import com.tripfestival.vo.landmark.LandmarkListVo;
+import com.tripfestival.vo.landmark.LandmarkVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -59,6 +60,11 @@ public class LandmarkController {  // 관광지
                 .build();
 
         return landmarkService.landmarkListSelect(landmarkListDto);
+    }
+
+    @GetMapping("/landmark")
+    public LandmarkVo landmark(@RequestParam Long landmarkId) {
+        return landmarkService.landmarkSelect(landmarkId);
     }
 
     @GetMapping("/landmarkAllList")
