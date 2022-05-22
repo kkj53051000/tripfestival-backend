@@ -32,4 +32,14 @@ public class OutsideApiController {
     public ResponseVo updateLandmarkKorea() throws IOException, ParserConfigurationException, SAXException {
         return dataApiService.updateLandmarkKorea();
     }
+
+    @GetMapping("/updateLandmarkDescriptionKorea")
+    public ResponseVo updateLandmarkDescriptionKorea() throws IOException, ParserConfigurationException, SAXException {
+        return dataApiService.updateLandmarkDescriptionKorea();
+    }
+
+    @GetMapping("/updateLandmarkImgKorea")
+    public ResponseVo updateLandmarkImgKorea() throws IOException, ParserConfigurationException, SAXException {
+        return dataApiService.updateLandmarkImgKorea();
+    }
 }

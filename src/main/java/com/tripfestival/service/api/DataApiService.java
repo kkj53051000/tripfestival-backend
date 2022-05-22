@@ -238,7 +238,7 @@ public class DataApiService {
     }
 
 
-    public void updateLandmarkDescriptionKorea() throws IOException, ParserConfigurationException, SAXException {
+    public ResponseVo updateLandmarkDescriptionKorea() throws IOException, ParserConfigurationException, SAXException {
         List<Landmark> landmarkList = landmarkRepository.findAll();
 
         if(landmarkList.size() == 0) {
@@ -272,23 +272,16 @@ public class DataApiService {
 
                     // Landmark Description Add
                     String description = getTagValue("overview", eElement);
+                    System.out.println(description);
                     landmark.setDescription(description);
                 }
             }
         }
+        return new ResponseVo(Response.SUCCESS, null);
     }
 
-    public void updateLandmarkImgKorea() throws IOException, ParserConfigurationException, SAXException {
-        StringBuilder urlBuilder = new StringBuilder("http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailImage"); /*URL*/
-        urlBuilder.append("?" + URLEncoder.encode("serviceKey","UTF-8") + "=" + serviceKey); /*Service Key*/
-        urlBuilder.append("&" + URLEncoder.encode("numOfRows","UTF-8") + "=" + URLEncoder.encode("100000", "UTF-8")); /*한 페이지 결과수*/
-        urlBuilder.append("&" + URLEncoder.encode("pageNo","UTF-8") + "=" + URLEncoder.encode("1", "UTF-8")); /*현재 페이지 번호*/
-        urlBuilder.append("&" + URLEncoder.encode("MobileOS","UTF-8") + "=" + URLEncoder.encode("ETC", "UTF-8")); /*IOS (아이폰), AND (안드로이드), WIN (원도우폰), ETC*/
-        urlBuilder.append("&" + URLEncoder.encode("MobileApp","UTF-8") + "=" + URLEncoder.encode(serviceName, "UTF-8")); /*서비스명=어플명*/
-        urlBuilder.append("&" + URLEncoder.encode("imageYN","UTF-8") + "=" + URLEncoder.encode("Y", "UTF-8")); /*Y=콘텐츠 이미지 조회, N='음식점'타입의 음식메뉴 이미지*/
-        urlBuilder.append("&" + URLEncoder.encode("subImageYN","UTF-8") + "=" + URLEncoder.encode("Y", "UTF-8")); /*Y=원본,썸네일 이미지, 조회 N=Null*/
 
-
+    public ResponseVo updateLandmarkImgKorea() throws IOException, ParserConfigurationException, SAXException {
 
         List<Landmark> landmarkList = landmarkRepository.findAll();
 
@@ -297,6 +290,14 @@ public class DataApiService {
         }
 
         for (Landmark landmark : landmarkList) {
+            StringBuilder urlBuilder = new StringBuilder("http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailImage"); /*URL*/
+            urlBuilder.append("?" + URLEncoder.encode("serviceKey","UTF-8") + "=" + serviceKey); /*Service Key*/
+            urlBuilder.append("&" + URLEncoder.encode("numOfRows","UTF-8") + "=" + URLEncoder.encode("100000", "UTF-8")); /*한 페이지 결과수*/
+            urlBuilder.append("&" + URLEncoder.encode("pageNo","UTF-8") + "=" + URLEncoder.encode("1", "UTF-8")); /*현재 페이지 번호*/
+            urlBuilder.append("&" + URLEncoder.encode("MobileOS","UTF-8") + "=" + URLEncoder.encode("ETC", "UTF-8")); /*IOS (아이폰), AND (안드로이드), WIN (원도우폰), ETC*/
+            urlBuilder.append("&" + URLEncoder.encode("MobileApp","UTF-8") + "=" + URLEncoder.encode(serviceName, "UTF-8")); /*서비스명=어플명*/
+            urlBuilder.append("&" + URLEncoder.encode("imageYN","UTF-8") + "=" + URLEncoder.encode("Y", "UTF-8")); /*Y=콘텐츠 이미지 조회, N='음식점'타입의 음식메뉴 이미지*/
+            urlBuilder.append("&" + URLEncoder.encode("subImageYN","UTF-8") + "=" + URLEncoder.encode("Y", "UTF-8")); /*Y=원본,썸네일 이미지, 조회 N=Null*/
             urlBuilder.append("&" + URLEncoder.encode("contentId","UTF-8") + "=" + URLEncoder.encode(landmark.getContentId(), "UTF-8")); /*콘텐츠 ID*/
 
             URL url = new URL(urlBuilder.toString());
@@ -325,6 +326,8 @@ public class DataApiService {
             }
 
         }
+
+        return new ResponseVo(Response.SUCCESS, null);
     }
 
 

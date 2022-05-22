@@ -7,7 +7,6 @@ import lombok.Getter;
 @Getter
 public class LandmarkVo {
     private Long id;
-
     private String name;
     private String img;
     private String description;
