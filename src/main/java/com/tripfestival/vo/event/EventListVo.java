@@ -32,7 +32,7 @@ public class EventListVo {
         private Long id;
         private String name;
         private String img;
-        private List<HashTagVo> items;
+        private List<HashTagVo> items = null;
 
         public EventVo(Event event, List<EventHashTag> eventHashTagList) {
             this.id = event.getId();
@@ -48,6 +48,7 @@ public class EventListVo {
             this.id = event.getId();
             this.name = event.getName();
             this.img = event.getImg();
+            this.items = null;
         }
     }
 

@@ -10,6 +10,8 @@ import com.tripfestival.util.FileTestUtil;
 import com.tripfestival.vo.Response;
 import com.tripfestival.vo.ResponseVo;
 import com.tripfestival.vo.event.EventCategoryAllListVo;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +44,6 @@ class EventCategoryControllerTest {
     EventCategoryRepository eventCategoryRepository;
 
     ObjectMapper objectMapper = new ObjectMapper();
-
 
     @Test
     void EVENT_CATEGORY_PROCESS_TEST() throws Exception {
