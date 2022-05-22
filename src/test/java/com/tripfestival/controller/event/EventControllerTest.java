@@ -210,6 +210,10 @@ class EventControllerTest {
                 .andDo(print());
     }
 
+
+    /*
+    db에 잘못된 데이터가 들어가있어서 실패함. 나중에 초기화하고 다시 해야함.
+     */
     @Test
     void EVENT_ALL_LIST_TEST() throws Exception {
         //given
