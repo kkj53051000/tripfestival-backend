@@ -13,13 +13,9 @@ import javax.persistence.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@TableGenerator(
-        name = "LANDMARK_SEQ_GENERATOR",
-        table = "TRIPFESTIVAL_SEQUENCES",
-        pkColumnValue = "LANDMARK_SEQ", allocationSize = 10)
 public class Landmark {  // 관광지
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "LANDMARK_SEQ_GENERATOR")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "landmark_id")
     private Long id;
 
