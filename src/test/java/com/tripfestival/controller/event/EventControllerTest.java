@@ -3,11 +3,13 @@ package com.tripfestival.controller.event;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tripfestival.domain.event.Event;
 import com.tripfestival.domain.event.EventCategory;
+import com.tripfestival.domain.event.EventHashTag;
 import com.tripfestival.domain.event.EventSeason;
 import com.tripfestival.domain.world.WorldCountry;
 import com.tripfestival.domain.world.WorldCountryCity;
 import com.tripfestival.domain.world.WorldCountryCityRegion;
 import com.tripfestival.repository.event.EventCategoryRepository;
+import com.tripfestival.repository.event.EventHashTagRepository;
 import com.tripfestival.repository.event.EventRepository;
 import com.tripfestival.repository.event.EventSeasonRepository;
 import com.tripfestival.repository.world.WorldCountryCityRegionRepository;
@@ -15,12 +17,15 @@ import com.tripfestival.repository.world.WorldCountryCityRepository;
 import com.tripfestival.repository.world.WorldCountryRepository;
 import com.tripfestival.request.event.EventModifyRequest;
 import com.tripfestival.request.event.EventProcessRequest;
+import com.tripfestival.service.file.FileService;
 import com.tripfestival.util.FileTestUtil;
 import com.tripfestival.vo.Response;
 import com.tripfestival.vo.ResponseVo;
+import com.tripfestival.vo.event.EventAllListVo;
 import com.tripfestival.vo.event.EventListVo;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -62,43 +67,22 @@ class EventControllerTest {
     @Autowired
     EventSeasonRepository eventSeasonRepository;
 
+    @Autowired
+    EventHashTagRepository eventHashTagRepository;
+
+    @Autowired
+    FileService fileService;
+
     ObjectMapper objectMapper = new ObjectMapper();
 
     EventProcessRequest eventProcessRequest;
 
-    @BeforeEach
-    void eventInit() {
-        // EventProcessRequest
-        WorldCountry worldCountry = WorldCountry.builder().build();
-        worldCountryRepository.save(worldCountry);
-
-        WorldCountryCity worldCountryCity = WorldCountryCity.builder().build();
-        worldCountryCityRepository.save(worldCountryCity);
-
-        WorldCountryCityRegion worldCountryCityRegion = WorldCountryCityRegion.builder().build();
-        worldCountryCityRegionRepository.save(worldCountryCityRegion);
-
-        EventCategory eventCategory = EventCategory.builder().build();
-        eventCategoryRepository.save(eventCategory);
-
-        EventSeason eventSeason = EventSeason.builder().build();
-        eventSeasonRepository.save(eventSeason);
-
-        this.eventProcessRequest = EventProcessRequest.builder()
-                .name("test")
-                .description("test")
-                .address("test")
-                .visitor(1)
-                .inout(1)
-                .worldCountryCityRegionId(worldCountryCityRegion.getId())
-                .eventCategoryId(eventCategory.getId())
-                .eventSeasonId(eventSeason.getId())
-                .build();
-    }
 
     @Test
     void EVENT_PROCESS_TEST() throws Exception {
         // given
+        Mockito.when(fileService.s3UploadProcess(FileTestUtil.getMockMultipartFile())).thenReturn("test.jpg");
+
         String value = objectMapper.writeValueAsString(eventProcessRequest);
 
         //when
@@ -147,6 +131,7 @@ class EventControllerTest {
 
     @Test
     void EVENT_LIST_TEST() throws Exception {
+
         //given
         WorldCountry worldCountry = WorldCountry.builder().build();
         worldCountryRepository.save(worldCountry);
@@ -200,8 +185,19 @@ class EventControllerTest {
         String worldCountryCityRegionId = String.valueOf(worldCountryCityRegion.getId());
 
         // Response
-        EventListVo eventListVo = new EventListVo(eventList);
-        String response = objectMapper.writeValueAsString(eventList);
+        List<List<EventHashTag>> eventHashTagListList = new ArrayList<>();
+
+        for (Event event : eventList) {
+            List<EventHashTag> eventHashTagList = eventHashTagRepository.findByEvent(event);
+
+            if(eventHashTagList.size() == 0) {
+                eventHashTagListList.add(new ArrayList<EventHashTag>());
+            }else {
+                eventHashTagListList.add(eventHashTagList);
+            }
+        }
+
+        EventListVo eventListVo = new EventListVo(eventList, eventHashTagListList);
 
 
         //when
@@ -215,13 +211,62 @@ class EventControllerTest {
     }
 
     @Test
-    void EVENT_ALL_LIST_TEST() {
+    void EVENT_ALL_LIST_TEST() throws Exception {
         //given
+        WorldCountry worldCountry = WorldCountry.builder().build();
+        worldCountryRepository.save(worldCountry);
+
+        WorldCountryCity worldCountryCity = WorldCountryCity.builder().build();
+        worldCountryCityRepository.save(worldCountryCity);
+
+        WorldCountryCityRegion worldCountryCityRegion = WorldCountryCityRegion.builder().build();
+        worldCountryCityRegionRepository.save(worldCountryCityRegion);
+
+        EventCategory eventCategory = EventCategory.builder().build();
+        eventCategoryRepository.save(eventCategory);
+
+        EventSeason eventSeason = EventSeason.builder().build();
+        eventSeasonRepository.save(eventSeason);
+
+        Event event1 = Event.builder()
+                .name("event1")
+                .img("test.jpg")
+                .description("test")
+                .address("test")
+                .visitor(1)
+                .inout(true)
+                .worldCountryCityRegion(worldCountryCityRegion)
+                .eventCategory(eventCategory)
+                .eventSeason(eventSeason)
+                .build();
+
+        Event event2 = Event.builder()
+                .name("event1")
+                .img("test.jpg")
+                .description("test")
+                .address("test")
+                .visitor(1)
+                .inout(true)
+                .worldCountryCityRegion(worldCountryCityRegion)
+                .eventCategory(eventCategory)
+                .eventSeason(eventSeason)
+                .build();
+
+        eventRepository.save(event1);
+        eventRepository.save(event2);
+
+        List<Event> eventList = new ArrayList<>();
+        eventList.add(event1);
+        eventList.add(event2);
+
+        EventAllListVo eventAllListVo = new EventAllListVo(eventList);
+
         //when
         //then
-
-
-        // 위에 문제 해결하고 해야함.
+        this.mockMvc.perform(get("/api/eventAllList"))
+                .andExpect(status().isOk())
+                .andExpect(content().string(objectMapper.writeValueAsString(eventAllListVo)))
+                .andDo(print());
     }
 
 

@@ -162,9 +162,9 @@ public class EventService {
                 eventHashTagListList.add(eventHashTagList);
             }
         }
-        if (eventHashTagListList.size() == 0) {
-            return new EventListVo(eventList);
-        }
+//        if (eventHashTagListList.size() == 0) {
+//            return new EventListVo(eventList);
+//        }
         return new EventListVo(eventList, eventHashTagListList);
     }
 
