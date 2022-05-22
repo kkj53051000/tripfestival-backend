@@ -32,7 +32,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-@Transactional
 @RequiredArgsConstructor
 public class NatureHotspotService {
     private final NatureHotspotRepository natureHotspotRepository;
@@ -47,6 +46,7 @@ public class NatureHotspotService {
 
     private final WorldCountryCityRegionRepository worldCountryCityRegionRepository;
 
+    @Transactional
     public ResponseVo natureHotspotInsert(NatureHotspotProcessDto req) {
 
         String url = fileService.s3UploadProcess(req.getFile());
@@ -68,6 +68,7 @@ public class NatureHotspotService {
         return new ResponseVo(Response.SUCCESS, null);
     }
 
+    @Transactional
     public ResponseVo natureHotspotDelete(Long natureHotspotId) {
         NatureHotspot natureHotspot = natureHotspotRepository.findById(natureHotspotId)
                 .orElseThrow(() -> new NatureHotspotNotFoundException());
@@ -77,6 +78,7 @@ public class NatureHotspotService {
         return new ResponseVo(Response.SUCCESS, null);
     }
 
+    @Transactional
     public ResponseVo natureHotspotNatureHotspotTypeAlert(NatureHotspotNatureHotspotTypeModifyDto req) {
         NatureHotspot natureHotspot = natureHotspotRepository.findById(req.getNatureHotspotId())
                 .orElseThrow(() -> new NatureHotspotNotFoundException());
@@ -89,6 +91,7 @@ public class NatureHotspotService {
         return new ResponseVo(Response.SUCCESS, null);
     }
 
+    @Transactional
     public ResponseVo natureHotspotImgAlert(NatureHotspotImgModifyDto req) {
         NatureHotspot natureHotspot = natureHotspotRepository.findById(req.getNatureHotspotId())
                 .orElseThrow(() -> new NatureHotspotNotFoundException());
@@ -100,6 +103,7 @@ public class NatureHotspotService {
         return new ResponseVo(Response.SUCCESS, null);
     }
 
+    @Transactional(readOnly = true)
     public NatureHotspotListVo natureHotspotListSelect(NatureHotspotListDto req) {
 
         NatureHotspotType natureHotspotType = natureHotspotTypeRepository.findById(req.getNatureHotspotTypeId())
@@ -126,6 +130,7 @@ public class NatureHotspotService {
         return new NatureHotspotListVo(natureHotspotList);
     }
 
+    @Transactional(readOnly = true)
     public NatureHotspotAllListVo natureHotspotAllListSelect() {
         List<NatureHotspot> natureHotspotList = natureHotspotRepository.findAll();
 

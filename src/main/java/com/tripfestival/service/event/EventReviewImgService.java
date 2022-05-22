@@ -17,7 +17,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-@Transactional
 @RequiredArgsConstructor
 public class EventReviewImgService {
     private final EventReviewImgRepository eventReviewImgRepository;
@@ -26,6 +25,7 @@ public class EventReviewImgService {
 
     private final EventReviewRepository eventReviewRepository;
 
+    @Transactional
     public ResponseVo eventReviewImgInsert(EventReviewImgProcessDto req) {
         EventReview eventReview = eventReviewRepository.findById(req.getEventReviewId())
                 .orElseThrow(() -> new EventReviewNotFoundException());
@@ -44,6 +44,7 @@ public class EventReviewImgService {
         return new ResponseVo(Response.SUCCESS, null);
     }
 
+    @Transactional
     public ResponseVo eventReviewImgDelete(Long eventReviewImgId) {
         EventReviewImg eventReviewImg = eventReviewImgRepository.findById(eventReviewImgId)
                 .orElseThrow(() -> new EventReviewImgNotFoundException());

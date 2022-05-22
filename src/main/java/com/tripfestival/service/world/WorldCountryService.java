@@ -20,13 +20,13 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 @Service
-@Transactional
 @RequiredArgsConstructor
 public class WorldCountryService {
     private final WorldCountryRepository worldCountryRepository;
 
     private final FileService fileService;
 
+    @Transactional
     public ResponseVo worldCountryInsert(
             @RequestPart MultipartFile file,
             @RequestPart WorldCountryProcessRequest req) {
@@ -44,6 +44,7 @@ public class WorldCountryService {
         return new ResponseVo(Response.SUCCESS, null);
     }
 
+    @Transactional
     public ResponseVo worldCountryDelete(Long worldCountryId) {
         WorldCountry worldCountry = worldCountryRepository.findById(worldCountryId)
                         .orElseThrow(() -> new WorldCountryNotFoundException());
@@ -53,6 +54,7 @@ public class WorldCountryService {
         return new ResponseVo(Response.SUCCESS, null);
     }
 
+    @Transactional
     public ResponseVo worldCountryAlert(WorldCountryModifyDto req) {
         WorldCountry worldCountry = worldCountryRepository.findById(req.getWorldCountryId())
                 .orElseThrow(() -> new WorldCountryNotFoundException());
@@ -73,6 +75,7 @@ public class WorldCountryService {
         return new ResponseVo(Response.SUCCESS, null);
     }
 
+    @Transactional(readOnly = true)
     public WorldCountryNameListVo worldCountryNameListSelect() {
         List<WorldCountry> worldCountryList = worldCountryRepository.findAll();
 

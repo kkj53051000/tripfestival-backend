@@ -19,7 +19,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-@Transactional
 @RequiredArgsConstructor
 public class LandmarkImgService {
     private final LandmarkImgRepository landmarkImgRepository;
@@ -28,7 +27,7 @@ public class LandmarkImgService {
 
     private final LandmarkRepository landmarkRepository;
 
-
+    @Transactional
     public ResponseVo landmarkImgInsert(LandmarkImgProcessDto req) {
 
         // 이미지 AWS 저장
@@ -46,6 +45,7 @@ public class LandmarkImgService {
         return new ResponseVo(Response.SUCCESS, null);
     }
 
+    @Transactional
     public ResponseVo landmarkImgDelete(Long landmarkImgId) {
         LandmarkImg landmarkImg = landmarkImgRepository.findById(landmarkImgId)
                 .orElseThrow(() -> new LandmarkImgNotFoundException());
@@ -55,6 +55,7 @@ public class LandmarkImgService {
         return new ResponseVo(Response.SUCCESS, null);
     }
 
+    @Transactional(readOnly = true)
     public LandmarkImgListVo landmarkImgListSelect(Long landmarkId) {
         Landmark landmark = landmarkRepository.findById(landmarkId)
                 .orElseThrow(() -> new LandmarkNotFoundException());

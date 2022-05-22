@@ -31,7 +31,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-@Transactional
 @RequiredArgsConstructor
 public class LandmarkService {
     private final LandmarkRepository landmarkRepository;
@@ -44,6 +43,7 @@ public class LandmarkService {
 
     private final LandmarkHashTagRepository landmarkHashTagRepository;
 
+    @Transactional
     public ResponseVo landmarkInsert(LandmarkProcessDto req) {
 
         String url = fileService.s3UploadProcess(req.getFile());
@@ -65,6 +65,7 @@ public class LandmarkService {
         return new ResponseVo(Response.SUCCESS, null);
     }
 
+    @Transactional
     public ResponseVo landmarkDelete(Long landmarkId) {
         Landmark landmark = landmarkRepository.findById(landmarkId).orElseThrow(() -> new LandmarkNotFoundException());
 
@@ -73,6 +74,7 @@ public class LandmarkService {
         return new ResponseVo(Response.SUCCESS, null);
     }
 
+    @Transactional
     public ResponseVo landmarkAlert(LandmarkModifyDto req) {
         Landmark landmark = landmarkRepository.findById(req.getLandmarkId())
                 .orElseThrow(() -> new LandmarkNotFoundException());
@@ -98,6 +100,7 @@ public class LandmarkService {
         return new ResponseVo(Response.SUCCESS, null);
     }
 
+    @Transactional(readOnly = true)
     public LandmarkListVo landmarkListSelect(LandmarkListDto req) {
 
         List<Landmark> landmarkList = null;
@@ -142,6 +145,7 @@ public class LandmarkService {
         return new LandmarkListVo(landmarkList, landmarkHashTagListVoList);
     }
 
+    @Transactional(readOnly = true)
     public LandmarkVo landmarkSelect(Long landmarkId) {
         Landmark landmark = landmarkRepository.findById(landmarkId)
                 .orElseThrow(() -> new LandmarkNotFoundException());
@@ -149,6 +153,7 @@ public class LandmarkService {
         return new LandmarkVo(landmark);
     }
 
+    @Transactional(readOnly = true)
     public LandmarkAllListVo landmarkAllListSelect() {
         List<Landmark> landmarkList = landmarkRepository.findAll();
 

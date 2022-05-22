@@ -17,13 +17,13 @@ import java.time.LocalTime;
 import java.util.List;
 
 @Service
-@Transactional
 @RequiredArgsConstructor
 public class LandmarkTimeService {
     private final LandmarkTimeRepository landmarkTimeRepository;
 
     private final LandmarkRepository landmarkRepository;
 
+    @Transactional
     public ResponseVo landmarkTimeInsert(LandmarkTimeProcessRequest req) {
         LandmarkTime landmarkTime = LandmarkTime.builder()
                 .title(req.getTitle())
@@ -37,6 +37,7 @@ public class LandmarkTimeService {
         return new ResponseVo(Response.SUCCESS, null);
     }
 
+    @Transactional
     public ResponseVo landmarkTimeDelete(Long landmarkTimeId) {
         LandmarkTime landmarkTime = landmarkTimeRepository.findById(landmarkTimeId)
                 .orElseThrow(() -> new LandmarkTimeNotFoundException());
@@ -46,6 +47,7 @@ public class LandmarkTimeService {
         return new ResponseVo(Response.SUCCESS, null);
     }
 
+    @Transactional
     public ResponseVo landmarkTimeAlert(LandmarkTimeModifyDto req) {
         LandmarkTime landmarkTime = landmarkTimeRepository.findById(req.getLandmarkTimeId())
                 .orElseThrow(() -> new LandmarkTimeNotFoundException());
@@ -63,6 +65,7 @@ public class LandmarkTimeService {
         return new ResponseVo(Response.SUCCESS, null);
     }
 
+    @Transactional(readOnly = true)
     public LandmarkTimeAllListVo landmarkTimeAllListSelect() {
         List<LandmarkTime> landmarkTimeList = landmarkTimeRepository.findAll();
 

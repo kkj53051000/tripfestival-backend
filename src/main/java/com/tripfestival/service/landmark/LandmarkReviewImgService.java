@@ -18,7 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-@Transactional
 @RequiredArgsConstructor
 public class LandmarkReviewImgService {
     private final LandmarkReviewImgRepository landmarkReviewImgRepository;
@@ -27,6 +26,7 @@ public class LandmarkReviewImgService {
 
     private final LandmarkReviewRepository landmarkReviewRepository;
 
+    @Transactional
     public ResponseVo landmarkReviewImgInsert(LandmarkReviewImgProcessDto req) {
         List<String> urls = fileService.s3UploadProcess(req.getFiles());
 
@@ -45,6 +45,7 @@ public class LandmarkReviewImgService {
         return new ResponseVo(Response.SUCCESS, null);
     }
 
+    @Transactional
     public ResponseVo landmarkReviewImgDelete(Long landmarkReviewImgId) {
         LandmarkReviewImg landmarkReviewImg = landmarkReviewImgRepository.findById(landmarkReviewImgId)
                 .orElseThrow(() -> new LandmarkReviewNotFoundException());
@@ -54,6 +55,7 @@ public class LandmarkReviewImgService {
         return new ResponseVo(Response.SUCCESS, null);
     }
 
+    @Transactional(readOnly = true)
     public LandmarkReviewImgListVo landmarkReviewImgListSelect(Long landmarkReviewId) {
         LandmarkReview landmarkReview = landmarkReviewRepository.findById(landmarkReviewId)
                 .orElseThrow(() -> new LandmarkReviewNotFoundException());

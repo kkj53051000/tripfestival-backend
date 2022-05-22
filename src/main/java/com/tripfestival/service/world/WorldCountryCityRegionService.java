@@ -23,7 +23,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 
 @Service
-@Transactional
 @RequiredArgsConstructor
 public class WorldCountryCityRegionService {
     private final WorldCountryCityRegionRepository worldCountryCityRegionRepository;
@@ -32,6 +31,7 @@ public class WorldCountryCityRegionService {
 
     private final FileService fileService;
 
+    @Transactional
     public ResponseVo worldCountryCityRegionInsert(WorldCountryCityRegionProcessDto req) {
         String url = fileService.s3UploadProcess(req.getFile());
 
@@ -49,6 +49,7 @@ public class WorldCountryCityRegionService {
         return new ResponseVo(Response.SUCCESS, null);
     }
 
+    @Transactional
     public ResponseVo worldCountryCityRegionDelete(Long worldCountryCityId) {
         WorldCountryCityRegion worldCountryCityRegion = worldCountryCityRegionRepository.findById(worldCountryCityId)
                 .orElseThrow(() -> new WorldCountryCityRegionNotFoundException());
@@ -58,6 +59,7 @@ public class WorldCountryCityRegionService {
         return new ResponseVo(Response.SUCCESS, null);
     }
 
+    @Transactional
     public ResponseVo worldCountryCityRegionNameAlert(WorldCountryCityRegionNameModifyDto req) {
         WorldCountryCityRegion worldCountryCityRegion = worldCountryCityRegionRepository.findById(req.getWorldCountryCityId())
                 .orElseThrow(() -> new WorldCountryCityRegionNotFoundException());
@@ -68,6 +70,7 @@ public class WorldCountryCityRegionService {
         return new ResponseVo(Response.SUCCESS, null);
     }
 
+    @Transactional(readOnly = true)
     public WorldCountryCityRegionListVo worldCountryCityRegionSelect(Long worldCountryCityId) {
         WorldCountryCity worldCountryCity = worldCountryCityRepository.findById(worldCountryCityId)
                 .orElseThrow(() -> new WorldCountryCityNotFoundException());
@@ -81,6 +84,7 @@ public class WorldCountryCityRegionService {
         return new WorldCountryCityRegionListVo(worldCountryCityRegionList);
     }
 
+    @Transactional(readOnly = true)
     public WorldCountryCityRegionListVo worldCountryCityRegionListSelect() {
 
         List<WorldCountryCityRegion> worldCountryCityRegionList = worldCountryCityRegionRepository.findAll();

@@ -23,7 +23,6 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
-@Transactional
 @RequiredArgsConstructor
 public class FileService {
 
@@ -33,6 +32,7 @@ public class FileService {
     @Value("${aws.s3.secrect-key}")
     private String secrectKey;
 
+    @Transactional
     public List<String> s3UploadProcess(List<MultipartFile> files)  {
 
         BasicAWSCredentials awsCreds = new BasicAWSCredentials(accessKey, secrectKey);
@@ -78,6 +78,7 @@ public class FileService {
         return urls;
     }
 
+    @Transactional
     public String s3UploadProcess(MultipartFile file) {
 
         BasicAWSCredentials awsCreds = new BasicAWSCredentials(accessKey, secrectKey);

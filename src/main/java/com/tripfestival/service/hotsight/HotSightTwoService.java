@@ -21,7 +21,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-@Transactional
 @RequiredArgsConstructor
 public class HotSightTwoService {
     private final HotSightTwoRepository hotSightTwoRepository;
@@ -30,6 +29,7 @@ public class HotSightTwoService {
 
     private final HotSightOneRepository hotSightOneRepository;
 
+    @Transactional
     public ResponseVo hotSightTwoInsert(HotSightTwoProcessDto req) {
         String url = fileService.s3UploadProcess(req.getFile());
 
@@ -47,6 +47,7 @@ public class HotSightTwoService {
         return new ResponseVo(Response.SUCCESS, null);
     }
 
+    @Transactional
     public ResponseVo hotSightTwoDelete(Long hotSightTwoId) {
         HotSightTwo hotSightTwo = hotSightTwoRepository.findById(hotSightTwoId)
                 .orElseThrow(() -> new HotSightTwoNotFoundException());
@@ -56,6 +57,7 @@ public class HotSightTwoService {
         return new ResponseVo(Response.SUCCESS, null);
     }
 
+    @Transactional
     public ResponseVo hostSightTwoNameAlert(HotSightTwoNameModifyDto req) {
         HotSightTwo hotSightTwo = hotSightTwoRepository.findById(req.getHotSightTwoId())
                 .orElseThrow(() -> new HotSightTwoNotFoundException());
@@ -65,6 +67,7 @@ public class HotSightTwoService {
         return new ResponseVo(Response.SUCCESS, null);
     }
 
+    @Transactional
     public ResponseVo hotSightTwoImgAlert(HotSightTwoImgModifyDto req) {
         String url = fileService.s3UploadProcess(req.getFile());
 
@@ -76,6 +79,7 @@ public class HotSightTwoService {
         return new ResponseVo(Response.SUCCESS, null);
     }
 
+    @Transactional(readOnly = true)
     public HotSightTwoListVo hotSightTwoListSelect(Long hotSightOneId) {
         HotSightOne hotSightOne = hotSightOneRepository.findById(hotSightOneId)
                 .orElseThrow(() -> new  HotSightOneNotFoundException());
@@ -86,6 +90,7 @@ public class HotSightTwoService {
         return new HotSightTwoListVo(hotSightTwoList);
     }
 
+    @Transactional(readOnly = true)
     public HotSightTwoAllListVo hotSightTwoAllListSelect() {
         List<HotSightTwo> hotSightTwoList = hotSightTwoRepository.findAll();
 

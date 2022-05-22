@@ -17,13 +17,13 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-@Transactional
 @RequiredArgsConstructor
 public class LandmarkHashTagService {
     private final LandmarkHashTagRepository landmarkHashTagRepository;
 
     private final LandmarkRepository landmarkRepository;
 
+    @Transactional
     public ResponseVo landmarkHashTagInsert(LandmarkHashTagProcessRequest req) {
         Landmark landmark = landmarkRepository.findById(req.getLandmarkId())
                 .orElseThrow(() -> new LandmarkNotFoundException());
@@ -38,6 +38,7 @@ public class LandmarkHashTagService {
         return new ResponseVo(Response.SUCCESS, null);
     }
 
+    @Transactional
     public ResponseVo landmarkHashTagDelete(Long landmarkHashTagId) {
         LandmarkHashTag landmarkHashTag = landmarkHashTagRepository.findById(landmarkHashTagId)
                 .orElseThrow(() -> new LandmarkHashTagNotFoundException());
@@ -47,6 +48,7 @@ public class LandmarkHashTagService {
         return new ResponseVo(Response.SUCCESS, null);
     }
 
+    @Transactional(readOnly = true)
     public LandmarkHashTagAllListVo landmarkHashTagAllListSelect() {
         List<LandmarkHashTag> landmarkHashTagList = landmarkHashTagRepository.findAll();
 

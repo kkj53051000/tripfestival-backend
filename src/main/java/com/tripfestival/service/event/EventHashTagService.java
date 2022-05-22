@@ -18,13 +18,13 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-@Transactional
 @RequiredArgsConstructor
 public class EventHashTagService {
     private final EventHashTagRepository eventHashTagRepository;
 
     private final EventRepository eventRepository;
 
+    @Transactional
     public ResponseVo eventHashTagInsert(EventHashTagProcessRequest req) {
         Event event = eventRepository.findById(req.getEventId())
                 .orElseThrow(() -> new EventNotFoundException());
@@ -39,6 +39,7 @@ public class EventHashTagService {
         return new ResponseVo(Response.SUCCESS, null);
     }
 
+    @Transactional
     public ResponseVo eventHashTagDelete(Long eventHashTagId) {
         EventHashTag eventHashTag = eventHashTagRepository.findById(eventHashTagId)
                 .orElseThrow(() -> new EventHashTagNotFoundException());
@@ -48,6 +49,7 @@ public class EventHashTagService {
         return new ResponseVo(Response.SUCCESS, null);
     }
 
+    @Transactional(readOnly = true)
     public EventHashTagListVo eventHashTagListSelect(Long eventId) {
 
         Event event = eventRepository.findById(eventId)
@@ -58,6 +60,7 @@ public class EventHashTagService {
         return new EventHashTagListVo(eventHashTagList);
     }
 
+    @Transactional(readOnly = true)
     public EventHashTagAllListVo eventHashTagListAllSelect() {
 
         List<EventHashTag> eventHashTagList = eventHashTagRepository.findAll();

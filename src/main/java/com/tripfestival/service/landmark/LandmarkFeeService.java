@@ -19,13 +19,13 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-@Transactional
 @RequiredArgsConstructor
 public class LandmarkFeeService {
     private final LandmarkFeeRepository landmarkFeeRepository;
 
     private final LandmarkRepository landmarkRepository;
 
+    @Transactional
     public ResponseVo landmarkFeeInsert(LandmarkFeeProcessRequest req) {
         LandmarkFee landmarkFee = LandmarkFee.builder()
                 .title(req.getTitle())
@@ -38,6 +38,7 @@ public class LandmarkFeeService {
         return new ResponseVo(Response.SUCCESS, null);
     }
 
+    @Transactional
     public ResponseVo landmarkFeeDelete(Long landmarkFeeId) {
         LandmarkFee landmarkFee = landmarkFeeRepository.findById(landmarkFeeId)
                 .orElseThrow(() -> new LandmarkFeeNotFoundException());
@@ -47,6 +48,7 @@ public class LandmarkFeeService {
         return new ResponseVo(Response.SUCCESS, null);
     }
 
+    @Transactional
     public ResponseVo landmarkFeeAlert(LandmarkFeeModifyDto req) {
         LandmarkFee landmarkFee = landmarkFeeRepository.findById(req.getLandmarkFeeId())
                 .orElseThrow(() -> new LandmarkFeeNotFoundException());
@@ -61,6 +63,7 @@ public class LandmarkFeeService {
         return new ResponseVo(Response.SUCCESS, null);
     }
 
+    @Transactional(readOnly = true)
     public LandmarkFeeListVo landmarkFeeListSelect(Long landmarkId) {
         Landmark landmark = landmarkRepository.findById(landmarkId)
                 .orElseThrow(() -> new LandmarkNotFoundException());
@@ -71,6 +74,7 @@ public class LandmarkFeeService {
         return new LandmarkFeeListVo(landmarkFeeList);
     }
 
+    @Transactional(readOnly = true)
     public LandmarkFeeAllListVo landmarkFeeAllListSelect() {
         List<LandmarkFee> landmarkFeeList = landmarkFeeRepository.findAll();
 

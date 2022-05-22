@@ -34,7 +34,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-@Transactional
 @RequiredArgsConstructor
 public class EventService {
     private final EventRepository eventRepository;
@@ -51,6 +50,7 @@ public class EventService {
 
     private final EventHashTagRepository eventHashTagRepository;
 
+    @Transactional
     public ResponseVo eventInsert(EventProcessDto req) {
 
         String url = fileService.s3UploadProcess(req.getFile());
@@ -81,6 +81,7 @@ public class EventService {
         return new ResponseVo(Response.SUCCESS, null);
     }
 
+    @Transactional
     public ResponseVo eventDelete(Long eventId) {
         Event event = eventRepository.findById(eventId)
                 .orElseThrow(() -> new EventNotFoundException());
@@ -90,6 +91,7 @@ public class EventService {
         return new ResponseVo(Response.SUCCESS, null);
     }
 
+    @Transactional
     public ResponseVo eventAlert(EventModifyDto req) {
         Event event = eventRepository.findById(req.getEventId())
                 .orElseThrow(() -> new EventNotFoundException());
@@ -131,6 +133,7 @@ public class EventService {
         return new ResponseVo(Response.SUCCESS, null);
     }
 
+    @Transactional(readOnly = true)
     public EventListVo eventListSelect(EventListDto req) {
 
         List<Event> eventList = null;
@@ -163,6 +166,7 @@ public class EventService {
         return new EventListVo(eventList, eventHashTagListList);
     }
 
+    @Transactional(readOnly = true)
     public EventAllListVo eventAllListSelect() {
         List<Event> eventList = eventRepository.findAll();
 

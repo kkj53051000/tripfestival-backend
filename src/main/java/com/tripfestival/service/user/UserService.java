@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-@Transactional
 @RequiredArgsConstructor
 public class UserService {
     private final UserRepository userRepository;
@@ -23,6 +22,7 @@ public class UserService {
 
     private final JwtUtil jwtUtil;
 
+    @Transactional
     public UserKakaoLoginResponseVo kakaoLoginInsert(String code) {
 
         KakaoLoginDto kakaoLoginDto = kakaoOAuth2.getUserInfo(code);

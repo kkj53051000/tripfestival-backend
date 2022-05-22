@@ -28,7 +28,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 @Service
-@Transactional
 @RequiredArgsConstructor
 public class EventSeasonService {
     private final EventSeasonRepository eventSeasonRepository;
@@ -41,6 +40,7 @@ public class EventSeasonService {
 
     private final EventRepository eventRepository;
 
+    @Transactional
     public ResponseVo eventSeasonInsert(MultipartFile file, EventSeasonProcessRequest req) {
         String url = fileService.s3UploadProcess(file);
 
@@ -54,6 +54,7 @@ public class EventSeasonService {
         return new ResponseVo(Response.SUCCESS, null);
     }
 
+    @Transactional
     public ResponseVo eventSeasonDelete(Long eventSeasonId) {
         EventSeason eventSeason = eventSeasonRepository.findById(eventSeasonId)
                 .orElseThrow(() -> new EventSeasonNotFoundException());
@@ -63,6 +64,7 @@ public class EventSeasonService {
         return new ResponseVo(Response.SUCCESS, null);
     }
 
+    @Transactional
     public ResponseVo eventSeasonNameAlert(EventSeasonNameModifyDto req) {
         EventSeason eventSeason = eventSeasonRepository.findById(req.getEventSeasonId())
                 .orElseThrow(() -> new EventSeasonNotFoundException());
@@ -72,6 +74,7 @@ public class EventSeasonService {
         return new ResponseVo(Response.SUCCESS, null);
     }
 
+    @Transactional
     public ResponseVo eventSeasonImgAlert(EventSeasonImgModifyDto req) {
         EventSeason eventSeason = eventSeasonRepository.findById(req.getEventSeasonId())
                 .orElseThrow(() -> new EventSeasonNotFoundException());
@@ -83,6 +86,7 @@ public class EventSeasonService {
         return new ResponseVo(Response.SUCCESS, null);
     }
 
+    @Transactional(readOnly = true)
     public EventListVo eventSeasonListSelect(EventSeasonListDto req) {
         EventSeason eventSeason = eventSeasonRepository.findById(req.getEventSeasonId())
                 .orElseThrow(() -> new EventSeasonNotFoundException());
@@ -104,6 +108,7 @@ public class EventSeasonService {
         return new EventListVo(eventList);
     }
 
+    @Transactional(readOnly = true)
     public EventSeasonListVo eventSeasonAllSelect() {
         List<EventSeason> eventSeasonList = eventSeasonRepository.findAll();
 

@@ -27,7 +27,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-@Transactional
 @RequiredArgsConstructor
 public class EventCategoryService {
     private final EventCategoryRepository eventCategoryRepository;
@@ -40,6 +39,7 @@ public class EventCategoryService {
 
     private final WorldCountryCityRegionRepository worldCountryCityRegionRepository;
 
+    @Transactional
     public ResponseVo eventCategoryInsert(EventCategoryProcessDto req) {
         String url = fileService.s3UploadProcess(req.getFile());
 
@@ -53,6 +53,7 @@ public class EventCategoryService {
         return new ResponseVo(Response.SUCCESS, null);
     }
 
+    @Transactional
     public ResponseVo eventCategoryDelete(Long eventCategoryId) {
         EventCategory eventCategory = eventCategoryRepository.findById(eventCategoryId)
                         .orElseThrow(() -> new EventCategoryNotFoundException());
@@ -62,6 +63,7 @@ public class EventCategoryService {
         return new ResponseVo(Response.SUCCESS, null);
     }
 
+    @Transactional
     public ResponseVo eventCategoryNameModify(EventCategoryNameModifyDto req) {
         EventCategory eventCategory = eventCategoryRepository.findById(req.getEventCategoryId())
                 .orElseThrow(() -> new EventCategoryNotFoundException());
@@ -71,6 +73,7 @@ public class EventCategoryService {
         return new ResponseVo(Response.SUCCESS, null);
     }
 
+    @Transactional
     public ResponseVo eventCategoryImgModify(EventCategoryImgModifyDto req) {
         EventCategory eventCategory = eventCategoryRepository.findById(req.getEventCategoryId())
                 .orElseThrow(() -> new EventCategoryNotFoundException());
@@ -82,6 +85,7 @@ public class EventCategoryService {
         return new ResponseVo(Response.SUCCESS, null);
     }
 
+    @Transactional(readOnly = true)
     public EventCategoryListVo eventCategoryListSelect(EventCategoryListDto req) {
         EventCategory eventCategory = eventCategoryRepository.findById(req.getEventCategoryId())
                 .orElseThrow(() -> new EventCategoryNotFoundException());
@@ -103,6 +107,7 @@ public class EventCategoryService {
         return new EventCategoryListVo(eventList);
     }
 
+    @Transactional(readOnly = true)
     public EventCategoryAllListVo eventCategoryAllSelect() {
         List<EventCategory> eventCategoryList = eventCategoryRepository.findAll();
 

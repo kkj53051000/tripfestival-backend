@@ -15,13 +15,13 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-@Transactional
 @RequiredArgsConstructor
 public class NatureHotspotTypeService {
     private final NatureHotspotTypeRepository natureHotspotTypeRepository;
 
     private final FileService fileService;
 
+    @Transactional
     public ResponseVo natureHotspotTypeInsert(NatureHotspotTypeDto req) {
         String url = fileService.s3UploadProcess(req.getFile());
 
@@ -35,6 +35,7 @@ public class NatureHotspotTypeService {
         return new ResponseVo(Response.SUCCESS, null);
     }
 
+    @Transactional
     public ResponseVo natureHotspotTypeDelete(Long natureHotspotTypeId) {
         NatureHotspotType natureHotspotType = natureHotspotTypeRepository.findById(natureHotspotTypeId)
                 .orElseThrow(() -> new NatureHotspotTypeNotFoundException());
@@ -44,6 +45,7 @@ public class NatureHotspotTypeService {
         return new ResponseVo(Response.SUCCESS, null);
     }
 
+    @Transactional(readOnly = true)
     public NatureHotspotTypeAllListVo natureHotspotTypeAllSelect() {
         List<NatureHotspotType> natureHotspotTypeList = natureHotspotTypeRepository.findAll();
 

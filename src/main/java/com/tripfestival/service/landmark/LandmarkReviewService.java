@@ -17,13 +17,13 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-@Transactional
 @RequiredArgsConstructor
 public class LandmarkReviewService {
     private final LandmarkReviewRepository landmarkReviewRepository;
 
     private final LandmarkRepository landmarkRepository;
 
+    @Transactional
     public ResponseVo landmarkReviewInsert(LandmarkReviewProcessRequest req) {
 
         Landmark landmark = landmarkRepository.findById(req.getLandmarkId())
@@ -41,6 +41,7 @@ public class LandmarkReviewService {
         return new ResponseVo(Response.SUCCESS, null);
     }
 
+    @Transactional
     public ResponseVo landmarkReviewDelete(Long landmarkReviewId) {
         LandmarkReview landmarkReview = landmarkReviewRepository.findById(landmarkReviewId)
                 .orElseThrow(() -> new LandmarkReviewNotFoundException());
@@ -50,6 +51,7 @@ public class LandmarkReviewService {
         return new ResponseVo(Response.SUCCESS, null);
     }
 
+    @Transactional(readOnly = true)
     public LandmarkReviewListVo landmarkReviewListSelect(Long landmarkId) {
         Landmark landmark = landmarkRepository.findById(landmarkId)
                 .orElseThrow(() -> new LandmarkNotFoundException());

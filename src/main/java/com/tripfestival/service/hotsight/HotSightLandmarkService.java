@@ -24,7 +24,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-@Transactional
 @RequiredArgsConstructor
 public class HotSightLandmarkService {
     private final HotSightLandmarkRepository hotSightLandmarkRepository;
@@ -35,7 +34,7 @@ public class HotSightLandmarkService {
 
     private final FileService fileService;
 
-    // @Transactional(isolation = Isolation.READ_COMMITTED)
+    @Transactional
     public ResponseVo hotSightLandmarkInsert(HotSightLandmarkProcessRequest req) {
         Landmark landmark = landmarkRepository.findById(req.getLandmarkId())
                 .orElseThrow(() -> new HotSightLandmarkNotFoundException());
@@ -53,6 +52,7 @@ public class HotSightLandmarkService {
         return new ResponseVo(Response.SUCCESS, null);
     }
 
+    @Transactional
     public ResponseVo hotSightLandmarkDelete(Long hotSightLandmarkId) {
         HotSightLandmark hotSightLandmark = hotSightLandmarkRepository.findById(hotSightLandmarkId)
                 .orElseThrow(() -> new HotSightLandmarkNotFoundException());
@@ -62,6 +62,7 @@ public class HotSightLandmarkService {
         return new ResponseVo(Response.SUCCESS, null);
     }
 
+    @Transactional
     public ResponseVo hotSightLandmarkHotSightTwoAlert(HotSightLandmarkHotSightTwoModifyDto req) {
         HotSightLandmark hotSightLandmark = hotSightLandmarkRepository.findById(req.getHotSightLandmarkId())
                 .orElseThrow(() -> new HotSightLandmarkNotFoundException());
@@ -74,6 +75,7 @@ public class HotSightLandmarkService {
         return new ResponseVo(Response.SUCCESS, null);
     }
 
+    @Transactional(readOnly = true)
     public HotSightLandmarkListVo hotSightLandmarkListSelect(Long hotSightTwoId) {
         HotSightTwo hotSightTwo = hotSightTwoRepository.findById(hotSightTwoId)
                 .orElseThrow(() -> new HotSightTwoNotFoundException());
@@ -85,6 +87,7 @@ public class HotSightLandmarkService {
         return new HotSightLandmarkListVo(hotSightLandmarkList);
     }
 
+    @Transactional(readOnly = true)
     public HotSightLandmarkAllListVo hotSightLandmarkAllListSelect() {
         List<HotSightLandmark> hotSightLandmarkList = hotSightLandmarkRepository.findAll();
 

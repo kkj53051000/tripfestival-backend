@@ -27,6 +27,7 @@ public class EventImgService {
 
     private final EventRepository eventRepository;
 
+    @Transactional
     public ResponseVo eventImgInsert(EventImgProcessDto req) {
 
         Event event = eventRepository.findById(req.getEventId())
@@ -46,6 +47,7 @@ public class EventImgService {
         return new ResponseVo(Response.SUCCESS, null);
     }
 
+    @Transactional
     public ResponseVo eventImgDelete(Long eventImgId) {
         EventImg eventImg = eventImgRepository.findById(eventImgId)
                         .orElseThrow(() -> new EventImgNotFoundException());
@@ -55,6 +57,7 @@ public class EventImgService {
         return new ResponseVo(Response.SUCCESS, null);
     }
 
+    @Transactional(readOnly = true)
     public EventImgListVo eventImgList(Long eventId) {
         Event event = eventRepository.findById(eventId)
                 .orElseThrow(() -> new EventNotFoundException());

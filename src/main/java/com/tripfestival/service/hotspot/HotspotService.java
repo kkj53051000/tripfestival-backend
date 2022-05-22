@@ -29,7 +29,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-@Transactional
 @RequiredArgsConstructor
 public class HotspotService {
     private final HotspotRepository hotspotRepository;
@@ -42,6 +41,7 @@ public class HotspotService {
 
     private final WorldCountryCityRegionRepository worldCountryCityRegionRepository;
 
+    @Transactional
     public ResponseVo hotspotInsert(HotspotProcessRequest req) {
         Landmark landmark = landmarkRepository.findById(req.getLandmarkId())
                 .orElseThrow(() -> new LandmarkNotFoundException());
@@ -59,6 +59,7 @@ public class HotspotService {
         return new ResponseVo(Response.SUCCESS, null);
     }
 
+    @Transactional
     public ResponseVo hotspotDelete(Long hotspotId) {
         Hotspot hotspot = hotspotRepository.findById(hotspotId)
                 .orElseThrow(() -> new HotspotNotFoundException());
@@ -68,6 +69,7 @@ public class HotspotService {
         return new ResponseVo(Response.SUCCESS, null);
     }
 
+    @Transactional(readOnly = true)
     public HotspotListVo hotspotListSelect(HotspotListDto req) {
         HotspotType hotspotType = hotspotTypeRepository.findById(req.getHotspotTypeId())
                 .orElseThrow(() -> new HotspotTypeNotFoundException());
@@ -91,6 +93,7 @@ public class HotspotService {
         return new HotspotListVo(hotspotList);
     }
 
+    @Transactional(readOnly = true)
     public HotspotAllListVo hotspotAllListSelect() {
         List<Hotspot> hotspotList = hotspotRepository.findAll();
 

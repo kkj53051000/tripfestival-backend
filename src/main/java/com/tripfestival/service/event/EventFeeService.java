@@ -19,13 +19,13 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-@Transactional
 @RequiredArgsConstructor
 public class EventFeeService {
     private final EventFeeRepository eventFeeRepository;
 
     private final EventRepository eventRepository;
 
+    @Transactional
     public ResponseVo eventFeeInsert(EventFeeProcessRequest req) {
 
         Event event = eventRepository.findById(req.getEventId())
@@ -42,6 +42,7 @@ public class EventFeeService {
         return new ResponseVo(Response.SUCCESS, null);
     }
 
+    @Transactional
     public ResponseVo eventFeeDelete(Long eventFeeId) {
         EventFee eventFee = eventFeeRepository.findById(eventFeeId)
                 .orElseThrow(() -> new EventFeeNotFoundException());
@@ -51,6 +52,7 @@ public class EventFeeService {
         return new ResponseVo(Response.SUCCESS, null);
     }
 
+    @Transactional
     public ResponseVo eventFeeAlert(EventFeeModifyDto req) {
         EventFee eventFee = eventFeeRepository.findById(req.getEventFeeId())
                 .orElseThrow(() -> new EventFeeNotFoundException());
@@ -65,6 +67,7 @@ public class EventFeeService {
         return new ResponseVo(Response.SUCCESS, null);
     }
 
+    @Transactional(readOnly = true)
     public EventFeeListVo eventFeeListSelect(Long eventId) {
         Event event = eventRepository.findById(eventId)
                 .orElseThrow(() -> new EventNotFoundException());
@@ -75,6 +78,7 @@ public class EventFeeService {
         return new EventFeeListVo(eventFeeList);
     }
 
+    @Transactional(readOnly = true)
     public EventFeeAllListVo eventFeeAllListSelect() {
 
         List<EventFee> eventFeeList = eventFeeRepository.findAll();

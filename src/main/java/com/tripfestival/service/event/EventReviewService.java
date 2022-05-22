@@ -11,11 +11,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-@Transactional
 @RequiredArgsConstructor
 public class EventReviewService {
     private final EventReviewRepository eventReviewRepository;
 
+    @Transactional
     public ResponseVo eventReviewInsert(EventReviewProcessRequest req) {
         EventReview eventReview = EventReview.builder()
                 .content(req.getContent())
@@ -28,6 +28,7 @@ public class EventReviewService {
         return new ResponseVo(Response.SUCCESS, null);
     }
 
+    @Transactional
     public ResponseVo eventReviewDelete(Long eventReviewId) {
         EventReview eventReview = eventReviewRepository.findById(eventReviewId)
                 .orElseThrow(() -> new EventReviewNotFoundException());

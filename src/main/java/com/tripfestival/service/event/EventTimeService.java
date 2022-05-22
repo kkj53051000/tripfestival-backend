@@ -20,13 +20,13 @@ import java.time.LocalTime;
 import java.util.List;
 
 @Service
-@Transactional
 @RequiredArgsConstructor
 public class EventTimeService {
     private final EventTimeRepository eventTimeRepository;
 
     private final EventRepository eventRepository;
 
+    @Transactional
     public ResponseVo eventTimeInsert(EventTimeProcessRequest req) {
         Event event = eventRepository.findById(req.getEventId())
                 .orElseThrow(() -> new EventNotFoundException());
@@ -43,6 +43,7 @@ public class EventTimeService {
         return new ResponseVo(Response.SUCCESS, null);
     }
 
+    @Transactional
     public ResponseVo eventTimeDelete(Long eventTimeId) {
         EventTime eventTime = eventTimeRepository.findById(eventTimeId)
                 .orElseThrow(() -> new EventTimeNotFoundException());
@@ -52,6 +53,7 @@ public class EventTimeService {
         return new ResponseVo(Response.SUCCESS, null);
     }
 
+    @Transactional
     public ResponseVo eventTimeAlert(EventTimeModifyDto req) {
         EventTime eventTime = eventTimeRepository.findById(req.getEventTimeId())
                 .orElseThrow(() -> new EventTimeNotFoundException());
@@ -69,6 +71,7 @@ public class EventTimeService {
         return new ResponseVo(Response.SUCCESS, null);
     }
 
+    @Transactional(readOnly = true)
     public EventTimeListVo eventTimeListSelect(Long eventId) {
         Event event = eventRepository.findById(eventId)
                 .orElseThrow(() -> new EventTimeNotFoundException());
@@ -79,6 +82,7 @@ public class EventTimeService {
         return new EventTimeListVo(eventTimeList);
     }
 
+    @Transactional(readOnly = true)
     public EventTimeAllListVo eventTimeAllListSelect() {
         List<EventTime> eventTimeList = eventTimeRepository.findAll();
 

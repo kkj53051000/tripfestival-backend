@@ -38,7 +38,6 @@ import java.net.URLEncoder;
 import java.util.List;
 
 @Service
-@Transactional
 @RequiredArgsConstructor
 public class DataApiService {
 
@@ -67,6 +66,7 @@ public class DataApiService {
         }
     }
 
+    @Transactional
     public ResponseVo updateCountryCityKorea() throws IOException, ParserConfigurationException, SAXException {
 
         WorldCountry worldCountry = worldCountryRepository.findByName("대한민국")
@@ -116,6 +116,7 @@ public class DataApiService {
         return new ResponseVo(Response.SUCCESS, null);
     }
 
+    @Transactional
     public ResponseVo updateCountryCityRegionKorea() throws IOException, ParserConfigurationException, SAXException {
 
 
@@ -170,6 +171,7 @@ public class DataApiService {
         return new ResponseVo(Response.SUCCESS, null);
     }
 
+    @Transactional
     public ResponseVo updateLandmarkKorea() throws IOException, ParserConfigurationException, SAXException {
 
         List<WorldCountryCity> worldCountryCityList = worldCountryCityRepository.findAll();
@@ -237,7 +239,7 @@ public class DataApiService {
         return new ResponseVo(Response.SUCCESS, null);
     }
 
-
+    @Transactional
     public ResponseVo updateLandmarkDescriptionKorea() throws IOException, ParserConfigurationException, SAXException {
         List<Landmark> landmarkList = landmarkRepository.findAll();
 
@@ -280,7 +282,7 @@ public class DataApiService {
         return new ResponseVo(Response.SUCCESS, null);
     }
 
-
+    @Transactional
     public ResponseVo updateLandmarkImgKorea() throws IOException, ParserConfigurationException, SAXException {
 
         List<Landmark> landmarkList = landmarkRepository.findAll();

@@ -17,13 +17,13 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-@Transactional
 @RequiredArgsConstructor
 public class HotSightOneService {
     private final HotSightOneRepository hotSightOneRepository;
 
     private final FileService fileService;
 
+    @Transactional
     public ResponseVo hotSightOneInsert(HotSightOneProcessDto req) {
         String url = fileService.s3UploadProcess(req.getFile());
 
@@ -37,6 +37,7 @@ public class HotSightOneService {
         return new ResponseVo(Response.SUCCESS, null);
     }
 
+    @Transactional
     public ResponseVo hotSightOneDelete(Long hotSightOneId) {
         HotSightOne hotSightOne = hotSightOneRepository.findById(hotSightOneId)
                 .orElseThrow(() -> new HotSightOneNotFoundException());
@@ -46,6 +47,7 @@ public class HotSightOneService {
         return new ResponseVo(Response.SUCCESS, null);
     }
 
+    @Transactional
     public ResponseVo hotSightOneNameAlert(HotSightOneNameModifyDto req) {
         HotSightOne hotSightOne = hotSightOneRepository.findById(req.getHotSightOneId())
                 .orElseThrow(() -> new HotSightOneNotFoundException());
@@ -55,6 +57,7 @@ public class HotSightOneService {
         return new ResponseVo(Response.SUCCESS, null);
     }
 
+    @Transactional
     public ResponseVo hotSightOneImgAlert(HotSightOneImgModifyDto req) {
 
         String url = fileService.s3UploadProcess(req.getFile());
@@ -67,6 +70,7 @@ public class HotSightOneService {
         return new ResponseVo(Response.SUCCESS, null);
     }
 
+    @Transactional(readOnly = true)
     public HotSightOneListVo hotSightOneAllListSelect() {
         List<HotSightOne> hotSightOneList = hotSightOneRepository.findAll();
 
