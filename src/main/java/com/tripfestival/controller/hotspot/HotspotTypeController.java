@@ -7,6 +7,7 @@ import com.tripfestival.request.hotspot.HotspotTypeProcessRequest;
 import com.tripfestival.service.hotspot.HotspotTypeService;
 import com.tripfestival.vo.hotspot.HotspotTypeAllListVo;
 import com.tripfestival.vo.ResponseVo;
+import com.tripfestival.vo.hotspot.HotspotTypeNameVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -48,5 +49,10 @@ public class HotspotTypeController { // 인공 관광지 종류
     @GetMapping("/hotspotTypeAllList")
     public HotspotTypeAllListVo hotspotTypeAllList() {
         return hotspotTypeService.hotspotTypeAllListSelect();
+    }
+
+    @GetMapping("/hotspotTypeName/{id}")
+    public HotspotTypeNameVo hotspotTypeName(@PathVariable("id") Long hotspotTypeId) {
+        return hotspotTypeService.HotspotTypeNameSelect(hotspotTypeId);
     }
 }
