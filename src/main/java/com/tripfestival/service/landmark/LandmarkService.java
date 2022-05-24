@@ -122,7 +122,7 @@ public class LandmarkService {
         }
 
 
-        // LandmarkHashTag List
+        // Landmark HashTag List
         List<List<LandmarkHashTag>> landmarkHashTagListVoList = new ArrayList<>();
 
         for (Landmark landmark : landmarkList) {
