@@ -6,6 +6,7 @@ import com.tripfestival.request.world.WorldCountryCityProcessRequest;
 import com.tripfestival.service.world.WorldCountryCityService;
 import com.tripfestival.vo.ResponseVo;
 import com.tripfestival.vo.world.WorldCountryCityNameListVo;
+import com.tripfestival.vo.world.WorldCountryCityNameVo;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -43,5 +44,10 @@ public class WorldCountryCityController {
     @GetMapping("/worldCountryCityNameList")
     public WorldCountryCityNameListVo worldCountryCityNameList() {
         return worldCountryCityService.worldCountryCityNameList();
+    }
+
+    @GetMapping("/worldCountryCityName/{id}")
+    public WorldCountryCityNameVo worldCountryCityName(@PathVariable("id") Long worldCountryCityId) {
+        return worldCountryCityService.worldCountryCityNameSelect(worldCountryCityId);
     }
 }
