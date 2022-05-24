@@ -20,11 +20,13 @@ public class HotspotListVo {
     @Getter
     class HotspotVo {
         private Long id;
+        private Long landmarkId;
         private String landmarkName;
         private String landmarkImg;
 
         public HotspotVo(Hotspot hotspot) {
             this.id = hotspot.getId();
+            this.landmarkId = hotspot.getLandmark().getId();
             this.landmarkName = hotspot.getLandmark().getName();
             this.landmarkImg = hotspot.getLandmark().getImg();
         }

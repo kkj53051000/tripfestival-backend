@@ -22,6 +22,7 @@ import com.tripfestival.vo.Response;
 import com.tripfestival.vo.ResponseVo;
 import com.tripfestival.vo.hotspot.HotspotAllListVo;
 import com.tripfestival.vo.hotspot.HotspotListVo;
+import com.tripfestival.vo.hotspot.HotspotNameVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -102,5 +103,17 @@ public class HotspotService {
         }
 
         return new HotspotAllListVo(hotspotList);
+    }
+
+    @Transactional(readOnly = true)
+    public HotspotNameVo hotspotNameSelect(Long hotspotId) {
+        Hotspot hotspot = hotspotRepository.findById(hotspotId)
+                .orElseThrow(() -> new HotspotNotFoundException());
+
+        HotspotNameVo hotspotNameVo = HotspotNameVo.builder()
+                .hotspotName(hotspot.getLandmark().getName())
+                .build();
+
+        return hotspotNameVo;
     }
 }
