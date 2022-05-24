@@ -19,8 +19,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SearchService {
 
-    private final LandmarkRepository landmarkRepository;
-
     private final WorldCountryCityRegionRepository worldCountryCityRegionRepository;
 
     private final WorldCountryCityRepository worldCountryCityRepository;
@@ -44,6 +42,8 @@ public class SearchService {
             MainSearchResultVo mainSearchResultVo = MainSearchResultVo.builder()
                     .title(worldCountryCity.getName())
                     .img(worldCountryCity.getCityImg())
+                    .cityId(worldCountryCity.getId())
+                    .regionId(0L)
                     .build();
 
             mainSearchResultVoList.add(mainSearchResultVo);
@@ -57,6 +57,8 @@ public class SearchService {
             MainSearchResultVo mainSearchResultVo = MainSearchResultVo.builder()
                     .title(worldCountryCityRegion.getWorldCountryCity().getName() + " " + worldCountryCityRegion.getName())
                     .img(worldCountryCityRegion.getImg())
+                    .cityId(worldCountryCityRegion.getWorldCountryCity().getId())
+                    .regionId(worldCountryCityRegion.getId())
                     .build();
 
             mainSearchResultVoList.add(mainSearchResultVo);

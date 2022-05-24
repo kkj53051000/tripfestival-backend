@@ -8,4 +8,6 @@ import lombok.Getter;
 public class MainSearchResultVo {
     String title;
     String img;
+    Long cityId;
+    Long regionId;
 }
