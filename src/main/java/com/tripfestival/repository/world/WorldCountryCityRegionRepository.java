@@ -12,5 +12,5 @@ public interface WorldCountryCityRegionRepository extends JpaRepository<WorldCou
 
     Optional<WorldCountryCityRegion> findByNameAndWorldCountryCity(String name, WorldCountryCity worldCountryCity);
 
-    List<WorldCountryCityRegion> findByNameStartingWith(String word);
+    List<WorldCountryCityRegion> findByNameStartsWith(String word);
 }

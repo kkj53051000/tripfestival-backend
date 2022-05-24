@@ -3,6 +3,8 @@ package com.tripfestival.service.hotspot;
 import com.tripfestival.domain.hotspot.Hotspot;
 import com.tripfestival.domain.hotspot.HotspotType;
 import com.tripfestival.domain.landmark.Landmark;
+import com.tripfestival.domain.landmark.LandmarkHashTag;
+import com.tripfestival.domain.naturehotspot.NatureHotspot;
 import com.tripfestival.domain.world.WorldCountryCity;
 import com.tripfestival.domain.world.WorldCountryCityRegion;
 import com.tripfestival.dto.hotspot.HotspotHotspotTypeModifyDto;
@@ -14,6 +16,7 @@ import com.tripfestival.exception.world.WorldCountryCityNotFoundException;
 import com.tripfestival.exception.world.WorldCountryCityRegionNotFoundException;
 import com.tripfestival.repository.hotspot.HotspotRepository;
 import com.tripfestival.repository.hotspot.HotspotTypeRepository;
+import com.tripfestival.repository.landmark.LandmarkHashTagRepository;
 import com.tripfestival.repository.landmark.LandmarkRepository;
 import com.tripfestival.repository.world.WorldCountryCityRegionRepository;
 import com.tripfestival.repository.world.WorldCountryCityRepository;
@@ -27,6 +30,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -41,6 +45,8 @@ public class HotspotService {
     private final WorldCountryCityRepository worldCountryCityRepository;
 
     private final WorldCountryCityRegionRepository worldCountryCityRegionRepository;
+
+    private final LandmarkHashTagRepository landmarkHashTagRepository;
 
     @Transactional
     public ResponseVo hotspotInsert(HotspotProcessRequest req) {
@@ -91,7 +97,23 @@ public class HotspotService {
             hotspotList = hotspotRepository.findByHotspotTypeAndLandmark_WorldCountryCityRegion(hotspotType, worldCountryCityRegion);
         }
 
-        return new HotspotListVo(hotspotList);
+        // Landmark HashTag List
+        List<List<LandmarkHashTag>> landmarkHashTagListVoList = new ArrayList<>();
+
+        for (Hotspot hotspot : hotspotList) {
+            List<LandmarkHashTag> landmarkHashTagList = landmarkHashTagRepository.findByLandmark(hotspot.getLandmark());
+
+            if (landmarkHashTagList.size() == 0) {
+                landmarkHashTagListVoList.add(new ArrayList<LandmarkHashTag>());
+            }else{
+                System.out.println(landmarkHashTagList.size());
+
+                List<LandmarkHashTag> items = landmarkHashTagList;
+                landmarkHashTagListVoList.add(items);
+            }
+        }
+
+        return new HotspotListVo(hotspotList, landmarkHashTagListVoList);
     }
 
     @Transactional(readOnly = true)
