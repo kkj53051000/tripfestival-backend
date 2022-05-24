@@ -1,6 +1,7 @@
 package com.tripfestival.service.naturehotspot;
 
 import com.tripfestival.domain.landmark.Landmark;
+import com.tripfestival.domain.landmark.LandmarkHashTag;
 import com.tripfestival.domain.naturehotspot.NatureHotspot;
 import com.tripfestival.domain.naturehotspot.NatureHotspotType;
 import com.tripfestival.domain.world.WorldCountryCity;
@@ -14,6 +15,7 @@ import com.tripfestival.exception.naturehotspot.NatureHotspotNotFoundException;
 import com.tripfestival.exception.naturehotspot.NatureHotspotTypeNotFoundException;
 import com.tripfestival.exception.world.WorldCountryCityNotFoundException;
 import com.tripfestival.exception.world.WorldCountryCityRegionNotFoundException;
+import com.tripfestival.repository.landmark.LandmarkHashTagRepository;
 import com.tripfestival.repository.landmark.LandmarkRepository;
 import com.tripfestival.repository.naturehotspot.NatureHotspotRepository;
 import com.tripfestival.repository.naturehotspot.NatureHotspotTypeRepository;
@@ -29,6 +31,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -45,6 +48,8 @@ public class NatureHotspotService {
     private final WorldCountryCityRepository worldCountryCityRepository;
 
     private final WorldCountryCityRegionRepository worldCountryCityRegionRepository;
+
+    private final LandmarkHashTagRepository landmarkHashTagRepository;
 
     @Transactional
     public ResponseVo natureHotspotInsert(NatureHotspotProcessDto req) {
@@ -115,7 +120,7 @@ public class NatureHotspotService {
 
             natureHotspotList = natureHotspotRepository.findByNatureHotspotType(natureHotspotType);
 
-        }else if(req.getWorldCountryCityRegionId() == 0) { // 지역 City만 필터
+        }else if(req.getWorldCountryCityRegionId() == 0) { // 지역 City 만 필터
             WorldCountryCity worldCountryCity = worldCountryCityRepository.findById(req.getWorldCountryCityId())
                     .orElseThrow(() -> new WorldCountryCityNotFoundException());
 
@@ -127,7 +132,25 @@ public class NatureHotspotService {
             natureHotspotList = natureHotspotRepository.findByNatureHotspotTypeAndLandmark_WorldCountryCityRegion(natureHotspotType, worldCountryCityRegion);
         }
 
-        return new NatureHotspotListVo(natureHotspotList);
+
+        // Landmark HashTag List
+        List<List<LandmarkHashTag>> landmarkHashTagListVoList = new ArrayList<>();
+
+        for (NatureHotspot natureHotspot : natureHotspotList) {
+            List<LandmarkHashTag> landmarkHashTagList = landmarkHashTagRepository.findByLandmark(natureHotspot.getLandmark());
+
+            if (landmarkHashTagList.size() == 0) {
+                landmarkHashTagListVoList.add(new ArrayList<LandmarkHashTag>());
+            }else{
+                System.out.println(landmarkHashTagList.size());
+
+                List<LandmarkHashTag> items = landmarkHashTagList;
+                landmarkHashTagListVoList.add(items);
+            }
+        }
+
+
+        return new NatureHotspotListVo(natureHotspotList, landmarkHashTagListVoList);
     }
 
     @Transactional(readOnly = true)

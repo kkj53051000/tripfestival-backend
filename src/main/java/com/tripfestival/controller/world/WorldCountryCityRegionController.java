@@ -8,6 +8,7 @@ import com.tripfestival.request.world.WorldCountryCityRegionProcessRequest;
 import com.tripfestival.service.world.WorldCountryCityRegionService;
 import com.tripfestival.vo.ResponseVo;
 import com.tripfestival.vo.WorldCountryCityRegionListVo;
+import com.tripfestival.vo.world.WorldCountryCityRegionNameVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -53,5 +54,10 @@ public class WorldCountryCityRegionController {
     @GetMapping("/worldCountryCityRegionList")
     public WorldCountryCityRegionListVo worldCountryCityRegionList() {
         return worldCountryCityRegionService.worldCountryCityRegionListSelect();
+    }
+
+    @GetMapping("/worldCountryCityRegionName/{id}")
+    public WorldCountryCityRegionNameVo worldCountryCityRegionName(@PathVariable("id") Long worldCountryCityRegionId) {
+        return worldCountryCityRegionService.worldCountryCityRegionNameSelect(worldCountryCityRegionId);
     }
 }

@@ -14,6 +14,7 @@ import com.tripfestival.service.file.FileService;
 import com.tripfestival.vo.Response;
 import com.tripfestival.vo.ResponseVo;
 import com.tripfestival.vo.WorldCountryCityRegionListVo;
+import com.tripfestival.vo.world.WorldCountryCityRegionNameVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -90,5 +91,17 @@ public class WorldCountryCityRegionService {
         List<WorldCountryCityRegion> worldCountryCityRegionList = worldCountryCityRegionRepository.findAll();
 
         return new WorldCountryCityRegionListVo(worldCountryCityRegionList);
+    }
+
+    @Transactional(readOnly = true)
+    public WorldCountryCityRegionNameVo worldCountryCityRegionNameSelect(Long worldCountryCityRegionId) {
+        WorldCountryCityRegion worldCountryCityRegion = worldCountryCityRegionRepository.findById(worldCountryCityRegionId)
+                .orElseThrow(() -> new WorldCountryCityRegionNotFoundException());
+
+        WorldCountryCityRegionNameVo worldCountryCityRegionNameVo = WorldCountryCityRegionNameVo.builder()
+                .worldCountryCityRegionName(worldCountryCityRegion.getName())
+                .build();
+
+        return worldCountryCityRegionNameVo;
     }
 }
