@@ -19,10 +19,7 @@ import com.tripfestival.request.landmark.LandmarkProcessRequest;
 import com.tripfestival.service.file.FileService;
 import com.tripfestival.vo.Response;
 import com.tripfestival.vo.ResponseVo;
-import com.tripfestival.vo.landmark.LandmarkAllListVo;
-import com.tripfestival.vo.landmark.LandmarkHashTagListVo;
-import com.tripfestival.vo.landmark.LandmarkListVo;
-import com.tripfestival.vo.landmark.LandmarkVo;
+import com.tripfestival.vo.landmark.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -162,5 +159,12 @@ public class LandmarkService {
         }
 
         return new LandmarkAllListVo(landmarkList);
+    }
+
+    @Transactional(readOnly = true)
+    public LandmarkAllCountVo landmarkAllCountSelect() {
+        Long landmarkAllCount = landmarkRepository.count();
+
+        return new LandmarkAllCountVo(landmarkAllCount);
     }
 }

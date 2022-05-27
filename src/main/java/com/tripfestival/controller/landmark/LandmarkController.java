@@ -7,6 +7,7 @@ import com.tripfestival.request.landmark.LandmarkModifyRequest;
 import com.tripfestival.request.landmark.LandmarkProcessRequest;
 import com.tripfestival.service.landmark.LandmarkService;
 import com.tripfestival.vo.ResponseVo;
+import com.tripfestival.vo.landmark.LandmarkAllCountVo;
 import com.tripfestival.vo.landmark.LandmarkAllListVo;
 import com.tripfestival.vo.landmark.LandmarkListVo;
 import com.tripfestival.vo.landmark.LandmarkVo;
@@ -74,4 +75,8 @@ public class LandmarkController {  // 관광지
         return landmarkService.landmarkAllListSelect();
     }
 
+    @GetMapping("/landmarkAllCount")
+    public LandmarkAllCountVo landmarkAllCount() {
+        return landmarkService.landmarkAllCountSelect();
+    }
 }

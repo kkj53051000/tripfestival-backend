@@ -22,7 +22,7 @@ public class EventFeeController {
     }
 
     @PostMapping("/admin/eventFeeRemove/{id}")
-    public ResponseVo eventFeeRemove(@PathVariable Long eventFeeId) {
+    public ResponseVo eventFeeRemove(@PathVariable("id") Long eventFeeId) {
         return eventFeeService.eventFeeDelete(eventFeeId);
     }
 
