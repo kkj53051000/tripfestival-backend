@@ -1,9 +1,7 @@
 package com.tripfestival.service;
 
-import com.tripfestival.domain.landmark.Landmark;
 import com.tripfestival.domain.world.WorldCountryCity;
 import com.tripfestival.domain.world.WorldCountryCityRegion;
-import com.tripfestival.repository.landmark.LandmarkRepository;
 import com.tripfestival.repository.world.WorldCountryCityRegionRepository;
 import com.tripfestival.repository.world.WorldCountryCityRepository;
 import com.tripfestival.vo.MainSearchResultListVo;

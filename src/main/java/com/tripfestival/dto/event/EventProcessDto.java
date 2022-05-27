@@ -9,6 +9,8 @@ import org.springframework.web.multipart.MultipartFile;
 @NoArgsConstructor
 public class EventProcessDto {
     private MultipartFile file;
+    private String startDate;
+    private String endDate;
     private String name;
     private String description;
     private String address;
@@ -20,6 +22,8 @@ public class EventProcessDto {
 
     public EventProcessDto(MultipartFile file, EventProcessRequest req) {
         this.file = file;
+        this.startDate = req.getStartDate();
+        this.endDate = req.getEndDate();
         this.name = req.getName();
         this.description = req.getDescription();
         this.address = req.getAddress();

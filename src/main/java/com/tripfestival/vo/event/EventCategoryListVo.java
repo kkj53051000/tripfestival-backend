@@ -22,10 +22,12 @@ public class EventCategoryListVo {
     class EventCategoryVo {
         private Long id;
         private String name;
+        private String img;
 
         public EventCategoryVo(Event event) {
             this.id = event.getId();
             this.name = event.getName();
+            this.img = event.getImg();
         }
     }
 }

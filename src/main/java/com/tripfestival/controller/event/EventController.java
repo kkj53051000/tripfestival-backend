@@ -45,7 +45,9 @@ public class EventController {
     }
 
     @GetMapping("/eventList")
-    public EventListVo eventList(@RequestParam Long worldCountryCityId, @RequestParam Long worldCountryCityRegionId) {
+    public EventListVo eventList(
+            @RequestParam Long worldCountryCityId,
+            @RequestParam Long worldCountryCityRegionId) {
         EventListDto eventListDto = EventListDto.builder()
                 .worldCountryCityId(worldCountryCityId)
                 .worldCountryCityRegionId(worldCountryCityRegionId)

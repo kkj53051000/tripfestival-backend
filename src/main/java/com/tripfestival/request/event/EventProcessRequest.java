@@ -7,6 +7,8 @@ import lombok.Getter;
 @Builder
 public class EventProcessRequest {
     private String name;
+    private String startDate;
+    private String endDate;
     private String description;
     private String address;
     private int visitor;

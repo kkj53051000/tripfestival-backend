@@ -55,16 +55,16 @@ public class DataApiService {
 
     private final LandmarkImgRepository landmarkImgRepository;
 
-    @PostConstruct
-    public void insertWorldCountry() {
-        if (!worldCountryRepository.findByName("대한민국").isPresent()) {
-            WorldCountry worldCountry = WorldCountry.builder()
-                    .name("대한민국")
-                    .build();
-
-            worldCountryRepository.save(worldCountry);
-        }
-    }
+//    @PostConstruct
+//    public void insertWorldCountry() {
+//        if (!worldCountryRepository.findByName("대한민국").isPresent()) {
+//            WorldCountry worldCountry = WorldCountry.builder()
+//                    .name("대한민국")
+//                    .build();
+//
+//            worldCountryRepository.save(worldCountry);
+//        }
+//    }
 
     @Transactional
     public ResponseVo updateCountryCityKorea() throws IOException, ParserConfigurationException, SAXException {

@@ -52,7 +52,9 @@ public class LandmarkController {  // 관광지
     }
 
     @GetMapping("/landmarkList")
-    public LandmarkListVo landmarkList(@RequestParam Long worldCountryCityRegionId, @RequestParam Long worldCountryCityId) {
+    public LandmarkListVo landmarkList(
+            @RequestParam Long worldCountryCityRegionId,
+            @RequestParam Long worldCountryCityId) {
 
         LandmarkListDto landmarkListDto = LandmarkListDto.builder()
                 .worldCountryCityRegionId(worldCountryCityRegionId)

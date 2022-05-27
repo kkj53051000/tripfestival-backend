@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
 @Entity
 @Data
@@ -25,6 +26,8 @@ public class Event {  // 축제
     private Long id;
 
     private String name;
+    private LocalDate startDate;
+    private LocalDate endDate;
     private String img;
     private String description;
     private String address;
