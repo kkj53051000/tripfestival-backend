@@ -46,7 +46,7 @@ public class EventCategoryController {  // 축제 종류
         return eventCategoryService.eventCategoryNameModify(eventCategoryNameModifyDto);
     }
 
-    @PostMapping("/eventCategoryImgModify/{id}")
+    @PostMapping("/admin/eventCategoryImgModify/{id}")
     public ResponseVo eventCategoryImgModify(
             @PathVariable("id") Long eventCategoryId,
             @RequestPart MultipartFile file) {
