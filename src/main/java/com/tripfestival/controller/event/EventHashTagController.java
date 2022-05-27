@@ -25,7 +25,7 @@ public class EventHashTagController {
     }
 
     @GetMapping("/eventHashTagList")
-    public EventHashTagListVo eventHashTagList(@RequestParam Long eventId) {
+    public EventHashTagListVo eventHashTagList(@RequestParam("eventId") Long eventId) {
         return eventHashTagService.eventHashTagListSelect(eventId);
     }
 
