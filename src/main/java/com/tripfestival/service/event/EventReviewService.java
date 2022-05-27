@@ -35,6 +35,6 @@ public class EventReviewService {
 
         eventReviewRepository.delete(eventReview);
 
-        return new ResponseVo(Response.FAILURE, null);
+        return new ResponseVo(Response.SUCCESS, null);
     }
 }

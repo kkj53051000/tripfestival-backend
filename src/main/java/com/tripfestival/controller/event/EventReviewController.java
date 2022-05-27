@@ -12,12 +12,12 @@ import org.springframework.web.bind.annotation.*;
 public class EventReviewController {
     private final EventReviewService eventReviewService;
 
-    @PostMapping("/eventReviewProcess")
+    @PostMapping("/user/eventReviewProcess")
     public ResponseVo eventReviewProcess(@RequestBody EventReviewProcessRequest req) {
         return eventReviewService.eventReviewInsert(req);
     }
 
-    @PostMapping("/eventReviewRemove/{id}")
+    @PostMapping("/user/eventReviewRemove/{id}")
     public ResponseVo eventReviewRemove(@PathVariable("id") Long eventReviewId) {
         return eventReviewService.eventReviewDelete(eventReviewId);
     }

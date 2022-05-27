@@ -15,8 +15,8 @@ import java.util.Map;
 @Component
 public class JwtUtil {
 
-    @Value("${jwt.secret.key}")
-    private String secretKey;
+//    @Value("${jwt.secret.key}")
+    private String secretKey = "afafaf";
 
     public String createToken(long userId, Role role) {
         //Header 부분 설정
@@ -55,13 +55,16 @@ public class JwtUtil {
                     .parseClaimsJws(jwt) // 파싱 및 검증, 실패 시 에러
                     .getBody();
 
-            claimMap = claims;
+            System.out.println("claims : " + claims);
+
+            claimMap = new HashMap<>(claims);
 
         } catch (ExpiredJwtException e) { // 토큰 만료
             throw new JwtVerifyFailException();
-        } catch (Exception e) { // 그외 에러났을 경우
-            throw new JwtVerifyFailException();
         }
+//        catch (Exception e) { // 그외 에러났을 경우
+//            throw new JwtVerifyFailException();
+//        }
         return claimMap;
     }
 

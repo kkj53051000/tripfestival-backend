@@ -23,7 +23,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 
         Enumeration headerNames = req.getHeaderNames();
 
-        Long userId = null;
+        Long userId = 0L;
 
         boolean authorizationCheck = false;
 
@@ -32,6 +32,8 @@ public class LoginInterceptor implements HandlerInterceptor {
             String value = req.getHeader(name);
 
             if (name.equals("Authorization") || name.equals("authorization")) {
+                System.out.println("들어옴!!!!!!!!!!!!!!!!!!");
+                System.out.println(value);
                 authorizationCheck = true;
                 if (value.equals("null")) {
                     throw new JwtVerifyFailException();
@@ -39,7 +41,11 @@ public class LoginInterceptor implements HandlerInterceptor {
 
                 Map<String, Object> returnValue = jwtUtil.verifyJWT(value);
 
-                userId = Long.valueOf(String.valueOf(returnValue.get("user_id")));
+                System.out.println("returnValue : " + returnValue);
+
+                userId = Long.valueOf(String.valueOf(returnValue.get("userId")));
+
+                System.out.println(userId);
 
                 if (returnValue == null) {
                     throw new JwtVerifyFailException();
