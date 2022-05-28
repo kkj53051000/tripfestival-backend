@@ -9,6 +9,7 @@ import com.tripfestival.service.event.EventService;
 import com.tripfestival.vo.ResponseVo;
 import com.tripfestival.vo.event.EventAllListVo;
 import com.tripfestival.vo.event.EventListVo;
+import com.tripfestival.vo.event.EventVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -59,6 +60,11 @@ public class EventController {
     @GetMapping("/eventAllList")
     public EventAllListVo eventAllList() {
         return eventService.eventAllListSelect();
+    }
+
+    @GetMapping("/event/{id}")
+    public EventVo event(@PathVariable("id") Long eventId) {
+        return eventService.eventSelect(eventId);
     }
 
 }

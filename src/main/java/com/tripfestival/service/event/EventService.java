@@ -26,6 +26,7 @@ import com.tripfestival.vo.Response;
 import com.tripfestival.vo.ResponseVo;
 import com.tripfestival.vo.event.EventAllListVo;
 import com.tripfestival.vo.event.EventListVo;
+import com.tripfestival.vo.event.EventVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -165,9 +166,11 @@ public class EventService {
                 eventHashTagListList.add(eventHashTagList);
             }
         }
-//        if (eventHashTagListList.size() == 0) {
-//            return new EventListVo(eventList);
-//        }
+
+        if (eventHashTagListList.size() == 0) {
+            return new EventListVo(eventList);
+        }
+
         return new EventListVo(eventList, eventHashTagListList);
     }
 
@@ -176,5 +179,13 @@ public class EventService {
         List<Event> eventList = eventRepository.findAll();
 
         return new EventAllListVo(eventList);
+    }
+
+    @Transactional(readOnly = true)
+    public EventVo eventSelect(Long eventId) {
+        Event event = eventRepository.findById(eventId)
+                .orElseThrow(() -> new EventNotFoundException());
+
+        return new EventVo(event);
     }
 }
