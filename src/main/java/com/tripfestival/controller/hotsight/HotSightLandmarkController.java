@@ -23,7 +23,6 @@ public class HotSightLandmarkController {  // 특별한 관광지
     public ResponseVo hotSightLandmarkProcess(
             @RequestBody HotSightLandmarkProcessRequest req) {
 
-
         return hotSightLandmarkService.hotSightLandmarkInsert(req);
     }
 
