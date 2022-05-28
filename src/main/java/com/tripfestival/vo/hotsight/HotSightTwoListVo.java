@@ -12,7 +12,7 @@ public class HotSightTwoListVo {
     private List<HotSightTwoVo> items = null;
 
     public HotSightTwoListVo(List<HotSightTwo> hotSightTwoList) {
-        items = hotSightTwoList.stream()
+        this.items = hotSightTwoList.stream()
                 .map(hotSightTwo -> new HotSightTwoVo(hotSightTwo))
                 .collect(Collectors.toList());
     }

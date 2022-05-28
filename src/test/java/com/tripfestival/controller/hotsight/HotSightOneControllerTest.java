@@ -1,6 +1,5 @@
 package com.tripfestival.controller.hotsight;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.tripfestival.controller.BaseControllerTest;
 import com.tripfestival.domain.hotsight.HotSightOne;
 import com.tripfestival.repository.hotsight.HotSightOneRepository;

@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 @Getter
 public class HotSightTwoAllListVo {
 
-    List<HotSightTwoVo> items = null;
+    private List<HotSightTwoVo> items = null;
 
     public HotSightTwoAllListVo(List<HotSightTwo> hotSightTwoList) {
         this.items = hotSightTwoList.stream()

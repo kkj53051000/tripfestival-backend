@@ -84,8 +84,7 @@ public class HotSightTwoService {
         HotSightOne hotSightOne = hotSightOneRepository.findById(hotSightOneId)
                 .orElseThrow(() -> new  HotSightOneNotFoundException());
 
-        List<HotSightTwo> hotSightTwoList = hotSightTwoRepository.findByHotSightOne(hotSightOne)
-                .orElseThrow(() -> new HotSightTwoNotFoundException());
+        List<HotSightTwo> hotSightTwoList = hotSightTwoRepository.findByHotSightOne(hotSightOne);
 
         return new HotSightTwoListVo(hotSightTwoList);
     }
