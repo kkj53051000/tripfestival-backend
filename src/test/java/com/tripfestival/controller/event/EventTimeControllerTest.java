@@ -1,54 +1,47 @@
 package com.tripfestival.controller.event;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tripfestival.controller.BaseControllerTest;
 import com.tripfestival.domain.event.Event;
 import com.tripfestival.domain.event.EventCategory;
-import com.tripfestival.domain.event.EventHashTag;
 import com.tripfestival.domain.event.EventSeason;
+import com.tripfestival.domain.event.EventTime;
 import com.tripfestival.domain.world.WorldCountry;
 import com.tripfestival.domain.world.WorldCountryCity;
 import com.tripfestival.domain.world.WorldCountryCityRegion;
 import com.tripfestival.repository.event.EventCategoryRepository;
-import com.tripfestival.repository.event.EventHashTagRepository;
 import com.tripfestival.repository.event.EventRepository;
 import com.tripfestival.repository.event.EventSeasonRepository;
+import com.tripfestival.repository.event.EventTimeRepository;
 import com.tripfestival.repository.world.WorldCountryCityRegionRepository;
 import com.tripfestival.repository.world.WorldCountryCityRepository;
 import com.tripfestival.repository.world.WorldCountryRepository;
-import com.tripfestival.request.event.EventModifyRequest;
-import com.tripfestival.request.event.EventProcessRequest;
-import com.tripfestival.service.file.FileService;
-import com.tripfestival.util.FileTestUtil;
+import com.tripfestival.request.event.EventTimeModifyRequest;
+import com.tripfestival.request.event.EventTimeProcessRequest;
 import com.tripfestival.vo.Response;
 import com.tripfestival.vo.ResponseVo;
-import com.tripfestival.vo.event.EventAllListVo;
-import com.tripfestival.vo.event.EventListVo;
+import com.tripfestival.vo.event.EventTimeAllListVo;
+import com.tripfestival.vo.event.EventTimeListVo;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.MediaType;
-import org.springframework.mock.web.MockMultipartFile;
-import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 
-import javax.xml.transform.Result;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+
+import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-class EventControllerTest extends BaseControllerTest {
+class EventTimeControllerTest extends BaseControllerTest {
 
     @Autowired
     EventRepository eventRepository;
@@ -69,22 +62,17 @@ class EventControllerTest extends BaseControllerTest {
     EventSeasonRepository eventSeasonRepository;
 
     @Autowired
-    EventHashTagRepository eventHashTagRepository;
-
-    @MockBean
-    FileService fileService;
+    EventTimeRepository eventTimeRepository;
 
     Event event;
-    Event event2;
     WorldCountryCity worldCountryCity;
     WorldCountryCityRegion worldCountryCityRegion;
-    EventSeason eventSeason;
     EventCategory eventCategory;
+    EventSeason eventSeason;
+    EventTime eventTime;
 
     @BeforeEach
     void setup() {
-        Mockito.when(fileService.s3UploadProcess(FileTestUtil.getMockMultipartFile())).thenReturn("test.jpg");
-
         WorldCountry worldCountry = WorldCountry.builder()
                 .name("대한민국")
                 .build();
@@ -125,43 +113,34 @@ class EventControllerTest extends BaseControllerTest {
                 .build();
         eventRepository.save(event);
 
-        event2 = Event.builder()
-                .name("event1")
-                .img("test.jpg")
-                .description("test")
-                .address("test")
-                .visitor(1)
-                .inout(true)
-                .worldCountryCityRegion(worldCountryCityRegion)
-                .eventCategory(eventCategory)
-                .eventSeason(eventSeason)
+
+
+        eventTime = EventTime.builder()
+                .title("test")
+                .startTime(LocalDateTime.now())
+                .endTime(LocalDateTime.now())
+                .event(event)
                 .build();
-        eventRepository.save(event2);
+
+        eventTimeRepository.save(eventTime);
     }
 
     @Test
-    void EVENT_PROCESS_TEST() throws Exception {
+    void EVENT_TIME_PROCESS_TEST() throws Exception {
         //given
-        EventProcessRequest eventProcessRequest = EventProcessRequest.builder()
-                .name("test")
-                .startDate("2022-01-01")
-                .endDate("2022-01-02")
-                .description("test")
-                .address("test")
-                .visitor(100)
-                .inout(1)
-                .worldCountryCityRegionId(worldCountryCityRegion.getId())
-                .eventCategoryId(eventCategory.getId())
-                .eventSeasonId(eventSeason.getId())
+        EventTimeProcessRequest eventTimeProcessRequest = EventTimeProcessRequest.builder()
+                .title("test")
+                .startTime(String.valueOf(LocalDateTime.now()))
+                .endTime(String.valueOf(LocalDateTime.now()))
+                .eventId(event.getId())
                 .build();
 
-
-        String value = objectMapper.writeValueAsString(eventProcessRequest);
+        String req = objectMapper.writeValueAsString(eventTimeProcessRequest);
 
         //when
-        ResultActions resultActions = mockMvc.perform(multipart("/api/admin/eventProcess")
-                .file(FileTestUtil.getMockMultipartFile())
-                .file(new MockMultipartFile("value", "value", "application/json", value.getBytes())));
+        ResultActions resultActions = mockMvc.perform(post("/api/admin/eventTimeProcess")
+                .contentType(jsonMediaType)
+                .content(req));
 
         //then
         resultActions
@@ -171,97 +150,78 @@ class EventControllerTest extends BaseControllerTest {
     }
 
     @Test
-    void EVENT_REMOVE_TEST() throws Exception {
+    void EVENT_TIME_REMOVE_TEST() throws Exception {
         //given setup()
 
         //when
-        ResultActions resultActions = mockMvc.perform(post("/api/admin/eventRemove/" + event.getId()));
+        ResultActions resultActions = mockMvc.perform(post("/api/admin/eventTimeRemove/" + eventTime.getId()));
 
         //then
         resultActions
                 .andExpect(status().isOk())
                 .andExpect(content().string(objectMapper.writeValueAsString(new ResponseVo(Response.SUCCESS, null))))
-                .andDo(print());
+                .andDo(MockMvcResultHandlers.print());
     }
 
-
     @Test
-    void EVENT_MODIFY_TEST() throws Exception {
+    void EVENT_TIME_MODIFY_TEST() throws Exception {
         //given
-        EventModifyRequest eventModifyRequest = EventModifyRequest.builder().name("hi").build();
-        String value = objectMapper.writeValueAsString(eventModifyRequest);
+        EventTimeModifyRequest eventTimeModifyRequest = EventTimeModifyRequest.builder()
+                .title("testModify")
+                .startTime(LocalDateTime.now().toString())
+                .endTime(LocalDateTime.now().toString())
+                .build();
+
+        String req = objectMapper.writeValueAsString(eventTimeModifyRequest);
 
         //when
-        ResultActions resultActions = mockMvc.perform(post("/api/admin/eventModify/" + event.getId())
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(value));
+        ResultActions resultActions = mockMvc.perform(post("/api/admin/eventTimeModify/" + eventTime.getId())
+                .contentType(jsonMediaType)
+                .content(req));
 
         //then
         resultActions
                 .andExpect(status().isOk())
                 .andExpect(content().string(objectMapper.writeValueAsString(new ResponseVo(Response.SUCCESS, null))))
-                .andDo(print());
+                .andDo(MockMvcResultHandlers.print());
     }
 
     @Test
-    void EVENT_LIST_TEST() throws Exception {
+    void EVENT_TIME_LIST_TEST() throws Exception {
         //given
-        List<Event> eventList = new ArrayList<>();
-        eventList.add(event);
-        eventList.add(event2);
+        List<EventTime> eventTimeList = new ArrayList<>();
+        eventTimeList.add(eventTime);
 
-
-        // params
-        String worldCountryCityId = String.valueOf(worldCountryCity.getId());
-        String worldCountryCityRegionId = String.valueOf(worldCountryCityRegion.getId());
-
-        // Response
-        List<List<EventHashTag>> eventHashTagListList = new ArrayList<>();
-
-        for (Event event : eventList) {
-            List<EventHashTag> eventHashTagList = eventHashTagRepository.findByEvent(event);
-
-            if(eventHashTagList.size() == 0) {
-                eventHashTagListList.add(new ArrayList<EventHashTag>());
-            }else {
-                eventHashTagListList.add(eventHashTagList);
-            }
-        }
-
-        EventListVo eventListVo = new EventListVo(eventList, eventHashTagListList);
-
+        String response  = objectMapper.writeValueAsString(new EventTimeListVo(eventTimeList));
 
         //when
-        ResultActions resultActions = mockMvc.perform(get("/api/eventList")
-                .param("worldCountryCityId", worldCountryCityId)
-                .param("worldCountryCityRegionId", worldCountryCityRegionId));
+        ResultActions resultActions = mockMvc.perform(get("/api/eventTimeList")
+                .param("eventId", String.valueOf(event.getId())));
 
         //then
         resultActions
                 .andExpect(status().isOk())
-                .andExpect(content().string(objectMapper.writeValueAsString(eventListVo)))
-                .andDo(print());
+                .andExpect(content().string(response))
+                .andDo(MockMvcResultHandlers.print());
     }
 
-
     @Test
-    void EVENT_ALL_LIST_TEST() throws Exception {
+    void EVENT_TIME_ALL_LIST_TEST() throws Exception {
         //given
-        List<Event> eventList = new ArrayList<>();
-        eventList.add(event);
-        eventList.add(event2);
+        List<EventTime> eventTimeList = new ArrayList<>();
+        eventTimeList.add(eventTime);
 
-        EventAllListVo eventAllListVo = new EventAllListVo(eventList);
+        EventTimeAllListVo eventTimeAllListVo = new EventTimeAllListVo(eventTimeList);
+
+        String response = objectMapper.writeValueAsString(eventTimeAllListVo);
 
         //when
-        ResultActions resultActions = mockMvc.perform(get("/api/eventAllList"));
+        ResultActions resultActions = mockMvc.perform(get("/api/eventTimeAllList"));
 
         //then
         resultActions
                 .andExpect(status().isOk())
-                .andExpect(content().string(objectMapper.writeValueAsString(eventAllListVo)))
-                .andDo(print());
+                .andExpect(content().string(response))
+                .andDo(MockMvcResultHandlers.print());
     }
-
-
 }

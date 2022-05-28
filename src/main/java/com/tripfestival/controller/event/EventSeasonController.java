@@ -21,8 +21,8 @@ public class EventSeasonController {
 
     @PostMapping("/admin/eventSeasonProcess")
     public ResponseVo eventSeasonProcess(
-            @RequestPart(name = "file", required = true) MultipartFile file,
-            @RequestPart(name = "value", required = false)EventSeasonProcessRequest req) {
+            @RequestPart(name = "file") MultipartFile file,
+            @RequestPart(name = "value") EventSeasonProcessRequest req) {
 
         return eventSeasonService.eventSeasonInsert(file, req);
     }
