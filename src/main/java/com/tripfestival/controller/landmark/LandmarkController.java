@@ -40,14 +40,7 @@ public class LandmarkController {  // 관광지
     public ResponseVo landmarkModify(@PathVariable("id") Long landmarkId,
                                      @RequestBody LandmarkModifyRequest req) {
 
-        LandmarkModifyDto landmarkModifyDto = LandmarkModifyDto.builder()
-                .landmarkId(landmarkId)
-                .name(req.getName())
-                .description(req.getDescription())
-                .address(req.getAddress())
-                .homepage(req.getHomepage())
-                .worldCountryCityRegionId(req.getWorldCountryCityRegionId())
-                .build();
+        LandmarkModifyDto landmarkModifyDto = new LandmarkModifyDto(landmarkId, req);
 
         return landmarkService.landmarkAlert(landmarkModifyDto);
     }
