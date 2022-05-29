@@ -22,7 +22,7 @@ public class HotspotTypeController { // 인공 관광지 종류
     @PostMapping("/admin/hotspotTypeProcess")
     public ResponseVo hotspotTypeProcess(
             @RequestPart MultipartFile file,
-            @RequestPart("value")HotspotTypeProcessRequest req) {
+            @RequestPart("value") HotspotTypeProcessRequest req) {
 
         HotspotTypeProcessDto hotspotTypeProcessDto = HotspotTypeProcessDto.builder()
                 .file(file)
