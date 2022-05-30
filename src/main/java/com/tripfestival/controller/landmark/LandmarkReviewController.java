@@ -1,5 +1,6 @@
 package com.tripfestival.controller.landmark;
 
+import com.tripfestival.domain.landmark.Landmark;
 import com.tripfestival.request.landmark.LandmarkReviewProcessRequest;
 import com.tripfestival.service.landmark.LandmarkReviewService;
 import com.tripfestival.vo.ResponseVo;
@@ -7,12 +8,14 @@ import com.tripfestival.vo.landmark.LandmarkReviewListVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api")
 public class LandmarkReviewController {
     private final LandmarkReviewService landmarkReviewService;
-
+    
     @PostMapping("/landmarkReviewProcess")
     public ResponseVo landmarkReviewProcess(@RequestBody LandmarkReviewProcessRequest req) {
         return landmarkReviewService.landmarkReviewInsert(req);

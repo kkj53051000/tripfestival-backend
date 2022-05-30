@@ -3,23 +3,21 @@ package com.tripfestival.controller.landmark;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.tripfestival.controller.BaseControllerTest;
 import com.tripfestival.domain.landmark.Landmark;
-import com.tripfestival.domain.landmark.LandmarkReview;
-import com.tripfestival.domain.user.User;
+import com.tripfestival.domain.landmark.LandmarkTime;
 import com.tripfestival.domain.world.WorldCountry;
 import com.tripfestival.domain.world.WorldCountryCity;
 import com.tripfestival.domain.world.WorldCountryCityRegion;
 import com.tripfestival.repository.landmark.LandmarkRepository;
-import com.tripfestival.repository.landmark.LandmarkReviewRepository;
-import com.tripfestival.repository.user.UserRepository;
+import com.tripfestival.repository.landmark.LandmarkTimeRepository;
 import com.tripfestival.repository.world.WorldCountryCityRegionRepository;
 import com.tripfestival.repository.world.WorldCountryCityRepository;
 import com.tripfestival.repository.world.WorldCountryRepository;
-import com.tripfestival.request.landmark.LandmarkReviewProcessRequest;
+import com.tripfestival.request.landmark.LandmarkTimeModifyRequest;
+import com.tripfestival.request.landmark.LandmarkTimeProcessRequest;
 import com.tripfestival.vo.Response;
 import com.tripfestival.vo.ResponseVo;
-import com.tripfestival.vo.landmark.LandmarkReviewListVo;
+import com.tripfestival.vo.landmark.LandmarkTimeAllListVo;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -37,7 +35,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-class LandmarkReviewControllerTest extends BaseControllerTest {
+class LandmarkTimeControllerTest extends BaseControllerTest {
 
     @Autowired
     WorldCountryRepository worldCountryRepository;
@@ -52,16 +50,13 @@ class LandmarkReviewControllerTest extends BaseControllerTest {
     LandmarkRepository landmarkRepository;
 
     @Autowired
-    UserRepository userRepository;
+    LandmarkTimeRepository landmarkTimeRepository;
 
-    @Autowired
-    LandmarkReviewRepository landmarkReviewRepository;
 
     WorldCountryCity worldCountryCity;
     WorldCountryCityRegion worldCountryCityRegion;
     Landmark landmark;
-    LandmarkReview landmarkReview;
-
+    LandmarkTime landmarkTime;
 
     @BeforeEach
     void setup() {
@@ -88,31 +83,28 @@ class LandmarkReviewControllerTest extends BaseControllerTest {
                 .build();
         landmarkRepository.save(landmark);
 
-        User user = User.builder()
-                .uid("user")
-                .build();
-        userRepository.save(user);
-
-        landmarkReview = LandmarkReview.builder()
-                .content("riview")
-                .user(user)
+        landmarkTime = LandmarkTime.builder()
+                .title("landmarkTime")
                 .landmark(landmark)
                 .build();
-        landmarkReviewRepository.save(landmarkReview);
+        landmarkTimeRepository.save(landmarkTime);
     }
 
+
     @Test
-    void LANDMARK_REVIEW_PROCESS_TEST() throws Exception {
+    void LANDMARK_TIME_PROCESS_TEST() throws Exception {
         //given
-        LandmarkReviewProcessRequest landmarkReviewProcessRequest = LandmarkReviewProcessRequest.builder()
-                .content("test")
+        LandmarkTimeProcessRequest landmarkTimeProcessRequest = LandmarkTimeProcessRequest.builder()
+                .title("landamrkTime")
+                .startTime("00:00")
+                .endTime("00:00")
                 .landmarkId(landmark.getId())
                 .build();
 
-        String req = objectMapper.writeValueAsString(landmarkReviewProcessRequest);
+        String req = objectMapper.writeValueAsString(landmarkTimeProcessRequest);
 
         //when
-        ResultActions resultActions = mockMvc.perform(post("/api/landmarkReviewProcess")
+        ResultActions resultActions = mockMvc.perform(post("/api/admin/landmarkTimeProcess")
                 .contentType(jsonMediaType)
                 .content(req));
 
@@ -124,11 +116,11 @@ class LandmarkReviewControllerTest extends BaseControllerTest {
     }
 
     @Test
-    void LANDMARK_REVIEW_REMOVE_TEST() throws Exception {
+    void LANDMARK_TIME_REMOVE_TEST() throws Exception {
         //given setup()
 
         //when
-        ResultActions resultActions = mockMvc.perform(post("/api/landmarkReviewRemove/" + landmarkReview.getId()));
+        ResultActions resultActions = mockMvc.perform(post("/api/admin/landmarkTimeRemove/" + landmarkTime.getId()));
 
         //then
         resultActions
@@ -138,18 +130,40 @@ class LandmarkReviewControllerTest extends BaseControllerTest {
     }
 
     @Test
-    void LANDMARK_REVIEW_LIST_TEST() throws Exception {
+    void LANDMARK_TIME_MODIFY_TEST() throws Exception {
         //given
-        List<LandmarkReview> landmarkReviewList = new ArrayList<>();
-        landmarkReviewList.add(landmarkReview);
+        LandmarkTimeModifyRequest landmarkTimeModifyRequest = LandmarkTimeModifyRequest.builder()
+                .title("change")
+                .startTime("11:11")
+                .endTime("11:11")
+                .build();
 
-        LandmarkReviewListVo landmarkReviewListVo = new LandmarkReviewListVo(landmarkReviewList);
-
-        String response = objectMapper.writeValueAsString(landmarkReviewListVo);
+        String req = objectMapper.writeValueAsString(landmarkTimeModifyRequest);
 
         //when
-        ResultActions resultActions = mockMvc.perform(get("/api/landmarkReviewList")
-                .param("landmarkId", String.valueOf(landmark.getId())));
+        ResultActions resultActions = mockMvc.perform(post("/api/admin/landmarkTimeModify/" + landmarkTime.getId())
+                .contentType(jsonMediaType)
+                .content(req));
+
+        //then
+        resultActions
+                .andExpect(status().isOk())
+                .andExpect(content().string(objectMapper.writeValueAsString(new ResponseVo(Response.SUCCESS, null))))
+                .andDo(MockMvcResultHandlers.print());
+    }
+
+    @Test
+    void LANDMARK_TIME_ALL_LIST_TEST() throws Exception {
+        //given
+        List<LandmarkTime> landmarkTimeList = new ArrayList<>();
+        landmarkTimeList.add(landmarkTime);
+
+        LandmarkTimeAllListVo landmarkTimeAllListVo = new LandmarkTimeAllListVo(landmarkTimeList);
+
+        String response = objectMapper.writeValueAsString(landmarkTimeAllListVo);
+
+        //when
+        ResultActions resultActions = mockMvc.perform(get("/api/landmarkTimeAllList"));
 
         //then
         resultActions

@@ -5,6 +5,7 @@ import com.tripfestival.domain.hotsight.HotSightOne;
 import com.tripfestival.repository.hotsight.HotSightOneRepository;
 import com.tripfestival.request.hotsight.HotSightOneNameModifyRequest;
 import com.tripfestival.request.hotsight.HotSightOneProcessRequest;
+import com.tripfestival.request.hotsight.HotSightTwoProcessRequest;
 import com.tripfestival.util.FileTestUtil;
 import com.tripfestival.vo.Response;
 import com.tripfestival.vo.ResponseVo;
@@ -44,11 +45,13 @@ class HotSightOneControllerTest extends BaseControllerTest {
     }
 
     @Test
-    void HOTSIGHT_ONE_PROCESS_TEST() throws Exception {
+    void HOT_SIGHT_ONE_PROCESS_TEST() throws Exception {
         //given
         HotSightOneProcessRequest hotSightOneProcessRequest = HotSightOneProcessRequest.builder()
                 .name("test")
                 .build();
+
+        System.out.println(hotSightOneProcessRequest);
 
         String value = objectMapper.writeValueAsString(hotSightOneProcessRequest);
 
@@ -65,7 +68,7 @@ class HotSightOneControllerTest extends BaseControllerTest {
     }
 
     @Test
-    void HOTSIGHT_ONE_REMOVE_TEST() throws Exception {
+    void HOT_SIGHT_ONE_REMOVE_TEST() throws Exception {
         //given setup()
 
         //when
@@ -79,7 +82,7 @@ class HotSightOneControllerTest extends BaseControllerTest {
     }
 
     @Test
-    void HOTSIGHT_ONE_NAME_MODIFY_TEST() throws Exception {
+    void HOT_SIGHT_ONE_NAME_MODIFY_TEST() throws Exception {
         //given
         HotSightOneNameModifyRequest hotSightOneNameModifyRequest = HotSightOneNameModifyRequest.builder()
                 .name("test")
@@ -100,7 +103,7 @@ class HotSightOneControllerTest extends BaseControllerTest {
     }
 
     @Test
-    void HOTSIGHT_ONE_IMG_MODIFY_TEST() throws Exception {
+    void HOT_SIGHT_ONE_IMG_MODIFY_TEST() throws Exception {
         //given setup()
 
         //when
@@ -115,7 +118,7 @@ class HotSightOneControllerTest extends BaseControllerTest {
     }
 
     @Test
-    void HOTSIGHT_ONE_ALL_LIST_TEST() throws Exception {
+    void HOT_SIGHT_ONE_ALL_LIST_TEST() throws Exception {
         //given
         List<HotSightOne> hotSightOneList = new ArrayList<>();
         hotSightOneList.add(hotSightOne);

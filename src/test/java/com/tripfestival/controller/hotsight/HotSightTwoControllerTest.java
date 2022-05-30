@@ -59,7 +59,7 @@ class HotSightTwoControllerTest extends BaseControllerTest {
     }
 
     @Test
-    void HOTSIGHT_TWO_PROCESS_TEST() throws Exception {
+    void HOT_SIGHT_TWO_PROCESS_TEST() throws Exception {
         //given
         HotSightTwoProcessRequest hotSightTwoProcessRequest = HotSightTwoProcessRequest.builder()
                 .hotSightOneId(hotSightOne.getId())
@@ -80,7 +80,7 @@ class HotSightTwoControllerTest extends BaseControllerTest {
     }
 
     @Test
-    void HOTSIGHT_TWO_REMOVE_TEST() throws Exception {
+    void HOT_SIGHT_TWO_REMOVE_TEST() throws Exception {
         //given setup()
 
         //when
@@ -94,7 +94,7 @@ class HotSightTwoControllerTest extends BaseControllerTest {
     }
 
     @Test
-    void HOTSIGHT_TWO_NAME_MODIFY() throws Exception {
+    void HOT_SIGHT_TWO_NAME_MODIFY() throws Exception {
         //given
         HotSightTwoNameModifyRequest hotSightTwoNameModifyRequest = HotSightTwoNameModifyRequest.builder()
                 .name("test")
@@ -115,7 +115,7 @@ class HotSightTwoControllerTest extends BaseControllerTest {
     }
 
     @Test
-    void HOTSIGHT_TWO_IMG_MODIFY() throws Exception {
+    void HOT_SIGHT_TWO_IMG_MODIFY() throws Exception {
         //given setup()
 
         //when

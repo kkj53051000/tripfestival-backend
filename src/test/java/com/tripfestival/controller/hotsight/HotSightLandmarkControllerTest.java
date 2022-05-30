@@ -112,7 +112,7 @@ class HotSightLandmarkControllerTest extends BaseControllerTest {
     }
 
     @Test
-    void HOTSIGHT_LANDMARK_PROCESS_TEST() throws Exception {
+    void HOT_SIGHT_LANDMARK_PROCESS_TEST() throws Exception {
         //given
         HotSightLandmarkProcessRequest hotSightLandmarkProcessRequest = HotSightLandmarkProcessRequest.builder()
                 .landmarkId(landmark.getId())
@@ -134,7 +134,7 @@ class HotSightLandmarkControllerTest extends BaseControllerTest {
     }
 
     @Test
-    void HOTSIGHT_LANDMARK_REMOVE_TEST() throws Exception {
+    void HOT_SIGHT_LANDMARK_REMOVE_TEST() throws Exception {
         //given setup()
 
         //when
@@ -148,7 +148,7 @@ class HotSightLandmarkControllerTest extends BaseControllerTest {
     }
 
     @Test
-    void HOTSIGHT_LANDMARK_HOTSIGHT_TWO_MODIFY_TEST() throws Exception {
+    void HOT_SIGHT_LANDMARK_HOTSIGHT_TWO_MODIFY_TEST() throws Exception {
         //given
         HotSightLandmarkHotSightTwoModifyRequest hotSightLandmarkHotSightTwoModifyRequest = HotSightLandmarkHotSightTwoModifyRequest.builder()
                 .hotSightTowId(hotSightTwo.getId())
@@ -169,7 +169,7 @@ class HotSightLandmarkControllerTest extends BaseControllerTest {
     }
 
     @Test
-    void HOTSIGHT_LANDMARK_LIST_TEST() throws Exception {
+    void HOT_SIGHT_LANDMARK_LIST_TEST() throws Exception {
         //given
         List<HotSightLandmark> hotSightLandmarkList = new ArrayList<>();
         hotSightLandmarkList.add(hotSightLandmark);
@@ -190,7 +190,7 @@ class HotSightLandmarkControllerTest extends BaseControllerTest {
     }
 
     @Test
-    void HOTSIGHT_LANDMARK_ALL_LIST_TEST() throws Exception {
+    void HOT_SIGHT_LANDMARK_ALL_LIST_TEST() throws Exception {
         //given
         List<HotSightLandmark> hotSightLandmarkList = new ArrayList<>();
         hotSightLandmarkList.add(hotSightLandmark);

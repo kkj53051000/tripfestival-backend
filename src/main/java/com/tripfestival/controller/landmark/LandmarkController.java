@@ -3,6 +3,8 @@ package com.tripfestival.controller.landmark;
 import com.tripfestival.dto.landmark.LandmarkListDto;
 import com.tripfestival.dto.landmark.LandmarkModifyDto;
 import com.tripfestival.dto.landmark.LandmarkProcessDto;
+import com.tripfestival.request.hotsight.HotSightOneProcessRequest;
+import com.tripfestival.request.hotsight.HotSightTwoProcessRequest;
 import com.tripfestival.request.landmark.LandmarkModifyRequest;
 import com.tripfestival.request.landmark.LandmarkProcessRequest;
 import com.tripfestival.service.landmark.LandmarkService;
