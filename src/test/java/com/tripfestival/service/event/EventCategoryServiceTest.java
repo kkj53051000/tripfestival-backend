@@ -2,6 +2,7 @@ package com.tripfestival.service.event;
 
 import com.tripfestival.domain.event.EventCategory;
 import com.tripfestival.dto.event.EventCategoryProcessDto;
+import com.tripfestival.exception.event.EventCategoryNotFoundException;
 import com.tripfestival.repository.event.EventCategoryRepository;
 import com.tripfestival.util.FileTestUtil;
 import org.junit.jupiter.api.Assertions;
@@ -22,6 +23,7 @@ class EventCategoryServiceTest {
 
     @Autowired
     EventCategoryRepository eventCategoryRepository;
+
 
     @Test
     void EVENT_CATEGORY_INSERT_TEST() {
@@ -50,5 +52,12 @@ class EventCategoryServiceTest {
 
         //then
         Assertions.assertFalse(eventCategoryRepository.existsById(eventCategory.getId()));
+    }
+
+    @Test
+    void EVENT_CATEGORY_EVENT_CATEGORY_EXCEPTION_TEST() {
+        Assertions.assertThrows(EventCategoryNotFoundException.class, () -> {
+            eventCategoryService.eventCategoryDelete(1L);
+        });
     }
 }
