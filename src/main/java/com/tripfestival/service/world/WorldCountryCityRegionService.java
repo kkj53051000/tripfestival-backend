@@ -62,7 +62,7 @@ public class WorldCountryCityRegionService {
 
     @Transactional
     public ResponseVo worldCountryCityRegionNameAlert(WorldCountryCityRegionNameModifyDto req) {
-        WorldCountryCityRegion worldCountryCityRegion = worldCountryCityRegionRepository.findById(req.getWorldCountryCityId())
+        WorldCountryCityRegion worldCountryCityRegion = worldCountryCityRegionRepository.findById(req.getWorldCountryCityRegionId())
                 .orElseThrow(() -> new WorldCountryCityRegionNotFoundException());
 
 

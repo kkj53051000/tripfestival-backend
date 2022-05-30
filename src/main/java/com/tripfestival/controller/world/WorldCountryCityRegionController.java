@@ -37,11 +37,11 @@ public class WorldCountryCityRegionController {
 
     @PostMapping("/admin/worldCountryCityRegionNameModify/{id}")
     public ResponseVo worldCountryCityRegionNameModify(
-            @PathVariable("id") Long worldCountryCityId,
+            @PathVariable("id") Long worldCountryCityRegionId,
             @RequestBody WorldCountryCityRegionNameModifyRequest req) {
 
         WorldCountryCityRegionNameModifyDto worldCountryCityRegionNameModifyDto
-                = new WorldCountryCityRegionNameModifyDto(worldCountryCityId, req);
+                = new WorldCountryCityRegionNameModifyDto(worldCountryCityRegionId, req);
 
         return worldCountryCityRegionService.worldCountryCityRegionNameAlert(worldCountryCityRegionNameModifyDto);
     }

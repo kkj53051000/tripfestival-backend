@@ -5,11 +5,11 @@ import lombok.Getter;
 
 @Getter
 public class WorldCountryCityRegionNameModifyDto {
-    private Long worldCountryCityId;
+    private Long worldCountryCityRegionId;
     private String name;
 
     public WorldCountryCityRegionNameModifyDto(Long worldCountryCityId, WorldCountryCityRegionNameModifyRequest req) {
-        this.worldCountryCityId = worldCountryCityId;
+        this.worldCountryCityRegionId = worldCountryCityId;
         this.name = req.getName();
     }
 }

@@ -26,7 +26,6 @@ public class UserService {
     public UserKakaoLoginResponseVo kakaoLoginInsert(String code) {
 
         KakaoLoginDto kakaoLoginDto = kakaoOAuth2.getUserInfo(code);
-        System.out.println("kakaoLoginDto.getId() = " + kakaoLoginDto.getId());
 
         String userId = "kakao" + kakaoLoginDto.getId();
 
