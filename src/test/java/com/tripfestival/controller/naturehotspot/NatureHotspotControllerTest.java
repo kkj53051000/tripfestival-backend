@@ -2,8 +2,6 @@ package com.tripfestival.controller.naturehotspot;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.tripfestival.controller.BaseControllerTest;
-import com.tripfestival.domain.event.Event;
-import com.tripfestival.domain.event.EventHashTag;
 import com.tripfestival.domain.landmark.Landmark;
 import com.tripfestival.domain.landmark.LandmarkHashTag;
 import com.tripfestival.domain.naturehotspot.NatureHotspot;
@@ -23,7 +21,6 @@ import com.tripfestival.request.naturehotspot.NatureHotspotProcessRequest;
 import com.tripfestival.util.FileTestUtil;
 import com.tripfestival.vo.Response;
 import com.tripfestival.vo.ResponseVo;
-import com.tripfestival.vo.event.EventListVo;
 import com.tripfestival.vo.naturehotspot.NatureHotspotAllListVo;
 import com.tripfestival.vo.naturehotspot.NatureHotspotListVo;
 import org.junit.jupiter.api.BeforeEach;
