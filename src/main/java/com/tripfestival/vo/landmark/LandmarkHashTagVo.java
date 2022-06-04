@@ -1,5 +1,6 @@
-package com.tripfestival.domain.landmark;
+package com.tripfestival.vo.landmark;
 
+import com.tripfestival.domain.landmark.LandmarkHashTag;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 

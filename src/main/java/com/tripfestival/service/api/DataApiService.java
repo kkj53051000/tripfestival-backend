@@ -41,7 +41,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class DataApiService {
 
-    String serviceName = "TripFestival";
+    String SERVICE_NAME = "TripFestival";
     @Value("${data.go.kr.service.key}")
     String serviceKey;
 
@@ -77,7 +77,7 @@ public class DataApiService {
         urlBuilder.append("&" + URLEncoder.encode("numOfRows","UTF-8") + "=" + URLEncoder.encode("100000", "UTF-8")); /*한 페이지 결과수*/
         urlBuilder.append("&" + URLEncoder.encode("pageNo","UTF-8") + "=" + URLEncoder.encode("1", "UTF-8")); /*현재 페이지 번호*/
         urlBuilder.append("&" + URLEncoder.encode("MobileOS","UTF-8") + "=" + URLEncoder.encode("ETC", "UTF-8")); /*IOS (아이폰), AND (안드로이드), WIN (원도우폰), ETC*/
-        urlBuilder.append("&" + URLEncoder.encode("MobileApp","UTF-8") + "=" + URLEncoder.encode(serviceName, "UTF-8")); /*서비스명=어플명*/
+        urlBuilder.append("&" + URLEncoder.encode("MobileApp","UTF-8") + "=" + URLEncoder.encode(SERVICE_NAME, "UTF-8")); /*서비스명=어플명*/
         urlBuilder.append("&" + URLEncoder.encode("areaCode","UTF-8") + "=" + URLEncoder.encode("", "UTF-8")); /*지역코드, 시군구코드*/
         URL url = new URL(urlBuilder.toString());
 
@@ -133,7 +133,7 @@ public class DataApiService {
             urlBuilder.append("&" + URLEncoder.encode("numOfRows","UTF-8") + "=" + URLEncoder.encode("100000", "UTF-8")); /*한 페이지 결과수*/
             urlBuilder.append("&" + URLEncoder.encode("pageNo","UTF-8") + "=" + URLEncoder.encode("1", "UTF-8")); /*현재 페이지 번호*/
             urlBuilder.append("&" + URLEncoder.encode("MobileOS","UTF-8") + "=" + URLEncoder.encode("ETC", "UTF-8")); /*IOS (아이폰), AND (안드로이드), WIN (원도우폰), ETC*/
-            urlBuilder.append("&" + URLEncoder.encode("MobileApp","UTF-8") + "=" + URLEncoder.encode(serviceName, "UTF-8")); /*서비스명=어플명*/
+            urlBuilder.append("&" + URLEncoder.encode("MobileApp","UTF-8") + "=" + URLEncoder.encode(SERVICE_NAME, "UTF-8")); /*서비스명=어플명*/
             urlBuilder.append("&" + URLEncoder.encode("areaCode","UTF-8") + "=" + URLEncoder.encode(Integer.toString(worldCountryCity.getAreaCode()), "UTF-8")); /*지역코드, 시군구코드*/
             URL url = new URL(urlBuilder.toString());
 
@@ -196,7 +196,7 @@ public class DataApiService {
                 urlBuilder.append("&" + URLEncoder.encode("numOfRows","UTF-8") + "=" + URLEncoder.encode("1000000", "UTF-8")); /*한 페이지 결과수*/
                 urlBuilder.append("&" + URLEncoder.encode("pageNo","UTF-8") + "=" + URLEncoder.encode("1", "UTF-8")); /*현재 페이지 번호*/
                 urlBuilder.append("&" + URLEncoder.encode("MobileOS","UTF-8") + "=" + URLEncoder.encode("ETC", "UTF-8")); /*IOS (아이폰), AND (안드로이드), WIN (원도우폰), ETC*/
-                urlBuilder.append("&" + URLEncoder.encode("MobileApp","UTF-8") + "=" + URLEncoder.encode(serviceName, "UTF-8")); /*서비스명=어플명*/
+                urlBuilder.append("&" + URLEncoder.encode("MobileApp","UTF-8") + "=" + URLEncoder.encode(SERVICE_NAME, "UTF-8")); /*서비스명=어플명*/
                 urlBuilder.append("&" + URLEncoder.encode("arrange","UTF-8") + "=" + URLEncoder.encode("A", "UTF-8")); /*제목순 정렬*/
                 urlBuilder.append("&" + URLEncoder.encode("contentTypeId","UTF-8") + "=" + URLEncoder.encode("12", "UTF-8")); /*관광타입(관광지, 숙박 등) ID*/
                 urlBuilder.append("&" + URLEncoder.encode("listYN","UTF-8") + "=" + URLEncoder.encode("Y", "UTF-8")); /*관광타입(관광지, 숙박 등) ID*/
@@ -247,16 +247,22 @@ public class DataApiService {
             throw new LandmarkNotFoundException();
         }
 
+        int count = 0;
+
         for (Landmark landmark : landmarkList) {
+
+            if (landmark.getDescription() != null) {
+                continue;
+            }
 
             StringBuilder urlBuilder = new StringBuilder("http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailCommon"); /*URL*/
             urlBuilder.append("?" + URLEncoder.encode("serviceKey","UTF-8") + "=" + serviceKey); /*Service Key*/
             urlBuilder.append("&" + URLEncoder.encode("numOfRows","UTF-8") + "=" + URLEncoder.encode("100000", "UTF-8")); /*한 페이지 결과수*/
             urlBuilder.append("&" + URLEncoder.encode("pageNo","UTF-8") + "=" + URLEncoder.encode("1", "UTF-8")); /*현재 페이지 번호*/
             urlBuilder.append("&" + URLEncoder.encode("MobileOS","UTF-8") + "=" + URLEncoder.encode("ETC", "UTF-8")); /*IOS (아이폰), AND (안드로이드), WIN (원도우폰), ETC*/
-            urlBuilder.append("&" + URLEncoder.encode("MobileApp","UTF-8") + "=" + URLEncoder.encode(serviceName, "UTF-8")); /*서비스명=어플명*/
-            urlBuilder.append("&" + URLEncoder.encode("overviewYN","UTF-8") + "=" + URLEncoder.encode("Y", "UTF-8")); /*콘텐츠 개요 조회여부*/
+            urlBuilder.append("&" + URLEncoder.encode("MobileApp","UTF-8") + "=" + URLEncoder.encode(SERVICE_NAME, "UTF-8")); /*서비스명=어플명*/
             urlBuilder.append("&" + URLEncoder.encode("contentId","UTF-8") + "=" + URLEncoder.encode(landmark.getContentId(), "UTF-8")); /*콘텐츠ID*/
+            urlBuilder.append("&" + URLEncoder.encode("overviewYN","UTF-8") + "=" + URLEncoder.encode("Y", "UTF-8")); /*콘텐츠 개요 조회여부*/
 
 
             URL url = new URL(urlBuilder.toString());
@@ -267,17 +273,25 @@ public class DataApiService {
 
             NodeList nList = doc.getElementsByTagName("item");
 
+
+
+
             for(int temp = 0; temp < nList.getLength(); temp++) {
                 Node nNode = nList.item(temp);
                 if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+
+                    count++;
 
                     Element eElement = (Element) nNode;
 
                     // Landmark Description Add
                     String description = getTagValue("overview", eElement);
-                    System.out.println(description);
+
                     landmark.setDescription(description);
                 }
+            }
+            if (count > 2000) {
+                break;
             }
         }
         return new ResponseVo(Response.SUCCESS, null);
@@ -298,7 +312,7 @@ public class DataApiService {
             urlBuilder.append("&" + URLEncoder.encode("numOfRows","UTF-8") + "=" + URLEncoder.encode("100000", "UTF-8")); /*한 페이지 결과수*/
             urlBuilder.append("&" + URLEncoder.encode("pageNo","UTF-8") + "=" + URLEncoder.encode("1", "UTF-8")); /*현재 페이지 번호*/
             urlBuilder.append("&" + URLEncoder.encode("MobileOS","UTF-8") + "=" + URLEncoder.encode("ETC", "UTF-8")); /*IOS (아이폰), AND (안드로이드), WIN (원도우폰), ETC*/
-            urlBuilder.append("&" + URLEncoder.encode("MobileApp","UTF-8") + "=" + URLEncoder.encode(serviceName, "UTF-8")); /*서비스명=어플명*/
+            urlBuilder.append("&" + URLEncoder.encode("MobileApp","UTF-8") + "=" + URLEncoder.encode(SERVICE_NAME, "UTF-8")); /*서비스명=어플명*/
             urlBuilder.append("&" + URLEncoder.encode("imageYN","UTF-8") + "=" + URLEncoder.encode("Y", "UTF-8")); /*Y=콘텐츠 이미지 조회, N='음식점'타입의 음식메뉴 이미지*/
             urlBuilder.append("&" + URLEncoder.encode("subImageYN","UTF-8") + "=" + URLEncoder.encode("Y", "UTF-8")); /*Y=원본,썸네일 이미지, 조회 N=Null*/
             urlBuilder.append("&" + URLEncoder.encode("contentId","UTF-8") + "=" + URLEncoder.encode(landmark.getContentId(), "UTF-8")); /*콘텐츠 ID*/
@@ -318,6 +332,8 @@ public class DataApiService {
                     Element eElement = (Element) nNode;
 
                     String img = getTagValue("originimgurl", eElement);
+
+                    System.out.println(img);
 
                     LandmarkImg landmarkImg = LandmarkImg.builder()
                             .img(img)
@@ -340,9 +356,13 @@ public class DataApiService {
             NodeList nlList = eElement.getElementsByTagName(tag).item(0).getChildNodes();
             Node nValue = (Node) nlList.item(0);
 
+            if (nValue == null){
+                return "";
+            }
+
             return nValue.getNodeValue();
         }else {
-            return null;
+            return "";
         }
 
 

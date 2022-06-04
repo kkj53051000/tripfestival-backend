@@ -2,7 +2,7 @@ package com.tripfestival.service.landmark;
 
 import com.tripfestival.domain.landmark.Landmark;
 import com.tripfestival.domain.landmark.LandmarkHashTag;
-import com.tripfestival.domain.landmark.LandmarkHashTagVo;
+import com.tripfestival.domain.landmark.LandmarkImg;
 import com.tripfestival.domain.world.WorldCountryCity;
 import com.tripfestival.domain.world.WorldCountryCityRegion;
 import com.tripfestival.dto.landmark.LandmarkListDto;
@@ -12,10 +12,10 @@ import com.tripfestival.exception.landmark.LandmarkNotFoundException;
 import com.tripfestival.exception.world.WorldCountryCityNotFoundException;
 import com.tripfestival.exception.world.WorldCountryCityRegionNotFoundException;
 import com.tripfestival.repository.landmark.LandmarkHashTagRepository;
+import com.tripfestival.repository.landmark.LandmarkImgRepository;
 import com.tripfestival.repository.landmark.LandmarkRepository;
 import com.tripfestival.repository.world.WorldCountryCityRegionRepository;
 import com.tripfestival.repository.world.WorldCountryCityRepository;
-import com.tripfestival.request.landmark.LandmarkProcessRequest;
 import com.tripfestival.service.file.FileService;
 import com.tripfestival.vo.Response;
 import com.tripfestival.vo.ResponseVo;
@@ -39,6 +39,8 @@ public class LandmarkService {
     private final FileService fileService;
 
     private final LandmarkHashTagRepository landmarkHashTagRepository;
+
+    private final LandmarkImgRepository landmarkImgRepository;
 
     @Transactional
     public ResponseVo landmarkInsert(LandmarkProcessDto req) {
@@ -147,7 +149,9 @@ public class LandmarkService {
         Landmark landmark = landmarkRepository.findById(landmarkId)
                 .orElseThrow(() -> new LandmarkNotFoundException());
 
-        return new LandmarkVo(landmark);
+        List<LandmarkImg> landmarkImgList = landmarkImgRepository.findByLandmark(landmark);
+
+        return new LandmarkVo(landmark, landmarkImgList);
     }
 
     @Transactional(readOnly = true)

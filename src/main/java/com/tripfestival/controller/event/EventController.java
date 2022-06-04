@@ -23,7 +23,7 @@ public class EventController {
     @PostMapping("/admin/eventProcess")
     public ResponseVo eventProcess(
             @RequestPart(name = "file") MultipartFile file,
-            @RequestPart(name="value") EventProcessRequest req) {
+            @RequestPart(name = "value") EventProcessRequest req) {
 
         EventProcessDto eventProcessDto = new EventProcessDto(file, req);
 

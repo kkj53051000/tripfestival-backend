@@ -2,7 +2,6 @@ package com.tripfestival.vo.landmark;
 
 
 import com.tripfestival.domain.landmark.LandmarkHashTag;
-import com.tripfestival.domain.landmark.LandmarkHashTagVo;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 

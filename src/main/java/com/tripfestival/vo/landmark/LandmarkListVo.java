@@ -2,12 +2,9 @@ package com.tripfestival.vo.landmark;
 
 import com.tripfestival.domain.landmark.Landmark;
 import com.tripfestival.domain.landmark.LandmarkHashTag;
-import com.tripfestival.domain.landmark.LandmarkHashTagVo;
 import lombok.Getter;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 

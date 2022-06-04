@@ -1,6 +1,5 @@
 package com.tripfestival.domain.event;
 
-import com.tripfestival.domain.world.WorldCountryCity;
 import com.tripfestival.domain.world.WorldCountryCityRegion;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -19,9 +19,11 @@ public class LandmarkImgListVo {
 
     @Getter
     class LandmarkImgVo {
+        private Long id;
         private String img;
 
         public LandmarkImgVo(LandmarkImg landmarkImg) {
+            this.id = landmarkImg.getId();
             this.img = landmarkImg.getImg();
         }
     }

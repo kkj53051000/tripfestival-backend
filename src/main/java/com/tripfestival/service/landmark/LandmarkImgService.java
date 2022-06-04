@@ -60,8 +60,7 @@ public class LandmarkImgService {
         Landmark landmark = landmarkRepository.findById(landmarkId)
                 .orElseThrow(() -> new LandmarkNotFoundException());
 
-        List<LandmarkImg> landmarkImgList = landmarkImgRepository.findByLandmark(landmark)
-                .orElseThrow(() -> new LandmarkImgNotFoundException());
+        List<LandmarkImg> landmarkImgList = landmarkImgRepository.findByLandmark(landmark);
 
         return new LandmarkImgListVo(landmarkImgList);
     }
