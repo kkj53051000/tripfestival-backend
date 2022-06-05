@@ -42,4 +42,9 @@ public class OutsideApiController {
     public ResponseVo updateLandmarkImgKorea() throws IOException, ParserConfigurationException, SAXException {
         return dataApiService.updateLandmarkImgKorea();
     }
+
+    @GetMapping("/health")
+    public String healthCheck() {
+        return "ok";
+    }
 }

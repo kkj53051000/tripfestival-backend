@@ -56,8 +56,7 @@ public class LandmarkReviewService {
         Landmark landmark = landmarkRepository.findById(landmarkId)
                 .orElseThrow(() -> new LandmarkNotFoundException());
 
-        List<LandmarkReview> landmarkReviewList = landmarkReviewRepository.findByLandmark(landmark)
-                .orElseThrow(() -> new LandmarkReviewNotFoundException());
+        List<LandmarkReview> landmarkReviewList = landmarkReviewRepository.findByLandmark(landmark);
 
         return new LandmarkReviewListVo(landmarkReviewList);
     }

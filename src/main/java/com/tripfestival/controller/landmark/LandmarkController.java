@@ -38,6 +38,11 @@ public class LandmarkController {  // 관광지
         return landmarkService.landmarkDelete(landmarkId);
     }
 
+    @PostMapping("/admin/landmarkClear/{id}")
+    public ResponseVo landmarkClear(@PathVariable("id") Long landmarkId) {
+        return landmarkService.landmarkClearDelete(landmarkId);
+    }
+
     @PostMapping("/admin/landmarkModify/{id}")
     public ResponseVo landmarkModify(@PathVariable("id") Long landmarkId,
                                      @RequestBody LandmarkModifyRequest req) {

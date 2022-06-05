@@ -68,8 +68,7 @@ public class LandmarkFeeService {
         Landmark landmark = landmarkRepository.findById(landmarkId)
                 .orElseThrow(() -> new LandmarkNotFoundException());
 
-        List<LandmarkFee> landmarkFeeList = landmarkFeeRepository.findByLandmark(landmark)
-                .orElseThrow(() -> new LandmarkFeeNotFoundException());
+        List<LandmarkFee> landmarkFeeList = landmarkFeeRepository.findByLandmark(landmark);
 
         return new LandmarkFeeListVo(landmarkFeeList);
     }

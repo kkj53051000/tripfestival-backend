@@ -1,8 +1,6 @@
 package com.tripfestival.service.landmark;
 
-import com.tripfestival.domain.landmark.Landmark;
-import com.tripfestival.domain.landmark.LandmarkHashTag;
-import com.tripfestival.domain.landmark.LandmarkImg;
+import com.tripfestival.domain.landmark.*;
 import com.tripfestival.domain.world.WorldCountryCity;
 import com.tripfestival.domain.world.WorldCountryCityRegion;
 import com.tripfestival.dto.landmark.LandmarkListDto;
@@ -11,9 +9,7 @@ import com.tripfestival.dto.landmark.LandmarkProcessDto;
 import com.tripfestival.exception.landmark.LandmarkNotFoundException;
 import com.tripfestival.exception.world.WorldCountryCityNotFoundException;
 import com.tripfestival.exception.world.WorldCountryCityRegionNotFoundException;
-import com.tripfestival.repository.landmark.LandmarkHashTagRepository;
-import com.tripfestival.repository.landmark.LandmarkImgRepository;
-import com.tripfestival.repository.landmark.LandmarkRepository;
+import com.tripfestival.repository.landmark.*;
 import com.tripfestival.repository.world.WorldCountryCityRegionRepository;
 import com.tripfestival.repository.world.WorldCountryCityRepository;
 import com.tripfestival.service.file.FileService;
@@ -42,6 +38,12 @@ public class LandmarkService {
 
     private final LandmarkImgRepository landmarkImgRepository;
 
+    private final LandmarkFeeRepository landmarkFeeRepository;
+
+    private final LandmarkTimeRepository landmarkTimeRepository;
+
+    private final LandmarkReviewRepository landmarkReviewRepository;
+
     @Transactional
     public ResponseVo landmarkInsert(LandmarkProcessDto req) {
 
@@ -66,7 +68,53 @@ public class LandmarkService {
 
     @Transactional
     public ResponseVo landmarkDelete(Long landmarkId) {
-        Landmark landmark = landmarkRepository.findById(landmarkId).orElseThrow(() -> new LandmarkNotFoundException());
+        Landmark landmark = landmarkRepository.findById(landmarkId)
+                .orElseThrow(() -> new LandmarkNotFoundException());
+
+        landmarkRepository.delete(landmark);
+
+        return new ResponseVo(Response.SUCCESS, null);
+    }
+
+    @Transactional
+    public ResponseVo landmarkClearDelete(Long landmarkId) {
+        Landmark landmark = landmarkRepository.findById(landmarkId)
+                .orElseThrow(() -> new LandmarkNotFoundException());
+
+        // LandmarkHashTag Delete
+        List<LandmarkHashTag> landmarkHashTagList = landmarkHashTagRepository.findByLandmark(landmark);
+
+        for (LandmarkHashTag landmarkHashTag : landmarkHashTagList) {
+            landmarkHashTagRepository.delete(landmarkHashTag);
+        }
+
+        // LandmarkImg Delete
+        List<LandmarkImg> landmarkImgList = landmarkImgRepository.findByLandmark(landmark);
+
+        for (LandmarkImg landmarkImg : landmarkImgList) {
+            landmarkImgRepository.delete(landmarkImg);
+        }
+
+        // LandmarkFee Delete
+        List<LandmarkFee> landmarkFeeList = landmarkFeeRepository.findByLandmark(landmark);
+
+        for (LandmarkFee landmarkFee : landmarkFeeList) {
+            landmarkFeeRepository.delete(landmarkFee);
+        }
+
+        // LandmarkTime Delete
+        List<LandmarkTime> landmarkTimeList = landmarkTimeRepository.findByLandmark(landmark);
+
+        for (LandmarkTime landmarkTime : landmarkTimeList) {
+            landmarkTimeRepository.delete(landmarkTime);
+        }
+
+        // LandmarkReview Delete
+        List<LandmarkReview> landmarkReviewList = landmarkReviewRepository.findByLandmark(landmark);
+
+        for (LandmarkReview landmarkReview : landmarkReviewList) {
+            landmarkReviewRepository.delete(landmarkReview);
+        }
 
         landmarkRepository.delete(landmark);
 

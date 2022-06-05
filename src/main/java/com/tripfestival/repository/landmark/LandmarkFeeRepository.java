@@ -8,5 +8,5 @@ import java.util.List;
 import java.util.Optional;
 
 public interface LandmarkFeeRepository extends JpaRepository<LandmarkFee, Long> {
-    Optional<List<LandmarkFee>> findByLandmark(Landmark landmark);
+    List<LandmarkFee> findByLandmark(Landmark landmark);
 }
