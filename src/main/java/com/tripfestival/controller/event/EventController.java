@@ -7,6 +7,7 @@ import com.tripfestival.request.event.EventModifyRequest;
 import com.tripfestival.request.event.EventProcessRequest;
 import com.tripfestival.service.event.EventService;
 import com.tripfestival.vo.ResponseVo;
+import com.tripfestival.vo.event.EventAllCountVo;
 import com.tripfestival.vo.event.EventAllListVo;
 import com.tripfestival.vo.event.EventListVo;
 import com.tripfestival.vo.event.EventVo;
@@ -67,4 +68,8 @@ public class EventController {
         return eventService.eventSelect(eventId);
     }
 
+    @GetMapping("/eventAllCount")
+    public EventAllCountVo eventAllCount() {
+        return eventService.eventAllCountSelect();
+    }
 }

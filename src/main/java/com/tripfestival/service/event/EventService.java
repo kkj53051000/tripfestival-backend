@@ -24,6 +24,7 @@ import com.tripfestival.request.event.EventProcessRequest;
 import com.tripfestival.service.file.FileService;
 import com.tripfestival.vo.Response;
 import com.tripfestival.vo.ResponseVo;
+import com.tripfestival.vo.event.EventAllCountVo;
 import com.tripfestival.vo.event.EventAllListVo;
 import com.tripfestival.vo.event.EventListVo;
 import com.tripfestival.vo.event.EventVo;
@@ -187,5 +188,16 @@ public class EventService {
                 .orElseThrow(() -> new EventNotFoundException());
 
         return new EventVo(event);
+    }
+
+    @Transactional(readOnly = true)
+    public EventAllCountVo eventAllCountSelect() {
+        long count = eventRepository.count();
+
+        EventAllCountVo eventAllCountVo = EventAllCountVo.builder()
+                .count(count)
+                .build();
+
+        return eventAllCountVo;
     }
 }
