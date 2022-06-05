@@ -36,9 +36,15 @@ public class EventAllListVo {
             this.address = event.getAddress();
             this.visitor = event.getVisitor();
             this.inout = event.getInout();
-            this.worldCountryCityRegionId = event.getWorldCountryCityRegion().getId();
-            this.eventCategoryId = event.getEventCategory().getId();
-            this.eventSeasonId = event.getEventSeason().getId();
+            if (event.getWorldCountryCityRegion() != null) {
+                this.worldCountryCityRegionId = event.getWorldCountryCityRegion().getId();
+            }
+            if (event.getEventCategory() != null) {
+                this.eventCategoryId = event.getEventCategory().getId();
+            }
+            if (event.getEventSeason() != null) {
+                this.eventSeasonId = event.getEventSeason().getId();
+            }
         }
     }
 }

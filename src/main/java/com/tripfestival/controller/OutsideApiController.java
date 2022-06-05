@@ -10,6 +10,7 @@ import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
+import java.text.ParseException;
 
 @RestController
 @RequiredArgsConstructor
@@ -41,6 +42,11 @@ public class OutsideApiController {
     @GetMapping("/updateLandmarkImgKorea")
     public ResponseVo updateLandmarkImgKorea() throws IOException, ParserConfigurationException, SAXException {
         return dataApiService.updateLandmarkImgKorea();
+    }
+
+    @GetMapping("/updateEventListKorea")
+    public ResponseVo updateEventListKorea() throws IOException, ParserConfigurationException, SAXException, ParseException {
+        return dataApiService.updateEventList();
     }
 
     @GetMapping("/health")

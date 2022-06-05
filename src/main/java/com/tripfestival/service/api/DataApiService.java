@@ -1,5 +1,6 @@
 package com.tripfestival.service.api;
 
+import com.tripfestival.domain.event.Event;
 import com.tripfestival.domain.landmark.Landmark;
 import com.tripfestival.domain.landmark.LandmarkImg;
 import com.tripfestival.domain.world.WorldCountry;
@@ -9,6 +10,7 @@ import com.tripfestival.exception.landmark.LandmarkNotFoundException;
 import com.tripfestival.exception.world.WorldCountryCityNotFoundException;
 import com.tripfestival.exception.world.WorldCountryCityRegionNotFoundException;
 import com.tripfestival.exception.world.WorldCountryNotFoundException;
+import com.tripfestival.repository.event.EventRepository;
 import com.tripfestival.repository.landmark.LandmarkImgRepository;
 import com.tripfestival.repository.landmark.LandmarkRepository;
 import com.tripfestival.repository.world.WorldCountryCityRegionRepository;
@@ -35,6 +37,11 @@ import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -54,6 +61,8 @@ public class DataApiService {
     private final LandmarkRepository landmarkRepository;
 
     private final LandmarkImgRepository landmarkImgRepository;
+
+    private final EventRepository eventRepository;
 
 //    @PostConstruct
 //    public void insertWorldCountry() {
@@ -297,6 +306,7 @@ public class DataApiService {
         return new ResponseVo(Response.SUCCESS, null);
     }
 
+    // 랜드마크 이미지
     @Transactional
     public ResponseVo updateLandmarkImgKorea() throws IOException, ParserConfigurationException, SAXException {
 
@@ -345,6 +355,62 @@ public class DataApiService {
             }
 
         }
+
+        return new ResponseVo(Response.SUCCESS, null);
+    }
+
+    // 축제
+    public ResponseVo updateEventList() throws IOException, ParserConfigurationException, SAXException, ParseException {
+
+        StringBuilder urlBuilder = new StringBuilder("http://api.visitkorea.or.kr/openapi/service/rest/KorService/searchFestival"); /*URL*/
+        urlBuilder.append("?" + URLEncoder.encode("serviceKey","UTF-8") + "=" + serviceKey); /*Service Key*/
+        urlBuilder.append("&" + URLEncoder.encode("numOfRows","UTF-8") + "=" + URLEncoder.encode("100000", "UTF-8")); /*한 페이지 결과수*/
+        urlBuilder.append("&" + URLEncoder.encode("pageNo","UTF-8") + "=" + URLEncoder.encode("1", "UTF-8")); /*현재 페이지 번호*/
+        urlBuilder.append("&" + URLEncoder.encode("MobileOS","UTF-8") + "=" + URLEncoder.encode("ETC", "UTF-8")); /*IOS (아이폰), AND (안드로이드), WIN (원도우폰), ETC*/
+        urlBuilder.append("&" + URLEncoder.encode("MobileApp","UTF-8") + "=" + URLEncoder.encode(SERVICE_NAME, "UTF-8")); /*서비스명=어플명*/
+        urlBuilder.append("&" + URLEncoder.encode("arrange","UTF-8") + "=" + URLEncoder.encode("A", "UTF-8")); /*콘텐츠ID*/
+        urlBuilder.append("&" + URLEncoder.encode("listYN","UTF-8") + "=" + URLEncoder.encode("Y", "UTF-8")); /*콘텐츠 개요 조회여부*/
+        urlBuilder.append("&" + URLEncoder.encode("eventStartDate","UTF-8") + "=" + URLEncoder.encode("20220101", "UTF-8")); /* 시작 날짜 */
+
+
+        URL url = new URL(urlBuilder.toString());
+
+        DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+        Document doc = dBuilder.parse(url.toString());
+
+        NodeList nList = doc.getElementsByTagName("item");
+
+        for(int temp = 0; temp < nList.getLength(); temp++) {
+            Node nNode = nList.item(temp);
+            if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+
+
+                Element eElement = (Element) nNode;
+
+
+                String address = getTagValue("addr1", eElement);
+                String eventstartdate = getTagValue("eventstartdate", eElement);
+                String eventenddate = getTagValue("eventenddate", eElement);
+                String img = getTagValue("firstimage", eElement);
+                String title = getTagValue("title", eElement);
+
+                SimpleDateFormat timeStringFormat = new SimpleDateFormat( "yyyyMMdd");
+                Date eventStartDate = timeStringFormat.parse(eventstartdate);
+                Date eventEndDate = timeStringFormat.parse(eventenddate);
+
+                Event event = Event.builder()
+                        .name(title)
+                        .startDate(LocalDate.ofInstant(eventStartDate.toInstant(), ZoneId.systemDefault()))
+                        .endDate(LocalDate.ofInstant(eventEndDate.toInstant(), ZoneId.systemDefault()))
+                        .img(img)
+                        .address(address)
+                        .build();
+
+                eventRepository.save(event);
+            }
+        }
+
 
         return new ResponseVo(Response.SUCCESS, null);
     }
