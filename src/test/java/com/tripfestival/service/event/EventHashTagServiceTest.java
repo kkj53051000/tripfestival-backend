@@ -2,24 +2,24 @@ package com.tripfestival.service.event;
 
 import com.tripfestival.domain.event.Event;
 import com.tripfestival.domain.event.EventCategory;
-import com.tripfestival.domain.event.EventFee;
+import com.tripfestival.domain.event.EventHashTag;
 import com.tripfestival.domain.event.EventSeason;
 import com.tripfestival.domain.world.WorldCountry;
 import com.tripfestival.domain.world.WorldCountryCity;
 import com.tripfestival.domain.world.WorldCountryCityRegion;
-import com.tripfestival.dto.event.EventFeeModifyDto;
 import com.tripfestival.repository.event.EventCategoryRepository;
-import com.tripfestival.repository.event.EventFeeRepository;
+import com.tripfestival.repository.event.EventHashTagRepository;
 import com.tripfestival.repository.event.EventRepository;
 import com.tripfestival.repository.event.EventSeasonRepository;
 import com.tripfestival.repository.world.WorldCountryCityRegionRepository;
 import com.tripfestival.repository.world.WorldCountryCityRepository;
 import com.tripfestival.repository.world.WorldCountryRepository;
-import com.tripfestival.request.event.EventFeeProcessRequest;
+import com.tripfestival.request.event.EventHashTagProcessRequest;
 import com.tripfestival.vo.Response;
 import com.tripfestival.vo.ResponseVo;
-import com.tripfestival.vo.event.EventFeeAllListVo;
-import com.tripfestival.vo.event.EventFeeListVo;
+import com.tripfestival.vo.event.EventHashTagAllListVo;
+import com.tripfestival.vo.event.EventHashTagListVo;
+import io.jsonwebtoken.lang.Assert;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -35,10 +35,10 @@ import static org.assertj.core.api.Assertions.*;
 
 @SpringBootTest
 @Transactional
-class EventFeeServiceTest {
+class EventHashTagServiceTest {
 
     @Autowired
-    EventFeeService eventFeeService;
+    EventHashTagService eventHashTagService;
 
     @Autowired
     WorldCountryRepository worldCountryRepository;
@@ -59,11 +59,10 @@ class EventFeeServiceTest {
     EventRepository eventRepository;
 
     @Autowired
-    EventFeeRepository eventFeeRepository;
-
+    EventHashTagRepository eventHashTagRepository;
 
     Event event;
-    EventFee eventFee;
+    EventHashTag eventHashTag;
 
     ResponseVo successResponseVo = new ResponseVo(Response.SUCCESS, null);
 
@@ -102,89 +101,71 @@ class EventFeeServiceTest {
                 .build();
         eventRepository.save(event);
 
-        eventFee = EventFee.builder()
-                .title("eventFee")
+        eventHashTag = EventHashTag.builder()
+                .name("eventHashTag")
                 .event(event)
                 .build();
-        eventFeeRepository.save(eventFee);
+        eventHashTagRepository.save(eventHashTag);
     }
 
-
     @Test
-    void EVENT_FEE_INSERT_TEST() {
+    void EVENT_HASH_TAG_INSERT_TEST() {
         //given
-        EventFeeProcessRequest eventFeeProcessRequest = EventFeeProcessRequest.builder()
-                .title("test")
-                .price(1000)
+        EventHashTagProcessRequest eventHashTagProcessRequest = EventHashTagProcessRequest.builder()
+                .name("test")
                 .eventId(event.getId())
                 .build();
 
         //when
-        ResponseVo responseVo = eventFeeService.eventFeeInsert(eventFeeProcessRequest);
+        ResponseVo responseVo = eventHashTagService.eventHashTagInsert(eventHashTagProcessRequest);
 
         //then
-        Assertions.assertEquals(responseVo, successResponseVo);
+        Assertions.assertEquals(successResponseVo, responseVo);
     }
 
     @Test
-    void EVENT_FEE_DELETE_TEST() {
+    void EVENT_HASH_TAG_DELETE_TEST() {
         //given setup()
 
 
         //when
-        ResponseVo responseVo = eventFeeService.eventFeeDelete(eventFee.getId());
+        ResponseVo responseVo = eventHashTagService.eventHashTagDelete(eventHashTag.getId());
 
         //then
-        Assertions.assertEquals(responseVo, successResponseVo);
+        Assertions.assertEquals(successResponseVo, responseVo);
     }
 
     @Test
-    void EVENT_FEE_ALERT_TEST() {
+    void EVENT_HASH_TAG_LIST_SELECT_TEST() {
         //given
-        EventFeeModifyDto eventFeeModifyDto = EventFeeModifyDto.builder()
-                .title("eventFeeChange")
-                .price(10000)
-                .eventFeeId(eventFee.getId())
-                .build();
+        List<EventHashTag> eventHashTagList = new ArrayList<>();
+        eventHashTagList.add(eventHashTag);
+
+        EventHashTagListVo eventHashTagListVo1 = new EventHashTagListVo(eventHashTagList);
 
         //when
-        ResponseVo responseVo = eventFeeService.eventFeeAlert(eventFeeModifyDto);
+        EventHashTagListVo eventHashTagListVo2 = eventHashTagService.eventHashTagListSelect(event.getId());
 
         //then
-        Assertions.assertEquals(responseVo, successResponseVo);
-    }
-
-    @Test
-    void EVENT_FEE_LIST_SELECT_TEST() {
-        //given
-        List<EventFee> eventFeeList = new ArrayList<>();
-        eventFeeList.add(eventFee);
-
-        EventFeeListVo eventFeeListVo1 = new EventFeeListVo(eventFeeList);
-
-        //when
-        EventFeeListVo eventFeeListVo2 = eventFeeService.eventFeeListSelect(event.getId());
-
-        //then
-        assertThat(eventFeeListVo1)
+        assertThat(eventHashTagListVo1)
                 .usingRecursiveComparison()
-                .isEqualTo(eventFeeListVo2);
+                .isEqualTo(eventHashTagListVo2);
     }
 
     @Test
-    void EVENT_FEE_ALL_LIST_SELECT_TEST() {
+    void EVENT_HASH_TAG_ALL_LIST_SELECT_TEST() {
         //given
-        List<EventFee> eventFeeList = new ArrayList<>();
-        eventFeeList.add(eventFee);
+        List<EventHashTag> eventHashTagList = new ArrayList<>();
+        eventHashTagList.add(eventHashTag);
 
-        EventFeeAllListVo eventFeeAllListVo1 = new EventFeeAllListVo(eventFeeList);
+        EventHashTagAllListVo eventHashTagAllListVo1 = new EventHashTagAllListVo(eventHashTagList);
 
         //when
-        EventFeeAllListVo eventFeeAllListVo2 = eventFeeService.eventFeeAllListSelect();
+        EventHashTagAllListVo eventHashTagAllListVo2 = eventHashTagService.eventHashTagListAllSelect();
 
         //then
-        assertThat(eventFeeAllListVo1)
+        assertThat(eventHashTagAllListVo1)
                 .usingRecursiveComparison()
-                .isEqualTo(eventFeeAllListVo2);
+                .isEqualTo(eventHashTagAllListVo2);
     }
 }
