@@ -1,6 +1,5 @@
 package com.tripfestival.service.event;
 
-import com.tripfestival.TripfestivalApplication;
 import com.tripfestival.domain.event.Event;
 import com.tripfestival.domain.event.EventCategory;
 import com.tripfestival.domain.world.WorldCountry;
@@ -19,12 +18,9 @@ import com.tripfestival.util.FileTestUtil;
 import com.tripfestival.vo.event.EventCategoryAllListVo;
 import com.tripfestival.vo.event.EventCategoryListVo;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.web.WebAppConfiguration;
-import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
@@ -33,7 +29,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.assertj.core.api.Assertions.*;
 
-@SpringBootTest()
+@SpringBootTest
 @Transactional
 class EventCategoryServiceTest {
 
@@ -86,7 +82,7 @@ class EventCategoryServiceTest {
     }
 
     @Test
-    void EVENT_CATEGORY_NAME_MODIFY() {
+    void EVENT_CATEGORY_NAME_MODIFY_TEST() {
         //given
         String CHANGE_NAME = "testChange";
 
@@ -110,7 +106,7 @@ class EventCategoryServiceTest {
     }
 
     @Test
-    void EVENT_CATEGORY_LIST_SELECT() {
+    void EVENT_CATEGORY_LIST_SELECT_TEST() {
         //given
         WorldCountry worldCountry = WorldCountry.builder()
                 .name("worldCountry")
@@ -164,7 +160,7 @@ class EventCategoryServiceTest {
 
 
     @Test
-    void EVENT_CATEGORY_ALL_SELECT() {
+    void EVENT_CATEGORY_ALL_SELECT_TEST() {
         //given
         List<EventCategory> eventCategoryList = new ArrayList<>();
 
