@@ -17,16 +17,16 @@ import java.util.List;
 public class LandmarkImgController {
     private final LandmarkImgService landmarkImgService;
 
-    @PostMapping("/landmarkImgProcess/{id}")
+    @PostMapping("/admin/landmarkImgProcess")
     public ResponseVo landmarkImgProcess(
-            @RequestPart List<MultipartFile> files,
+            @RequestPart(name = "files") List<MultipartFile> files,
             @RequestPart(name = "value") LandmarkImgProcessRequest req) {
         LandmarkImgProcessDto landmarkImgProcessDto = new LandmarkImgProcessDto(files, req.getLandmarkId());
 
         return landmarkImgService.landmarkImgInsert(landmarkImgProcessDto);
     }
 
-    @PostMapping("/landmarkImgRemove/{id}")
+    @PostMapping("/admin/landmarkImgRemove/{id}")
     public ResponseVo landmarkImgRemove(@PathVariable("id") Long landmarkImgId) {
         return landmarkImgService.landmarkImgDelete(landmarkImgId);
     }

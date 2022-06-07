@@ -3,6 +3,7 @@ package com.tripfestival.vo.event;
 import com.tripfestival.domain.event.Event;
 import com.tripfestival.domain.event.EventCategory;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -10,7 +11,7 @@ import java.util.stream.Collectors;
 @Getter
 public class EventCategoryListVo {
 
-    List<EventCategoryVo> items = null;
+    private List<EventCategoryVo> items = null;
 
     public EventCategoryListVo(List<Event> eventList) {
         this.items = eventList.stream()
