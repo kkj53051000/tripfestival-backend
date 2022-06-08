@@ -87,7 +87,7 @@ public class EventSeasonService {
     }
 
     @Transactional(readOnly = true)
-    public EventListVo eventSeasonListSelect(EventSeasonListDto req) {
+    public EventListVo eventSeasonEventListSelect(EventSeasonListDto req) {
         EventSeason eventSeason = eventSeasonRepository.findById(req.getEventSeasonId())
                 .orElseThrow(() -> new EventSeasonNotFoundException());
 

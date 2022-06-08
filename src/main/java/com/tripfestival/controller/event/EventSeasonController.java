@@ -69,7 +69,7 @@ public class EventSeasonController {
                 .worldCountryCityRegionId(worldCountryCityRegionId)
                 .build();
 
-        return eventSeasonService.eventSeasonListSelect(eventSeasonListDto);
+        return eventSeasonService.eventSeasonEventListSelect(eventSeasonListDto);
     }
 
     @GetMapping("/eventSeasonAllList")
