@@ -51,6 +51,6 @@ public class EventReviewImgService {
 
         eventReviewImgRepository.delete(eventReviewImg);
 
-        return new ResponseVo(Response.FAILURE, null);
+        return new ResponseVo(Response.SUCCESS, null);
     }
 }
