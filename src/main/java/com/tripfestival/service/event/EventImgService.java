@@ -33,9 +33,9 @@ public class EventImgService {
         Event event = eventRepository.findById(req.getEventId())
                 .orElseThrow(() -> new EventNotFoundException());
 
-        List<String> urls = fileService.s3UploadProcess(req.getFiles());
+        List<String> urlList = fileService.s3UploadProcess(req.getFiles());
 
-        for (String url : urls) {
+        for (String url : urlList) {
             EventImg eventImg = EventImg.builder()
                     .img(url)
                     .event(event)
