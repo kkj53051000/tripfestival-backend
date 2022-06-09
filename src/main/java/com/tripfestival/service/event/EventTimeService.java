@@ -75,10 +75,9 @@ public class EventTimeService {
     @Transactional(readOnly = true)
     public EventTimeListVo eventTimeListSelect(Long eventId) {
         Event event = eventRepository.findById(eventId)
-                .orElseThrow(() -> new EventTimeNotFoundException());
+                .orElseThrow(() -> new EventNotFoundException());
 
-        List<EventTime> eventTimeList = eventTimeRepository.findByEvent(event)
-                .orElseThrow(() -> new EventTimeNotFoundException());
+        List<EventTime> eventTimeList = eventTimeRepository.findByEvent(event);
 
         return new EventTimeListVo(eventTimeList);
     }

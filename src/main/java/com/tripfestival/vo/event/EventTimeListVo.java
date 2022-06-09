@@ -11,10 +11,10 @@ import java.util.stream.Collectors;
 @Getter
 public class EventTimeListVo {
 
-    List<EventTimeVo> items = null;
+    private List<EventTimeVo> items = null;
 
     public EventTimeListVo(List<EventTime> eventTimeList) {
-        items = eventTimeList.stream()
+        this.items = eventTimeList.stream()
                 .map(eventTime -> new EventTimeVo(eventTime))
                 .collect(Collectors.toList());
     }

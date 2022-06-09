@@ -8,5 +8,5 @@ import java.util.List;
 import java.util.Optional;
 
 public interface EventTimeRepository extends JpaRepository<EventTime, Long> {
-    Optional<List<EventTime>> findByEvent(Event event);
+    List<EventTime> findByEvent(Event event);
 }
