@@ -32,8 +32,6 @@ public class HotSightLandmarkService {
 
     private final HotSightTwoRepository hotSightTwoRepository;
 
-    private final FileService fileService;
-
     @Transactional
     public ResponseVo hotSightLandmarkInsert(HotSightLandmarkProcessRequest req) {
         Landmark landmark = landmarkRepository.findById(req.getLandmarkId())

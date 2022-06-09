@@ -20,7 +20,6 @@ import com.tripfestival.vo.Response;
 import com.tripfestival.vo.ResponseVo;
 import com.tripfestival.vo.event.EventTimeAllListVo;
 import com.tripfestival.vo.event.EventTimeListVo;
-import org.joda.time.DateTime;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
