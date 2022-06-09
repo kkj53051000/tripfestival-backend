@@ -1,12 +1,16 @@
 package com.tripfestival.dto.event;
 
 import com.tripfestival.request.event.EventProcessRequest;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.web.multipart.MultipartFile;
 
 @Getter
 @NoArgsConstructor
+@Builder
+@AllArgsConstructor
 public class EventProcessDto {
     private MultipartFile file;
     private String startDate;

@@ -38,7 +38,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class EventService {
+public class EventService  {
     private final EventRepository eventRepository;
 
     private final WorldCountryCityRepository worldCountryCityRepository;
