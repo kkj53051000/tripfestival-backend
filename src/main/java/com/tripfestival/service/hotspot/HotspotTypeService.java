@@ -38,7 +38,7 @@ public class HotspotTypeService {
     }
 
     @Transactional
-    public ResponseVo hotspotTypeRemove(Long hotspotTypeId) {
+    public ResponseVo hotspotTypeDelete(Long hotspotTypeId) {
         HotspotType hotspotType = hotspotTypeRepository.findById(hotspotTypeId)
                 .orElseThrow(() -> new HotspotTypeNotFoundException());
 
