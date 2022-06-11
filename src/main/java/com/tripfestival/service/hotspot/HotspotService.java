@@ -106,7 +106,6 @@ public class HotspotService {
             if (landmarkHashTagList.size() == 0) {
                 landmarkHashTagListVoList.add(new ArrayList<LandmarkHashTag>());
             }else{
-                System.out.println(landmarkHashTagList.size());
 
                 List<LandmarkHashTag> items = landmarkHashTagList;
                 landmarkHashTagListVoList.add(items);

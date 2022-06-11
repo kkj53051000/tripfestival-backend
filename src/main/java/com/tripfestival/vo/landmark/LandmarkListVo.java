@@ -4,12 +4,13 @@ import com.tripfestival.domain.landmark.Landmark;
 import com.tripfestival.domain.landmark.LandmarkHashTag;
 import lombok.Getter;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 @Getter
-public class LandmarkListVo {
+public class LandmarkListVo implements Serializable {
 
     private List<LandmarkVo> items = null;
 
@@ -22,7 +23,7 @@ public class LandmarkListVo {
     }
 
     @Getter
-    class LandmarkVo {
+    class LandmarkVo implements Serializable {
         private Long id;
         private String name;
         private String img;
@@ -39,7 +40,7 @@ public class LandmarkListVo {
     }
 
     @Getter
-    class HashTagVo {
+    class HashTagVo implements Serializable {
         private String name;
 
         public HashTagVo(String name) {

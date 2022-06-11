@@ -1,5 +1,6 @@
 package com.tripfestival.service.landmark;
 
+import com.tripfestival.aop.ExecutionTimeLog;
 import com.tripfestival.domain.landmark.*;
 import com.tripfestival.domain.world.WorldCountryCity;
 import com.tripfestival.domain.world.WorldCountryCityRegion;
@@ -17,6 +18,8 @@ import com.tripfestival.vo.Response;
 import com.tripfestival.vo.ResponseVo;
 import com.tripfestival.vo.landmark.*;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -43,6 +46,8 @@ public class LandmarkService {
     private final LandmarkTimeRepository landmarkTimeRepository;
 
     private final LandmarkReviewRepository landmarkReviewRepository;
+
+    private final RedisTemplate redisTemplate;
 
     @Transactional
     public ResponseVo landmarkInsert(LandmarkProcessDto req) {
@@ -149,6 +154,18 @@ public class LandmarkService {
 
     @Transactional(readOnly = true)
     public LandmarkListVo landmarkListSelect(LandmarkListDto req) {
+
+        // Redis
+        ValueOperations<String, LandmarkListVo> valueOperations = redisTemplate.opsForValue();
+
+        String redisName = "LandmarkService.landmarkListSelect()";
+
+        LandmarkListVo landmarkListVo = valueOperations.get(redisName);
+
+        if (landmarkListVo != null) {
+            return landmarkListVo;
+        }
+
 
         List<Landmark> landmarkList = null;
 

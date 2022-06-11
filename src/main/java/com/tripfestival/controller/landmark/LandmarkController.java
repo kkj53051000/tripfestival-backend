@@ -1,5 +1,6 @@
 package com.tripfestival.controller.landmark;
 
+import com.tripfestival.aop.ExecutionTimeLog;
 import com.tripfestival.dto.landmark.LandmarkListDto;
 import com.tripfestival.dto.landmark.LandmarkModifyDto;
 import com.tripfestival.dto.landmark.LandmarkProcessDto;
@@ -14,6 +15,8 @@ import com.tripfestival.vo.landmark.LandmarkAllListVo;
 import com.tripfestival.vo.landmark.LandmarkListVo;
 import com.tripfestival.vo.landmark.LandmarkVo;
 import lombok.RequiredArgsConstructor;
+import org.apache.catalina.core.ApplicationContext;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -52,6 +55,7 @@ public class LandmarkController {  // 관광지
         return landmarkService.landmarkAlert(landmarkModifyDto);
     }
 
+    @ExecutionTimeLog
     @GetMapping("/landmarkList")
     public LandmarkListVo landmarkList(
             @RequestParam Long worldCountryCityRegionId,
