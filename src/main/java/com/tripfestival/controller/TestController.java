@@ -1,6 +1,7 @@
 package com.tripfestival.controller;
 
 import com.tripfestival.domain.user.Role;
+import com.tripfestival.service.TestService;
 import com.tripfestival.util.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +15,9 @@ import java.util.Map;
 @RequiredArgsConstructor
 @RequestMapping("/api")
 public class TestController {
+
+    private final TestService testService;
+
     private final JwtUtil jwtUtil;
 
     @GetMapping("/jwttest")
@@ -25,5 +29,16 @@ public class TestController {
     @GetMapping("/jwtverify")
     public Map jwtVerify(String jwtKey) throws UnsupportedEncodingException {
         return jwtUtil.verifyJWT(jwtKey);
+    }
+
+    @GetMapping("/read")
+    public String read() {
+        testService.read();
+        return "ok";
+    }
+    @GetMapping("/write")
+    public String write() {
+        testService.write();
+        return "ok";
     }
 }
