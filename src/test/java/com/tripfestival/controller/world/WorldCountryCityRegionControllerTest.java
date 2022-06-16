@@ -139,7 +139,7 @@ class WorldCountryCityRegionControllerTest extends BaseControllerTest {
 
         //when
         ResultActions resultActions = mockMvc.perform(get("/api/worldCountryCityRegion")
-                .param("worldCountryId", String.valueOf(worldCountry.getId())));
+                .param("worldCountryCityId", String.valueOf(worldCountryCity.getId())));
 
         //then
         resultActions

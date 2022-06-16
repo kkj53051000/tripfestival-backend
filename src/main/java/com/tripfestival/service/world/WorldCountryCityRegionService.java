@@ -72,7 +72,7 @@ public class WorldCountryCityRegionService {
     }
 
     @Transactional(readOnly = true)
-    public WorldCountryCityRegionListVo worldCountryCityRegionSelect(Long worldCountryCityId) {
+    public WorldCountryCityRegionListVo worldCountryCityRegionListSelect(Long worldCountryCityId) {
         WorldCountryCity worldCountryCity = worldCountryCityRepository.findById(worldCountryCityId)
                 .orElseThrow(() -> new WorldCountryCityNotFoundException());
 
@@ -86,7 +86,7 @@ public class WorldCountryCityRegionService {
     }
 
     @Transactional(readOnly = true)
-    public WorldCountryCityRegionListVo worldCountryCityRegionListSelect() {
+    public WorldCountryCityRegionListVo worldCountryCityRegionAllListSelect() {
 
         List<WorldCountryCityRegion> worldCountryCityRegionList = worldCountryCityRegionRepository.findAll();
 

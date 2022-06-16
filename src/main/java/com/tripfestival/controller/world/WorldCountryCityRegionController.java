@@ -47,13 +47,13 @@ public class WorldCountryCityRegionController {
     }
 
     @GetMapping("/worldCountryCityRegion")
-    public WorldCountryCityRegionListVo worldCountryCityRegion(@RequestParam Long worldCountryId) {
-        return worldCountryCityRegionService.worldCountryCityRegionSelect(worldCountryId);
+    public WorldCountryCityRegionListVo worldCountryCityRegion(@RequestParam Long worldCountryCityId) {
+        return worldCountryCityRegionService.worldCountryCityRegionListSelect(worldCountryCityId);
     }
 
     @GetMapping("/worldCountryCityRegionList")
     public WorldCountryCityRegionListVo worldCountryCityRegionList() {
-        return worldCountryCityRegionService.worldCountryCityRegionListSelect();
+        return worldCountryCityRegionService.worldCountryCityRegionAllListSelect();
     }
 
     @GetMapping("/worldCountryCityRegionName/{id}")

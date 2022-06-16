@@ -72,6 +72,7 @@ class EventReviewControllerTest extends BaseControllerTest {
 
         //when
         ResultActions resultActions = mockMvc.perform(post("/api/user/eventReviewProcess")
+                .header(HttpHeaders.AUTHORIZATION, jwtKey)
                 .contentType(jsonMediaType)
                 .content(jsonReq));
 

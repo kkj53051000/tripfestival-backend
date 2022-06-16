@@ -8,5 +8,5 @@ import java.util.List;
 import java.util.Optional;
 
 public interface LandmarkReviewImgRepository extends JpaRepository<LandmarkReviewImg, Long> {
-    Optional<List<LandmarkReviewImg>> findByLandmarkReview(LandmarkReview landmarkReview);
+    List<LandmarkReviewImg> findByLandmarkReview(LandmarkReview landmarkReview);
 }

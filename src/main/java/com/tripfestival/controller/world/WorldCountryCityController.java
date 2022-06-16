@@ -43,7 +43,7 @@ public class WorldCountryCityController {
 
     @GetMapping("/worldCountryCityNameList")
     public WorldCountryCityNameListVo worldCountryCityNameList() {
-        return worldCountryCityService.worldCountryCityNameList();
+        return worldCountryCityService.worldCountryCityAllNameList();
     }
 
     @GetMapping("/worldCountryCityName/{id}")

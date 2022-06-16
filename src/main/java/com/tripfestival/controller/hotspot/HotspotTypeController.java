@@ -34,7 +34,7 @@ public class HotspotTypeController { // 인공 관광지 종류
 
     @PostMapping("/admin/hotspotTypeRemove/{id}")
     public ResponseVo hotspotTypeRemove(@PathVariable("id") Long hotspotTypeId) {
-        return hotspotTypeService.hotspotTypeRemove(hotspotTypeId);
+        return hotspotTypeService.hotspotTypeDelete(hotspotTypeId);
     }
 
     @PostMapping("/admin/hotspotTypeNameModify/{id}")

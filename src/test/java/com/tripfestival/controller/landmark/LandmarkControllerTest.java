@@ -5,10 +5,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tripfestival.controller.BaseControllerTest;
 import com.tripfestival.domain.landmark.Landmark;
 import com.tripfestival.domain.landmark.LandmarkHashTag;
+import com.tripfestival.domain.landmark.LandmarkImg;
 import com.tripfestival.domain.world.WorldCountry;
 import com.tripfestival.domain.world.WorldCountryCity;
 import com.tripfestival.domain.world.WorldCountryCityRegion;
 import com.tripfestival.repository.landmark.LandmarkHashTagRepository;
+import com.tripfestival.repository.landmark.LandmarkImgRepository;
 import com.tripfestival.repository.landmark.LandmarkRepository;
 import com.tripfestival.repository.world.WorldCountryCityRegionRepository;
 import com.tripfestival.repository.world.WorldCountryCityRepository;
@@ -60,9 +62,13 @@ class LandmarkControllerTest extends BaseControllerTest {
     @Autowired
     LandmarkHashTagRepository landmarkHashTagRepository;
 
+    @Autowired
+    LandmarkImgRepository landmarkImgRepository;
+
     WorldCountryCity worldCountryCity;
     WorldCountryCityRegion worldCountryCityRegion;
     Landmark landmark;
+    LandmarkImg landmarkImg;
 
     @BeforeEach
     void setup() {
@@ -88,6 +94,12 @@ class LandmarkControllerTest extends BaseControllerTest {
                 .worldCountryCityRegion(worldCountryCityRegion)
                 .build();
         landmarkRepository.save(landmark);
+
+       landmarkImg = LandmarkImg.builder()
+                .img("Test.jpg")
+                .landmark(landmark)
+                .build();
+        landmarkImgRepository.save(landmarkImg);
     }
 
 
@@ -191,10 +203,10 @@ class LandmarkControllerTest extends BaseControllerTest {
     @Test
     void LANDMARK_TEST() throws Exception {
         //given
-        LandmarkVo landmarkVo = LandmarkVo.builder()
-                .id(landmark.getId())
-                .name(landmark.getName())
-                .build();
+        List<LandmarkImg> landmarkImgList = new ArrayList<>();
+        landmarkImgList.add(landmarkImg);
+
+        LandmarkVo landmarkVo = new LandmarkVo(landmark, landmarkImgList);
 
         String response = objectMapper.writeValueAsString(landmarkVo);
 

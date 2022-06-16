@@ -54,6 +54,7 @@ class HotSightTwoControllerTest extends BaseControllerTest {
 
         hotSightTwo = HotSightTwo.builder()
                 .name("hotSIght2")
+                .hotSightOne(hotSightOne)
                 .build();
         hotSightTwoRepository.save(hotSightTwo);
     }

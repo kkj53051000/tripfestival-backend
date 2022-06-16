@@ -2,6 +2,7 @@
 
 Trip & Festival Back-end Project.
 
+<br/><br/>
 
 ## Language
 
@@ -22,3 +23,9 @@ SPRING TEST
 ROMBOK
 
 REDIS
+
+<br/>
+
+# DB Structure
+
+<img src="/resources/img/amtdb.png">

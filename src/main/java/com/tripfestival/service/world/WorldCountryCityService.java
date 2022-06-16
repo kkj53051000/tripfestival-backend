@@ -68,7 +68,7 @@ public class WorldCountryCityService {
     }
 
     @Transactional(readOnly = true)
-    public WorldCountryCityNameListVo worldCountryCityNameList() {
+    public WorldCountryCityNameListVo worldCountryCityAllNameList() {
         List<WorldCountryCity> worldCountryCityList = worldCountryCityRepository.findAll();
 
         return new WorldCountryCityNameListVo(worldCountryCityList);
